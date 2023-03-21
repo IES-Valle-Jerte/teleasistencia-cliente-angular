@@ -1,4 +1,5 @@
 @import "https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css";
+@import "~@ng-select/ng-select/themes/default.theme.css";
 
 body {
   margin: 0;
@@ -104,6 +105,11 @@ table {
   background-color: red;
 }
 
+.form-select{
+  background-image: none;
+  background-color: transparent;
+}
+
 .form-group {
   width: 500px;
   margin: auto;
@@ -112,17 +118,30 @@ table {
     border-left: 5px solid #198754;
   }
 
-  .ng-invalid:not(form) {
+ .ng-invalid:not(form) {
     border-left: 5px solid #a94442;
   }
 
-  .form-label {
+  .label {
     float: left;
+  }
+
+  .form-label{
+    float: left;
+    margin-left: 10px;
   }
 
   .alert {
     padding: 5px;
     margin-top: 20px;
+  }
+
+  .ng-select .ng-arrow-wrapper{
+    display: none;
+  }
+
+  .ng-select-container{
+    margin-left: -5px;
   }
 }
 
@@ -571,8 +590,4 @@ footer {
 
 .table>:not(:last-child)>:last-child>* {
   white-space: nowrap;
-}
-
-#navDefinitivo{
-background: linear-gradient(180deg, #efefef 0%, rgba(227, 227, 227, 0.5) 100%);
 }

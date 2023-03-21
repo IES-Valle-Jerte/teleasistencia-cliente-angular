@@ -12,20 +12,20 @@
       <div class="form-group mb-3">
         <div class="form-group mb-3">
           <label for="alarmas" class="form-label">Alarma</label>
-          <select class="form-select" id="alarmas" name="alarmas"
+          <ng-select class="form-select" id="alarmas" name="alarmas"
                   [(ngModel)]="recursoComunitarioAlarma.id_alarma" required>
-            <option class="relacion_alarma_option" *ngFor="let alarma of alarmas; let i = index"
-                    [value]="alarma.id">{{ alarma.id }} - {{alarma.estado_alarma}}</option>
-          </select>
+            <ng-option class="relacion_alarma_option" *ngFor="let alarma of alarmas; let i = index"
+                    [value]="alarma.id">{{ alarma.id }} - {{alarma.estado_alarma}}</ng-option>
+          </ng-select>
         </div>
 
         <div class="form-group mb-3">
           <label for="recursos_comunitarios" class="form-label">Recursos Comunitarios</label>
-          <select class="form-select" id="recursos_comunitarios" name="recursos_comunitarios"
+          <ng-select class="form-select" id="recursos_comunitarios" name="recursos_comunitarios"
                   [(ngModel)]="recursoComunitarioAlarma.id_recurso_comunitario" required>
-            <option class="relacion_recurso_option" *ngFor="let recursoComunitario of recursosComunitarios; let i = index"
-                    [value]="recursoComunitario.id">{{ recursoComunitario.nombre }}</option>
-          </select>
+            <ng-option class="relacion_recurso_option" *ngFor="let recursoComunitario of recursosComunitarios; let i = index"
+                    [value]="recursoComunitario.id">{{ recursoComunitario.nombre }}</ng-option>
+          </ng-select>
         </div>
       </div>
       <div class="form-group mb-3">

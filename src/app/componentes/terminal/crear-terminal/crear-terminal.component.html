@@ -40,19 +40,19 @@
       </div>
       <div class="form-group mb-3">
         <label for="titular" class="form-label">Titular</label>
-        <select class="form-select" id="titular" name="titular"
+        <ng-select class="form-select" id="titular" name="titular"
                 [(ngModel)]="terminal.id_titular" required>
-          <option *ngFor="let titular of titulares; let i = index"
-                  [value]="titular.id">{{ titular.id_persona.nombre }}</option>
-        </select>
+          <ng-option *ngFor="let titular of titulares; let i = index"
+                  [value]="titular.id">{{ titular.id_persona.nombre }}</ng-option>
+        </ng-select>
       </div>
       <div class="form-group mb-3">
         <label for="tipo_vivienda" class="form-label">Tipo Vivienda</label>
-        <select class="form-select" id="tipo_vivienda" name="tipo_vivienda"
+        <ng-select class="form-select" id="tipo_vivienda" name="tipo_vivienda"
                 [(ngModel)]="terminal.id_tipo_vivienda" required>
-          <option *ngFor="let vivienda of tipo_vivienda; let i = index"
-                  [value]="vivienda.id">{{ vivienda.nombre }}</option>
-        </select>
+          <ng-option *ngFor="let vivienda of tipo_vivienda; let i = index"
+                  [value]="vivienda.id">{{ vivienda.nombre }}</ng-option>
+        </ng-select>
       </div>
 
       <button type="submit" class="btn btn-outline-success m-1" (click)="nuevoTerminal()"

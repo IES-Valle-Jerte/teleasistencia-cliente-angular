@@ -34,10 +34,10 @@
 
       <div class="form-group mb-3">
         <label for="importancia" class="form-label">Importancia</label>
-        <select name="importancia" id="importancia" [(ngModel)]="tipo_agenda.importancia"
+        <ng-select name="importancia" id="importancia" [(ngModel)]="tipo_agenda.importancia"
                 #importancia="ngModel" class="form-select" required>
-          <option *ngFor="let importancia of importanciaArray" [value]="importancia">{{importancia}}</option>
-        </select>
+          <ng-option *ngFor="let importancia of importanciaArray" [value]="importancia">{{importancia}}</ng-option>
+        </ng-select>
         <div *ngIf="importancia.invalid && (importancia.dirty || importancia.touched)" class="alert alert-secondary" role="alert">
           <div *ngIf="importancia.errors?.required">
             El campo importancia es obligatorio

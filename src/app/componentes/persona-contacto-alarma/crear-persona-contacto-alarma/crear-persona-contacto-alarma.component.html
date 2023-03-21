@@ -12,20 +12,20 @@
       <div class="form-group mb-3">
         <div class="form-group mb-3">
           <label for="alarmas" class="form-label">Alarma</label>
-          <select class="form-select" id="alarmas" name="alarmas"
+          <ng-select class="form-select" id="alarmas" name="alarmas"
                   [(ngModel)]="personaContactoAlarma.id_alarma" required>
-            <option class="relacion_alarma_option" *ngFor="let alarma of alarmas; let i = index"
-                    [value]="alarma.id">{{ alarma.id }} - {{alarma.estado_alarma}}</option>
-          </select>
+            <ng-option class="relacion_alarma_option" *ngFor="let alarma of alarmas; let i = index"
+                    [value]="alarma.id">{{ alarma.id }} - {{alarma.estado_alarma}}</ng-option>
+          </ng-select>
         </div>
 
         <div class="form-group mb-3">
           <label for="persona_contacto" class="form-label">Persona Contacto</label>
-          <select class="form-select" id="persona_contacto" name="persona_contacto"
+          <ng-select class="form-select" id="persona_contacto" name="persona_contacto"
                   [(ngModel)]="personaContactoAlarma.id_persona_contacto" required>
-            <option class="relacion_persona_contacto_option" *ngFor="let persona_contacto of personas_contacto; let i = index"
-                    [value]="persona_contacto.id">{{ persona_contacto.nombre }}</option>
-          </select>
+            <ng-option class="relacion_persona_contacto_option" *ngFor="let persona_contacto of personas_contacto; let i = index"
+                    [value]="persona_contacto.id">{{ persona_contacto.nombre }}</ng-option>
+          </ng-select>
         </div>
       </div>
       <div class="form-group mb-3">

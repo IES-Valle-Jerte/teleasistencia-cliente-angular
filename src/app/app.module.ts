@@ -155,7 +155,7 @@ import { ModificarTeleoperadorAlarmaComponent } from './componentes/alarma/modif
 import { RecursosComunitariosPersonalesComponent } from './componentes/recursos-comunitarios-personales/recursos-comunitarios-personales.component';
 import { GruposComponent } from './componentes/grupos/grupos.component';
 import { CrearAlarmaTerminalComponent } from './componentes/alarma/crear-alarma-terminal/crear-alarma-terminal.component';
-
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -289,6 +289,7 @@ import { CrearAlarmaTerminalComponent } from './componentes/alarma/crear-alarma-
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    NgSelectModule,
     CommonModule,
     NgxPaginationModule,
   ],

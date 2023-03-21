@@ -96,12 +96,12 @@
 
     <div class="form-group mb-3">
       <label for="groups" class="form-label">Grupo</label>
-      <select class="form-select" id="groups" name="grupos"
+      <ng-select class="form-select" id="groups" name="grupos"
               [(ngModel)]="user.groups" required>
-        <option class="grupo_option"
+        <ng-option class="grupo_option"
                 *ngFor="let group of this.grupos; let i = index"
-                [value]="group.pk">{{ group.name }}</option>
-      </select>
+                [value]="group.pk">{{ group.name }}</ng-option>
+      </ng-select>
     </div>
 
     <button type="submit" class="btn btn-outline-success m-1" (click)="nuevoUser()"

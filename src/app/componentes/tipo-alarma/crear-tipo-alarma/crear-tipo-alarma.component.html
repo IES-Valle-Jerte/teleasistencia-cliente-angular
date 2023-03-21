@@ -51,12 +51,12 @@
 
     <div class="form-group mb-3">
       <label for="clasificacion_alarma" class="form-label">Clasificación alarma</label>
-      <select class="form-select" id="clasificacion_alarma" name="clasificacion_alarma"
+      <ng-select class="form-select" id="clasificacion_alarma" name="clasificacion_alarma"
               required [(ngModel)]="tipo_alarma.id_clasificacion_alarma">
-        <option class="clasificacion_alarma_option"
+        <ng-option class="clasificacion_alarma_option"
                 *ngFor="let clasificacion_alarma of clasificaciones_alarmas"
-                [value]="clasificacion_alarma.id">{{ clasificacion_alarma.nombre }} {{ clasificacion_alarma.codigo }}</option>
-      </select>
+                [value]="clasificacion_alarma.id">{{ clasificacion_alarma.nombre }} {{ clasificacion_alarma.codigo }}</ng-option>
+      </ng-select>
     </div>
 
     <button type="submit" class="btn btn-outline-success m-1" (click)="nuevoTipoAlarma()"

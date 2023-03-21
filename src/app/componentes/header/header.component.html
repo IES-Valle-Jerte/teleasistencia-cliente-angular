@@ -10,46 +10,46 @@
   </div>
 </header>
 
-<nav *ngIf="estaLogin" class="navbar navbar-expand-lg navbar-light bg-light" aria-label="Tenth navbar example" id="navDefinitivo">
+<nav *ngIf="estaLogin" class="navbar navbar-expand-lg navbar-light bg-light" aria-label="Tenth navbar example">
   <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample09">
       <ul class="navbar-nav px-5" id="ulPrincipal1">
-        <li class="nav">
-          <a class="nav-link" href="#" [routerLink]="['/']" >
-            Usuarios Del Sistema
+        <li class="nav border-bottom">
+          <a class="nav-link" href="#" [routerLink]="['/']" data-bs-toggle="dropdown" aria-expanded="false" >
+            Usuarios del sistema
           </a>
         </li>
 
-        <li class="nav">
+        <li class="nav border-bottom">
           <a class="nav-link " href="#" [routerLink]="['/']">
-            Usuarios Del Servicio
+            Usuarios del servicio
           </a>
         </li>
 
-        <li class="nav">
+        <li class="nav border-bottom">
           <a class="nav-link " href="#" [routerLink]="['/']">
             Recursos
           </a>
         </li>
 
-        <li class="nav">
+        <li class="nav border-bottom">
           <a class="nav-link" href="#" [routerLink]="['/']">
             Agenda
           </a>
         </li>
 
-        <li class="nav">
+        <li class="nav border-bottom">
           <a class="nav-link" href="#"  [routerLink]="['/']">
             Alarmas
           </a>
         </li>
-        <li class="nav">
+        <li class="nav border-bottom">
           <a class="nav-link" href="#" [routerLink]="['/']">
-            Copia de Seguridad
+            Copia de seguridad
           </a>
         </li>
       </ul>
