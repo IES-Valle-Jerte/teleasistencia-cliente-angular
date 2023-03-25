@@ -11,7 +11,7 @@
     <form #crearPacienteForm="ngForm">
       <div class="form-group mb-3">
         <label class="form-label" for="terminal">Terminal</label>
-        <ng-select class="form-select" id="terminal" name="terminal"
+        <ng-select  id="terminal" name="terminal"
                 [(ngModel)]="paciente.id_terminal" required placeholder="Seleccione la terminal...">
           <ng-option class="form-select" *ngFor="let terminal of terminales; let i = index"
                   [value]="terminal.id">{{ terminal.numero_terminal }}</ng-option>
@@ -20,7 +20,7 @@
 
       <div class="form-group mb-3">
         <label class="form-label" for="persona" >Persona</label>
-        <ng-select  class="form-select" id="persona" name="persona"
+        <ng-select  id="persona" name="persona"
                 [(ngModel)]="paciente.id_persona" required placeholder="Seleccione la persona...">
           <ng-option class="form-select" *ngFor="let persona of personas; let i = index"
                   [value]="persona.id">{{ persona.nombre }}</ng-option>
@@ -81,7 +81,7 @@
 
       <div class="form-group mb-3">
         <label for="tipo_modalidad_paciente" class="form-label">Tipo modalidad paciente</label>
-        <ng-select class="form-select" id="tipo_modalidad_paciente" name="tipo_modalidad_paciente"
+        <ng-select id="tipo_modalidad_paciente" name="tipo_modalidad_paciente"
                 [(ngModel)]="paciente.id_tipo_modalidad_paciente" required placeholder="Seleccione el tipo de modalidad...">
           <ng-option class="form-select" *ngFor="let modalidad_paciente of tipo_modalidades_pacientes; let i = index"
                   [value]="modalidad_paciente.id">{{ modalidad_paciente.nombre }}</ng-option>
