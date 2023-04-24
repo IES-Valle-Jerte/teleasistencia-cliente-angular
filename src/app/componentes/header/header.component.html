@@ -9,7 +9,62 @@
     </div>
   </div>
 </header>
-<nav *ngIf="estaLogin" class="navbar navbar-expand-lg navbar-light bg-light" aria-label="Tenth navbar example">
+
+<nav *ngIf="isLoggedIn" class="navbar navbar-expand-lg navbar-light bg-light" aria-label="Tenth navbar example">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample09">
+      <ul class="navbar-nav px-5" id="ulPrincipal1">
+        <li class="nav p-1 mr-1">
+          <a class="nav-link" href="#" [routerLink]="['/datos_sanitario']" data-bs-toggle="dropdown" aria-expanded="false" >
+            Usuarios del sistema
+          </a>
+        </li>
+
+        <li class="nav p-1 mr-1">
+          <a class="nav-link " href="#" [routerLink]="['/contacto']">
+            Usuarios del servicio
+          </a>
+        </li>
+
+        <li class="nav-item dropdown p-1  mr-1">
+          <a class="nav-link dropdown-toggle" id="navRecursos" data-bs-toggle="dropdown" aria-expanded="false" href="#" [routerLink]="['/']">
+            Recursos
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navRecursos">
+            <li><a class="dropdown-item" [routerLink]="['/']" href="#">Sanitarios</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/']" href="#">Sociosanitarios</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/']" href="#">Organismos Institucionales</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/']" href="#">Seguridad</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/']" href="#">Sociosanitarios</a></li>
+          </ul>
+        </li>
+
+        <li class="nav p-1 mr-1">
+          <a class="nav-link" href="#" [routerLink]="['/']">
+            Agenda
+          </a>
+        </li>
+
+        <li class="nav p-1 mr-1">
+          <a class="nav-link" href="#"  [routerLink]="['/alarmas']">
+            Alarmas
+          </a>
+        </li>
+        <li class="nav p-1 mr-1 ">
+          <a class="nav-link" href="#" [routerLink]="['/']">
+            Copia de seguridad
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<nav *ngIf="isLoggedIn" class="navbar navbar-expand-lg navbar-light bg-light" aria-label="Tenth navbar example">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -189,7 +244,7 @@
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTipoViviendas" data-bs-toggle="dropdown" aria-expanded="false">
-          Viviendas
+            Viviendas
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownTipoViviendas">
             <li><a class="dropdown-item" [routerLink]="['/viviendas']">Consultar tipos de viviendas</a></li>

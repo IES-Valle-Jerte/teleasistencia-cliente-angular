@@ -1,5 +1,5 @@
-<td>{{ clasificacion_alarma.nombre }}</td>
-<td>{{ clasificacion_alarma.codigo }}</td>
+<td>{{ clasificacion_alarma?.nombre }}</td>
+<td>{{ clasificacion_alarma?.codigo }}</td>
 <td>
   <button type="submit" class="btn btn-outline-secondary btn-modify"
           [routerLink]="['/clasificaciones_alarmas/modificar', clasificacion_alarma.id]">

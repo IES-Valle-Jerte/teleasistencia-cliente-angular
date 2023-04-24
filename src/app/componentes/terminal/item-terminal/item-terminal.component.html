@@ -1,8 +1,8 @@
 <td>{{ terminal.numero_terminal}}</td>
 <td>{{ terminal.modo_acceso_vivienda}}</td>
 <td>{{ terminal.barreras_arquitectonicas}}</td>
-<td>{{ terminal.id_titular.id_persona.nombre }} {{ terminal.id_titular.id_persona.apellidos }}</td>
-<td>{{ terminal.id_tipo_vivienda.nombre }}</td>
+<td>{{ terminal.id_titular?.id_persona?.nombre }} {{ terminal.id_titular?.id_persona?.apellidos }}</td>
+<td>{{ terminal.id_tipo_vivienda?.nombre }}</td>
 <td>
   <button type="submit" class="btn btn-outline-secondary btn-modify" [routerLink]="['/terminales/modificar', terminal.id]">
     <i class="fa fa-pen"></i>

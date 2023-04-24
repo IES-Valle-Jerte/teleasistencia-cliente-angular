@@ -1,8 +1,8 @@
 <td>{{ centro_sanitario.nombre }}</td>
 <td>{{ centro_sanitario.telefono }}</td>
-<td>{{ centro_sanitario.id_tipos_centro_sanitario.nombre }}</td>
-<td>{{ centro_sanitario.id_direccion.direccion }} {{ centro_sanitario.id_direccion.localidad }}
-  ({{ centro_sanitario.id_direccion.provincia }}) - {{ centro_sanitario.id_direccion.codigo_postal }}</td>
+<td>{{ centro_sanitario.id_tipos_centro_sanitario?.nombre }}</td>
+<td>{{ centro_sanitario.id_direccion?.direccion }} {{ centro_sanitario.id_direccion?.localidad }}
+  ({{ centro_sanitario.id_direccion?.provincia }}) - {{ centro_sanitario.id_direccion?.codigo_postal }}</td>
 <td>
   <button type="submit" class="btn btn-outline-secondary btn-modify"
           [routerLink]="['/centros_sanitarios/modificar', centro_sanitario.id]">

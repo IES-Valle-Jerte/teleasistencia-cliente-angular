@@ -1,7 +1,7 @@
-<td>{{ relacionUsuarioCentro.id_paciente.id_persona.nombre }} {{ relacionUsuarioCentro.id_paciente.id_persona.apellidos}}</td>
-<td>{{ relacionUsuarioCentro.id_centro_sanitario.nombre }}</td>
-<td>{{ relacionUsuarioCentro.id_centro_sanitario.id_tipos_centro_sanitario.nombre }}</td>
-<td>{{ relacionUsuarioCentro.id_centro_sanitario.telefono }}</td>
+<td>{{ relacionUsuarioCentro.id_paciente?.id_persona?.nombre }} {{ relacionUsuarioCentro.id_paciente?.id_persona?.apellidos}}</td>
+<td>{{ relacionUsuarioCentro.id_centro_sanitario?.nombre }}</td>
+<td>{{ relacionUsuarioCentro.id_centro_sanitario?.id_tipos_centro_sanitario?.nombre }}</td>
+<td>{{ relacionUsuarioCentro.id_centro_sanitario?.telefono }}</td>
 <td>{{ relacionUsuarioCentro.persona_contacto }}</td>
 <td>{{ relacionUsuarioCentro.distancia }}</td>
 <td>{{ relacionUsuarioCentro.tiempo }}</td>

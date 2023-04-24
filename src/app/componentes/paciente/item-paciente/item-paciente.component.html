@@ -1,11 +1,11 @@
-<td> {{ paciente.id_persona.nombre}} {{paciente.id_persona.apellidos}}</td>
+<td> {{ paciente.id_persona?.nombre}} {{paciente.id_persona?.apellidos}}</td>
 <td> {{ comprobarUcr()}}</td>
 <td> {{ paciente.numero_expediente}}</td>
-<td> {{ paciente.id_terminal.numero_terminal}}</td>
+<td> {{ paciente.id_terminal?.numero_terminal}}</td>
 <td> {{ paciente.numero_seguridad_social}}</td>
 <td> {{ paciente.observaciones_medicas}}</td>
 <td> {{ paciente.intereses_y_actividades}}</td>
-<td> {{ paciente.id_tipo_modalidad_paciente.nombre}}</td>
+<td> {{ paciente.id_tipo_modalidad_paciente?.nombre}}</td>
 <td>
   <button type="submit" class="btn btn-outline-secondary btn-modify" [routerLink]="['/pacientes/modificar', paciente.id]">
     <i class="fa fa-pen"></i>
@@ -14,3 +14,4 @@
   ><i class="fa fa-trash"></i></button>
 </td>
 
+<td ></td>

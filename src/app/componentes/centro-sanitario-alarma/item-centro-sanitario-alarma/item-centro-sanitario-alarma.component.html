@@ -1,8 +1,8 @@
-<td>{{ centroSanitarioAlarma.id_alarma.id}}</td>
-<td>{{ centroSanitarioAlarma.id_alarma.estado_alarma }}</td>
+<td>{{ centroSanitarioAlarma.id_alarma?.id}}</td>
+<td>{{ centroSanitarioAlarma.id_alarma?.estado_alarma }}</td>
 <td>{{ centroSanitarioAlarma.persona }}</td>
-<td>{{ centroSanitarioAlarma.id_centro_sanitario.nombre}}</td>
-<td>{{ centroSanitarioAlarma.id_centro_sanitario.telefono }}</td>
+<td>{{ centroSanitarioAlarma.id_centro_sanitario?.nombre}}</td>
+<td>{{ centroSanitarioAlarma.id_centro_sanitario?.telefono }}</td>
 <td>{{ centroSanitarioAlarma.acuerdo_alcanzado }}</td>
 <td>{{ centroSanitarioAlarma.fecha_registro | date : 'dd/MM/YYYY'}}</td>
 <td>

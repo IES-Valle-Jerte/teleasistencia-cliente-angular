@@ -1,7 +1,7 @@
-<td>{{ recursoComunitarioAlarma.id_alarma.id}} - {{recursoComunitarioAlarma.id_alarma.estado_alarma}}</td>
+<td>{{ recursoComunitarioAlarma.id_alarma?.id}} - {{recursoComunitarioAlarma.id_alarma?.estado_alarma}}</td>
 <td>{{ recursoComunitarioAlarma.persona }}</td>
-<td>{{ recursoComunitarioAlarma.id_recurso_comunitario.nombre }} </td>
-<td>{{ recursoComunitarioAlarma.id_recurso_comunitario.telefono }}</td>
+<td>{{ recursoComunitarioAlarma.id_recurso_comunitario?.nombre }} </td>
+<td>{{ recursoComunitarioAlarma.id_recurso_comunitario?.telefono }}</td>
 <td>{{ recursoComunitarioAlarma.acuerdo_alcanzado }}</td>
 <td>{{ recursoComunitarioAlarma.fecha_registro | date : 'dd/MM/YYYY'}}</td>
 <td>

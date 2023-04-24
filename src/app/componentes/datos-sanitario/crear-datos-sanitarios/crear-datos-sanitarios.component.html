@@ -1,0 +1,106 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+  <div class="container">
+    <h1 class="component-title">Crear datos sanitarios</h1>
+
+    <form [formGroup]="formulario" >
+
+
+      <div class="form-group mb-3">
+        <label class="form-label" for="pacientes">Pacientes</label>
+        <ng-select id="pacientes"
+                   formControlName="pacientes">
+          <ng-option class="form-select"
+                     *ngFor="let paciente of pacientes,let i = index"
+                     [value]="paciente.id">{{ paciente.id_persona.nombre }}</ng-option>
+        </ng-select>
+      </div>
+
+        <div class="form-group mb-3">
+          <label for="nuss" class="form-label">NUSS</label>
+          <input type="text" name="nuss" id="nuss" class="form-control" formControlName="nuss">
+
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="recurso" class="form-label">Recurso</label>
+          <ng-select id="recurso" name="recurso"
+                     formControlName="recurso">
+            <ng-option class="form-select" *ngFor="let recurso of recursosMostrados,let i = index"
+                       [value]="recurso.id">{{ recurso.nombre }}</ng-option>
+          </ng-select>
+        </div>
+
+
+
+          <div class="form-group mb-3">
+            <label for="relacion_terminal" class="form-label">Número de terminal</label>
+            <ng-select id="relacion_terminal" name="relacion_terminal"
+                       formControlName="relacion_terminal">
+              <ng-option class="form-select" *ngFor="let terminal of relaciones_terminales,let i = index"
+                         [value]="terminal.id">{{ terminal.numero_terminal }}</ng-option>
+            </ng-select>
+          </div>
+          <div class="form-group mb-3">
+            <label for="tiempo" class="form-label">Tiempo en minutos</label>
+            <input type="number" name="tiempo" id="tiempo" class="form-control"
+                   formControlName="tiempo"
+            >
+            <div *ngIf="tiempo.invalid && (tiempo.dirty || tiempo.touched)"
+                 class="alert alert-secondary" role="alert">
+              <div *ngIf="tiempo.errors?.required">
+                El tiempo es obligatorio
+              </div>
+            </div>
+          </div>
+
+
+
+        <button type="submit" class="btn btn-outline-success m-1" (click)="actualizarNuss()">
+         Guardar
+        </button>
+
+        <button type="button" class="btn btn-outline-secondary m-1" >
+          Volver
+        </button>
+
+      <button type="button" (click)="crearRelacion()" class="btn btn-outline-secondary m-1" >
+        <i class="fa-solid fa-plus"></i>
+      </button>
+
+      <button type="button" (click)="verRecursos()" class="btn btn-outline-warning m-1" >
+        <i class="fa-solid fa-eye"></i>
+
+      </button>
+
+    </form>
+
+    <div class="row mt-4" *ngIf="this.mostrar">
+      <div class="col-xs-12 col-md-4">
+
+      </div>
+      <div class="col-md-4">
+        <table class="table">
+
+          <tr>
+            <th>Nombre del recurso</th>
+            <th>Numero de la terminal</th>
+            <th>Eliminar</th>
+          </tr>
+          <tr *ngFor="let relacion of arrayRelaciones, let i = index">
+            <td>{{relacion.id_recurso_comunitario.nombre}}</td>
+            <td>{{relacion.id_terminal.numero_terminal}}</td>
+            <td><button class="btn btn-outline-success m-1" (click)="borrarRecurso(relacion.id, i)" >Borrar</button></td>
+
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-4">
+
+      </div>
+    </div>
+
+
+  </div>
+
+
+</main>

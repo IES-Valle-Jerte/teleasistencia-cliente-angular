@@ -30,6 +30,13 @@ export class CargaRelacionPacientePersonaService {
     return this.http.post<IRelacionPacientePersona>(this.URL_SERVER_RELACION_PACIENTE_PERSONA, relacionPacientePersona)
   }
 
+  modificarRelacion(idRelacion:number, datos: any){
+    return this.http.put<IRelacionPacientePersona>(this.URL_SERVER_RELACION_PACIENTE_PERSONA + '/' + idRelacion, datos)
+
+  }
+
+
+
   eliminarRelacionPacientePersona(relacionPacientePersona: IRelacionPacientePersona): Observable<IRelacionPacientePersona> {
     return this.http.delete<IRelacionPacientePersona>(this.URL_SERVER_RELACION_PACIENTE_PERSONA +'/'+ relacionPacientePersona.id)
   }

@@ -1,6 +1,6 @@
-<td>{{ relacionRecurso.id_terminal.id }}</td>
-<td>{{ relacionRecurso.id_terminal.id_titular.id_persona.nombre }} {{ relacionRecurso.id_terminal.id_titular.id_persona.apellidos }}</td>
-<td>{{ relacionRecurso.id_recurso_comunitario.nombre }}</td>
+<td>{{ relacionRecurso.id_terminal?.id }}</td>
+<td>{{ relacionRecurso.id_terminal?.id_titular?.id_persona.nombre }} {{ relacionRecurso.id_terminal?.id_titular?.id_persona?.apellidos }}</td>
+<td>{{ relacionRecurso.id_recurso_comunitario?.nombre }}</td>
 <td>
   <button type="submit" class="btn btn-outline-secondary btn-modify" [routerLink]="['/relacion_terminal_recurso_comunitario/modificar', relacionRecurso.id]">
     <i class="fa fa-pen"></i>

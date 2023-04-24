@@ -5,8 +5,8 @@
 <td>{{ persona.sexo }}</td>
 <td>{{ persona.telefono_fijo }}</td>
 <td>{{ persona.telefono_movil }}</td>
-<td>{{ persona.id_direccion.direccion }} {{ persona.id_direccion.localidad }}
-  ({{ persona.id_direccion.provincia }}) - {{ persona.id_direccion.codigo_postal }}</td>
+<td>{{ persona.id_direccion?.direccion }} {{ persona.id_direccion?.localidad }}
+  ({{ persona.id_direccion?.provincia }}) - {{ persona.id_direccion?.codigo_postal }}</td>
 <td>
   <button type="submit" class="btn btn-outline-secondary btn-modify" [routerLink]="['/personas/modificar', persona.id]">
     <i class="fa fa-pen"></i>

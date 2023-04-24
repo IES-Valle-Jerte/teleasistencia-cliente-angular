@@ -2,7 +2,7 @@
 <td>{{ alarma.fecha_registro | date : 'dd/MM/YYYY' }}</td>
 <td>{{ alarma.observaciones }}</td>
 <td>{{ alarma.resumen }}</td>
-<td>{{ alarma.id_tipo_alarma.nombre }} - {{ alarma.id_tipo_alarma.id_clasificacion_alarma.nombre }}</td>
+<td>{{ alarma.id_tipo_alarma?.nombre }} - {{ alarma.id_tipo_alarma?.id_clasificacion_alarma?.nombre }}</td>
 <td>{{ obtenerUcr()}}</td>
 <td>{{ obtenerTerminal()}}</td>
 <td>{{ obtenerNombre()  }}</td>
@@ -10,9 +10,9 @@
   <button type="submit" class="btn btn-outline-secondary btn-modify" [routerLink]="['/alarmas/modificar', alarma.id]">
     <i class="fa fa-pen"></i>
   </button>
-  <button type="submit" class="btn btn-outline-secondary btn-modify" [routerLink]="['/alarmas/modificar_teleoperador', alarma.id]">
+  <button type="submit" class="btn btn-outline-secondary btn-modify" *ngIf="isAdmin" [routerLink]="['/alarmas/modificar_teleoperador', alarma.id]">
     <i class="fas fa-user-edit"></i>
   </button>
-  <button type="submit" class="btn btn-delete m-1" (click)="modalConfirmacion()"
+  <button type="submit" class="btn btn-delete m-1" *ngIf="isAdmin" (click)="modalConfirmacion()"
   ><i class="fa fa-trash"></i></button>
 </td>

@@ -1,7 +1,7 @@
-<td>{{ agenda.id_paciente.id_persona.nombre +' ' + agenda.id_paciente.id_persona.apellidos }}</td>
-<td>{{ agenda.id_tipo_agenda.nombre }}</td>
-<td>{{ agenda.id_persona.nombre + ' ' + agenda.id_persona.apellidos }}</td>
-<td>{{ agenda.id_persona.telefono_movil }}</td>
+<td>{{ agenda.id_paciente?.id_persona?.nombre +' ' + agenda.id_paciente?.id_persona?.apellidos }}</td>
+<td>{{ agenda.id_tipo_agenda?.nombre }}</td>
+<td>{{ agenda.id_persona?.nombre + ' ' + agenda.id_persona?.apellidos }}</td>
+<td>{{ agenda.id_persona?.telefono_movil }}</td>
 <td>{{ agenda.fecha_prevista }}</td>
 <td>{{ agenda.observaciones }}</td>
 <td>

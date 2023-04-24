@@ -24,7 +24,7 @@ export class CargaAlarmaService {
       return this.http.put<IAlarma>(this.URL_SERVER_ALARMA+ '/' + alarma.id, alarma);
     }
 
-    nuevaAlarma(alarma: IAlarma): Observable<IAlarma> {
+    nuevaAlarma(alarma: any): Observable<IAlarma> {
       return this.http.post<IAlarma> (this.URL_SERVER_ALARMA, alarma);
     }
 

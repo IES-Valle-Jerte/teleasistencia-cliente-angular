@@ -1,21 +1,11 @@
-<main class="text-center row p-0 m-0 justify-content-center">
-<div class="container">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
-      <li class="breadcrumb-item"><a [routerLink]="['/tipos_alarmas']">Tipos de alarmas</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Modificar tipo de alarma {{idTipoAlarma}}</li>
-    </ol>
-  </nav>
-  <h1 class="component-title">Modificar datos tipo alarma {{idTipoAlarma}}</h1>
-  <form #modificarTipoAlarmaForm="ngForm">
+ <h1 class="component-title">Modificar datos tipo alarma {{idTipoAlarma}}</h1>
+  <form [formGroup]="formEdit" (submit)="modificarTipoAlarma()" >
 
     <div class="form-group mb-3">
       <label for="nombre" class="form-label">Nombre</label>
-      <input type="text" name="nombre" id="nombre" class="form-control"
-             required maxlength="200" [(ngModel)]="tipo_alarma.nombre" #nombre="ngModel">
-      <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-secondary" role="alert">
-        <div *ngIf="nombre.errors?.required">
+      <input type="text" name="nombre" id="nombre" class="form-control" formControlName="nombre">
+      <div *ngIf="f.nombre.invalid && (f.nombre.dirty || f.nombre.touched)" class="alert alert-secondary" role="alert">
+        <div *ngIf="f.nombre.errors?.required">
           El nombre es obligatorio
         </div>
       </div>
@@ -23,50 +13,45 @@
 
     <div class="form-group mb-3">
       <label for="codigo" class="form-label">Código</label>
-      <input type="text" name="codigo" id="codigo" class="form-control" maxlength="200" required
-             pattern="[A-Z & 0-9]+$" [(ngModel)]="tipo_alarma.codigo" #codigo="ngModel">
-      <div *ngIf="codigo.invalid && (codigo.dirty || codigo.touched)" class="alert alert-secondary" role="alert">
-        <div *ngIf="nombre.errors?.required; else elseBlock">
+      <input type="text" name="codigo" id="codigo" class="form-control" formControlName="codigo">
+      <div *ngIf="f.codigo.invalid && (f.codigo.dirty || f.codigo.touched)" class="alert alert-secondary" role="alert">
+        <div *ngIf="f.codigo.errors?.required">
           El código es obligatorio
         </div>
-        <ng-template #elseBlock>
-          El código debe tener solo letras mayúsculas o números
-        </ng-template>
       </div>
     </div>
 
-    <div class="form-group-check mb-3">
-      <span>Es dispositivo &nbsp;</span>
-      <div class="form-check form-check-inline" >
-        <input class="form-check-input" type="radio" id="es_dispositivo_true"
-               name="es_dispositivo" [value]="true" [(ngModel)]="tipo_alarma.es_dispositivo" required>
-        <label class="form-check-label" for="es_dispositivo_true">Sí</label>
+    <div class="form-group mb-3">
+
+      <div class="d-flex justify-content-start">Es dispositivo: &nbsp;</div>
+
+      <div class="form-check form-check-inline">
+        <input class="btn-check" type="radio" id="es_dispositivo_true1"
+               name="es_dispositivo" [value]="true" formControlName="es_dispositivo" autocomplete="off" (click)="elegirOpcion(true)">
+        <label class="btn btn-success min50w" for="es_dispositivo_true1" [ngClass]="opcion? '':'opacity-50'"> Sí </label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" id="es_dispositivo_false"
-               name="es_dispositivo" [value]="false" [(ngModel)]="tipo_alarma.es_dispositivo">
-        <label class="form-check-label" for="es_dispositivo_false">No</label>
+        <input class="btn-check" type="radio" id="es_dispositivo_false2"
+               name="es_dispositivo" [value]="false" formControlName="es_dispositivo" autocomplete="off" (click)="elegirOpcion(false)">
+        <label class="btn btn-success min50w" for="es_dispositivo_false2" [ngClass]="opcion? 'opacity-50':''"> No </label>
       </div>
     </div>
 
     <div class="form-group mb-3">
       <label for="clasificacion_alarma" class="form-label">Clasificación alarma</label>
-      <select class="form-select" id="clasificacion_alarma" name="clasificacion_alarma"
-             required [(ngModel)]="tipo_alarma.id_clasificacion_alarma">
-        <option class="clasificacion_alarma_option"
+      <ng-select id="clasificacion_alarma" name="clasificacion_alarma" formControlName="id_clasificacion_alarma">
+        <ng-option class="clasificacion_alarma_option"
                 *ngFor="let clasificacion_alarma of clasificaciones_alarmas; let i = index"
-                [value]="clasificacion_alarma.id">{{ tipo_alarma.id_clasificacion_alarma.id === clasificacion_alarma.id? optionSelected(i):"" }} {{ clasificacion_alarma.nombre }} {{ clasificacion_alarma.codigo }}</option>
-      </select>
+                [value]="clasificacion_alarma.id"> {{ clasificacion_alarma.nombre }} {{ clasificacion_alarma.codigo }}</ng-option>
+      </ng-select>
     </div>
 
-    <button type="submit" class="btn btn-outline-success m-1" (click)="modificarTipoAlarma()"
-            [disabled]="!modificarTipoAlarmaForm.form.valid">
+    <button type="submit" class="btn btn-outline-success m-1" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false" aria-controls="collapseWidthExample2"
+            [disabled]="formEdit.invalid">
       Guardar
     </button>
-    <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/tipos_alarmas']">
-      Volver
+    <button type="button" class="btn btn-outline-secondary m-1" (click)="mostrarModificarTipo()" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false" aria-controls="collapseWidthExample2">
+      Cancelar
     </button>
 
   </form>
-</div>
-</main>
