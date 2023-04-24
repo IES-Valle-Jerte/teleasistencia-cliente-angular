@@ -1,5 +1,5 @@
-<td>{{ personaContactoAlarma.id_alarma.id }} - {{personaContactoAlarma.id_alarma.estado_alarma}}</td>
-<td>{{ personaContactoAlarma.id_persona_contacto.nombre }} {{personaContactoAlarma.id_persona_contacto.apellidos}}</td>
+<td>{{ personaContactoAlarma.id_alarma?.id }} - {{personaContactoAlarma.id_alarma?.estado_alarma}}</td>
+<td>{{ personaContactoAlarma.id_persona_contacto?.nombre }} {{personaContactoAlarma.id_persona_contacto?.apellidos}}</td>
 <td>{{ personaContactoAlarma.acuerdo_alcanzado }}</td>
 <td>{{ personaContactoAlarma.fecha_registro | date : 'dd/MM/YYYY' }}</td>
 <td>

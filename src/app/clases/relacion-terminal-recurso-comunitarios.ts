@@ -4,5 +4,6 @@ export class RelacionTerminalRecursoComunitarios implements IRelacionTerminalRec
   id: number;
   id_terminal: any;
   id_recurso_comunitario: any;
+  tiempo_estimado: number;
 }
 

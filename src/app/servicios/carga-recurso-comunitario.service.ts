@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {IRecursoComunitario} from '../interfaces/i-recurso-comunitario';
-import {ICentroSanitario} from "../interfaces/i-centro-sanitario";
 import {environment} from "../../environments/environment";
 
 @Injectable({
@@ -20,6 +19,19 @@ export class CargaRecursoComunitarioService {
     return this.http.get<IRecursoComunitario[]>(this.URL_SERVER_RECURSOS_COMUNITARIOS);
   }
 
+
+
+  /*
+  this.http.get('http://tu-dominio.com/api-rest/recurso_comunitario?id_tipos_recurso_comunitario__id_clasificacion_recurso_comunitario=1')
+  .subscribe(data => {
+    console.log(data);
+  });
+
+   */
+
+ getDatosSanitario(idClasificacionRecurso: number): Observable<IRecursoComunitario[]>{
+    return this.http.get<IRecursoComunitario[]>(this.URL_SERVER_RECURSOS_COMUNITARIOS + '?id_tipos_recurso_comunitario__id_clasificacion_recurso_comunitario=' +idClasificacionRecurso);
+ }
   getRecursoComunitario(idRecursoComunitario: number): Observable<IRecursoComunitario> {
     return this.http.get<IRecursoComunitario>(this.URL_SERVER_RECURSOS_COMUNITARIOS + '/' + idRecursoComunitario);
   }

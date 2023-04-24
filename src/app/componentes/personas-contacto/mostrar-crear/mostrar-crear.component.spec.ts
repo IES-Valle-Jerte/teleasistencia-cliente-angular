@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CrearAlarmaUcrComponent } from './crear-alarma-ucr.component';
+import { MostrarCrearComponent } from './mostrar-crear.component';
 
-describe('CrearAlarmaComponent', () => {
-  let component: CrearAlarmaUcrComponent;
-  let fixture: ComponentFixture<CrearAlarmaUcrComponent>;
+describe('MostrarCrearComponent', () => {
+  let component: MostrarCrearComponent;
+  let fixture: ComponentFixture<MostrarCrearComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CrearAlarmaUcrComponent ]
+      declarations: [ MostrarCrearComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CrearAlarmaUcrComponent);
+    fixture = TestBed.createComponent(MostrarCrearComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

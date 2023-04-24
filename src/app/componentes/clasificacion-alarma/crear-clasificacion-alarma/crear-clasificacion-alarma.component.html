@@ -24,13 +24,13 @@
     <div class="form-group mb-3">
       <label for="codigo" class="form-label">Código</label>
       <input type="text" name="codigo" id="codigo" class="form-control" maxlength="200"
-             required pattern="[A-Z]+$" [(ngModel)]="clasificacion_alarma.codigo" #codigo="ngModel">
+             required pattern="[A-Z0-9]+" [(ngModel)]="clasificacion_alarma.codigo" #codigo="ngModel">
       <div *ngIf="codigo.invalid && (codigo.dirty || codigo.touched)" class="alert alert-secondary" role="alert">
         <div *ngIf="codigo.errors?.required; else elseBlock">
           El código es obligatorio
         </div>
         <ng-template #elseBlock>
-          El código debe tener solo letras mayúsculas
+          El código debe tener solo letras mayúsculas o numeros
         </ng-template>
       </div>
     </div>

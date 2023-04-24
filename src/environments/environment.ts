@@ -23,7 +23,7 @@ export const environment = {
   fraseErrorCrear: 'Se ha producido un error inesperado',
   fraseRestaurarCopia: 'La copia seleccionada se ha restaurado.',
   //Frase Para cuando te asignas una alarma
-  fraseAlarmaAceptada: 'Alarma asignada correptamente',
+  fraseAlarmaAceptada: 'Alarma asignada correctamente',
   //Frase para cuando ocurre algun error al asignar una alarma
   fraseErrorAsignarAlarma: 'Se ha Producido Un Error Inesperado',
 
@@ -39,6 +39,16 @@ export const environment = {
   urlWebsocket: 'ws://localhost:8000/ws/socket-server/',
   urlBase: 'http://localhost:8000/api-rest/',
   urlToken: 'http://localhost:8000/api/token/',
+
+  //Control de roles
+  admins:['supervisor','administrador','profesor'],
+
+  //subdominio y version de la pagina
+  subdominio: {
+    nombre:'CRT',
+    color:'blueviolet'
+  },
+  version: '1.0',
 };
 
 /*

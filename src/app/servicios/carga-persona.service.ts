@@ -29,6 +29,7 @@ export class CargaPersonaService {
   }
   nuevaPersona(persona: IPersona): Observable<IPersona> {
     return this.http.post<IPersona>(this.URL_SERVER_PERSONAS, persona);
+
   }
   eliminarPersona(persona: IPersona): Observable<IPersona>{
     return this.http.delete<IPersona>(this.URL_SERVER_PERSONAS + '/'+ persona.id);

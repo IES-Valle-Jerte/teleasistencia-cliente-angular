@@ -10,21 +10,21 @@
     <h1 class="component-title" >Crear Paciente</h1>
     <form #crearPacienteForm="ngForm">
       <div class="form-group mb-3">
-        <label for="terminal" class="form-label">Terminal</label>
-        <select class="form-select" id="terminal" name="terminal"
-                [(ngModel)]="paciente.id_terminal" required>
-          <option class="form-select" *ngFor="let terminal of terminales; let i = index"
-                  [value]="terminal.id">{{ terminal.numero_terminal }}</option>
-        </select>
+        <label class="form-label" for="terminal">Terminal</label>
+        <ng-select  id="terminal" name="terminal"
+                    [(ngModel)]="paciente.id_terminal" required placeholder="Seleccione la terminal...">
+          <ng-option class="form-select" *ngFor="let terminal of terminales; let i = index"
+                     [value]="terminal.id">{{ terminal.numero_terminal }}</ng-option>
+        </ng-select>
       </div>
 
       <div class="form-group mb-3">
-        <label for="persona" class="form-label">Persona</label>
-        <select class="form-select" id="persona" name="persona"
-                [(ngModel)]="paciente.id_persona" required>
-          <option class="form-select" *ngFor="let persona of personas; let i = index"
-                  [value]="persona.id">{{ persona.nombre }}</option>
-        </select>
+        <label class="form-label" for="persona" >Persona</label>
+        <ng-select  id="persona" name="persona"
+                    [(ngModel)]="paciente.id_persona" required placeholder="Seleccione la persona...">
+          <ng-option class="form-select" *ngFor="let persona of personas; let i = index"
+                     [value]="persona.id">{{ persona.nombre }}</ng-option>
+        </ng-select>
       </div>
       <div class="form-group-check mb-3">
         <span>Tiene UCR &nbsp;</span>
@@ -81,11 +81,11 @@
 
       <div class="form-group mb-3">
         <label for="tipo_modalidad_paciente" class="form-label">Tipo modalidad paciente</label>
-        <select class="form-select" id="tipo_modalidad_paciente" name="tipo_modalidad_paciente"
-                [(ngModel)]="paciente.id_tipo_modalidad_paciente" required>
-          <option class="form-select" *ngFor="let modalidad_paciente of tipo_modalidades_pacientes; let i = index"
-                  [value]="modalidad_paciente.id">{{ modalidad_paciente.nombre }}</option>
-        </select>
+        <ng-select id="tipo_modalidad_paciente" name="tipo_modalidad_paciente"
+                   [(ngModel)]="paciente.id_tipo_modalidad_paciente" required placeholder="Seleccione el tipo de modalidad...">
+          <ng-option class="form-select" *ngFor="let modalidad_paciente of tipo_modalidades_pacientes; let i = index"
+                     [value]="modalidad_paciente.id">{{ modalidad_paciente.nombre }}</ng-option>
+        </ng-select>
       </div>
 
       <button type="submit" class="btn btn-outline-success m-1" (click)="nuevoPaciente()"

@@ -1,0 +1,96 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/alarmas']">Alarmas</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Crear Alarma</li>
+      </ol>
+    </nav>
+    <div class="row d-flex justify-content-center">
+    <div class="col-12 col-xl-6">
+    <h1 class="component-title" >Crear Alarma</h1>
+
+    <form [formGroup]="formCrearA" (submit)="nuevaAlarma()" [ngClass]="this.mostrar || this.mostrarModificar ? 'inactiveForm':''">
+      <div class="form-group mb-3 row">
+        <label for="tipos_alarma" class="form-label text-start p-0">Tipo de alarma</label>
+        <div class="col-12 col-lg-9  p-0 pb-1 pb-lg-0">
+          <ng-select id="tipos_alarma" name="tipos_alarma" formControlName="tipos_alarma">
+            <ng-option *ngFor="let tipo_alarma of tipos_alarmas; let i = index"
+                    [value]="tipo_alarma.id">{{tipo_alarma.nombre}}</ng-option>
+          </ng-select>
+        </div>
+        <div class="col-4 col-lg-1  p-0">
+            <button class="btn btn-success botonOperacion" type="button" (click)="mostratCrearTipo()"
+                    data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+              <i class="fa fa-solid fa-plus"></i>
+            </button>
+        </div>
+        <div class="col-4 col-lg-1  p-0">
+          <button class="btn btn-warning botonOperacion" id="des1" type="button" (click)="mostrarEditarTipo()"
+                  [disabled]="botonDes()"
+                  data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false" aria-controls="collapseWidthExample2">
+            <i class="fa fa-sharp fa-solid fa-pen fa-sm"></i>
+          </button>
+        </div>
+        <div class="col-4 col-lg-1  p-0">
+          <button class="btn btn-danger botonOperacion" id="des2" type="button" (click)="modalConfirmacion()"
+                  [disabled]="botonDes()"><i class="fa fa-solid fa-trash"></i></button>
+        </div>
+      </div>
+      <div class="form-group mb-3 row">
+        <label class="form-label text-start p-0">Alarma según: {{this.alarmaCreada}}</label>
+        <div class="col d-flex justify-content-around ">
+          <div>
+            <input type="radio" class="btn-check" name="options" id="rterminal" autocomplete="off" checked (click)="elegirAlarma(true)">
+            <label class="btn btn-success" [ngClass]="terminal? '':'opacity-50'" for="rterminal">Terminal</label>
+          </div>
+          <div>
+            <input type="radio" class="btn-check" name="options" id="rpaciente" autocomplete="off" (click)="elegirAlarma(false)">
+            <label class="btn btn-success" [ngClass]="terminal? 'opacity-50':''" for="rpaciente">Paciente</label>
+          </div>
+        </div>
+      </div>
+      <!-- SELECCION DE TERMINAL O PACIENTE-->
+      <div class="form-group mb-3">
+        <ng-container *ngIf="terminal; else selectPaciente">
+          <label for="terminal" class="form-label">Terminal</label>
+            <ng-select id="terminal" name="terminal" formControlName="id_terminal">
+              <ng-option class="relacion_recurso_option" *ngFor="let terminal of terminales; let i = index"
+                      [value]="terminal.id">{{terminal.numero_terminal}} -- {{terminal.id_titular.id_persona.nombre}} {{terminal.id_titular.id_persona.apellidos}} </ng-option>
+            </ng-select>
+        </ng-container>
+        <ng-template #selectPaciente>
+          <label for="paciente" class="form-label">Paciente</label>
+          <ng-select id="paciente" name="paciente" formControlName="id_paciente_ucr">
+            <ng-option *ngFor="let paciente of pacientes_ucr; let i = index"
+                    [value]="paciente.id">{{paciente.numero_expediente}} -- {{paciente.id_persona.nombre}} {{paciente.id_persona.apellidos}}</ng-option>
+          </ng-select>
+        </ng-template>
+      </div>
+
+      <button type="submit" class="btn btn-outline-success m-1"
+              [disabled]="formCrearA.invalid">
+        Guardar
+      </button>
+      <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/alarmas']">
+        Volver
+      </button>
+
+    </form>
+    </div>
+    <div class="col-12 col-xl-6 collapse collapse-horizontal" id="collapseWidthExample">
+      <app-crear-tipo-alarma  (alarma_creada)="actualizarAlarmas($event)"  (mostrar)="this.mostrar=$event"
+                              [listaTiposAlarma]="tipos_alarmas" ></app-crear-tipo-alarma>
+    </div>
+
+      <!-- CLASE PARA HACER TRANSICION Y EL NGIF SIRVE PARA EVITAR QUE LA PETICION GET DEL MODIFICAR SE HAGA SOBRE UN TIPO DE ALARMA VACIO-->
+     <div class="col-12 col-xl-6 collapse collapse-horizontal" id="collapseWidthExample2" >
+        <app-modificar-tipo-alarma (mostrarModificar)="this.mostrarModificar=$event"
+                                   (alarma_creada)="actualizarAlarmas($event)" *ngIf="this.mostrarModificar"
+                                   [listaTiposAlarma]="tipos_alarmas"  [idTipoAlarma]="formCrearA.value.tipos_alarma"></app-modificar-tipo-alarma>
+      </div>
+    </div>
+  </div>
+</main>

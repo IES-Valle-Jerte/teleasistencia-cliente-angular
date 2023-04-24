@@ -1,8 +1,8 @@
 <td>{{ recurso_comunitario.nombre }}</td>
 <td>{{ recurso_comunitario.telefono }}</td>
-<td>{{ recurso_comunitario.id_tipos_recurso_comunitario.nombre }}</td>
-<td>{{ recurso_comunitario.id_direccion.direccion }} {{ recurso_comunitario.id_direccion.localidad }}
-  ({{ recurso_comunitario.id_direccion.provincia }}) - {{ recurso_comunitario.id_direccion.codigo_postal }}</td>
+<td>{{ recurso_comunitario.id_tipos_recurso_comunitario?.nombre }}</td>
+<td>{{ recurso_comunitario.id_direccion?.direccion }} {{ recurso_comunitario.id_direccion?.localidad }}
+  ({{ recurso_comunitario.id_direccion?.provincia }}) - {{ recurso_comunitario.id_direccion?.codigo_postal }}</td>
 <td>
   <button type="submit" class="btn btn-outline-secondary btn-modify"
           [routerLink]="['/recursos_comunitarios/modificar', recurso_comunitario.id]">

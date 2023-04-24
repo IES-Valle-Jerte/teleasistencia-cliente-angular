@@ -1,5 +1,5 @@
-<td>{{ dispositivoAuxiliarTerminal.id_terminal.numero_terminal }}</td>
-<td>{{ dispositivoAuxiliarTerminal.id_tipo_alarma.nombre }}</td>
+<td>{{ dispositivoAuxiliarTerminal.id_terminal?.numero_terminal }}</td>
+<td>{{ dispositivoAuxiliarTerminal.id_tipo_alarma?.nombre }}</td>
 <td>
   <button type="submit" class="btn btn-outline-secondary btn-modify" [routerLink]="['/dispositivos_auxiliares_terminal/modificar', dispositivoAuxiliarTerminal.id]">
     <i class="fa fa-pen"></i>

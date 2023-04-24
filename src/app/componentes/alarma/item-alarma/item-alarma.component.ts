@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
 import {Router} from "@angular/router";
 import {CargaAlarmaService} from "../../../servicios/alarmas/carga-alarma.service";
+import {AuthService} from "../../../servicios/auth.service";
 
 
 @Component({
@@ -13,9 +14,11 @@ import {CargaAlarmaService} from "../../../servicios/alarmas/carga-alarma.servic
 })
 export class ItemAlarmaComponent implements OnInit {
   @Input() public alarma: Alarma;
-  constructor( private router:Router, private cargarAlarmas: CargaAlarmaService) { }
+  isAdmin: boolean;
+  constructor( private router:Router,private auth:AuthService, private cargarAlarmas: CargaAlarmaService) { }
 
   ngOnInit(): void {
+    this.isAdmin = this.auth.isAdmin();
   }
   obtenerNombre(): string {
     if (this.alarma.id_teleoperador != null)
