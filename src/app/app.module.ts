@@ -155,6 +155,8 @@ import { NgSelectModule} from "@ng-select/ng-select";
 import { CrearPersonaContactoComponent } from './componentes/personas-contacto/crear-persona-contacto/crear-persona-contacto.component';
 import { CrearDatosSanitariosComponent } from './componentes/datos-sanitario/crear-datos-sanitarios/crear-datos-sanitarios.component';
 import { MostrarCrearComponent } from './componentes/personas-contacto/mostrar-crear/mostrar-crear.component';
+import { BotonInfoAyudasComponent } from './componentes/boton-info-ayudas/boton-info-ayudas.component';
+
 
 
 @NgModule({
@@ -281,6 +283,7 @@ import { MostrarCrearComponent } from './componentes/personas-contacto/mostrar-c
     CrearPersonaContactoComponent,
     CrearDatosSanitariosComponent,
     MostrarCrearComponent,
+    BotonInfoAyudasComponent,
   ],
   imports: [
     BrowserModule,
@@ -321,5 +324,3 @@ import { MostrarCrearComponent } from './componentes/personas-contacto/mostrar-c
   bootstrap: [AppComponent]
 })
 
-export class AppModule {
-}
