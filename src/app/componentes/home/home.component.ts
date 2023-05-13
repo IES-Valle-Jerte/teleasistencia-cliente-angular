@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Title} from "@angular/platform-browser";
 import {CargaDesarrolladorTecnologiaService} from "../../servicios/carga-desarrollador-tecnologia.service";
 import {IConvocatoria} from "../../interfaces/i-desarrollador-tecnologia";
+import {Spinner} from "../../clases/spinner";
 
 @Component({
   selector: 'app-home',
@@ -16,9 +17,14 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.titleService.setTitle('Inicio');
+    // Spinner.mostrarSpiner();
     this.cargaDesarrolladorTecnologia.getDesarrolladorTecnologia().subscribe(
       e=>{
         this.desarrolladores = e;
+        // setTimeout(() => {
+        //   Spinner.ocultarSpinner();
+        // }, 200);
+
       }
     )
   }

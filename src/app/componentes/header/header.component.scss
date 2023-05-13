@@ -5,3 +5,12 @@
   max-width: 1200px;
 }
 
+.spinner {
+  position: fixed;
+  top: 21vh;
+  right: 5vh;
+  z-index: 100;
+}
+.spinner>img{
+  width: 100px;
+}

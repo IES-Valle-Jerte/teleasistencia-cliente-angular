@@ -322,5 +322,7 @@ import { BotonInfoAyudasComponent } from './componentes/boton-info-ayudas/boton-
     }
   ],
   bootstrap: [AppComponent]
-})
+})export class AppModule {
+}
+
 

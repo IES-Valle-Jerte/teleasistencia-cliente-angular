@@ -5,6 +5,7 @@ import {Title} from '@angular/platform-browser';
 import {CargaDireccionService} from '../../../servicios/carga-direccion.service';
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
+import {Spinner} from "../../../clases/spinner";
 
 
 
@@ -30,8 +31,12 @@ export class ModificarDireccionComponent implements OnInit {
   }
 
   modificarDireccion(): void {
+    Spinner.mostrarSpiner();
     this.cargaDirecciones.modificarDireccion(this.dire).subscribe(
       e => {
+        setTimeout(() => {
+          Spinner.ocultarSpinner();
+        }, 200);
         this.router.navigate(['/direcciones']);
         this.alertExito()
       },
