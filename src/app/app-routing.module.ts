@@ -239,6 +239,7 @@ import {
 } from "./componentes/datos-sanitario/crear-datos-sanitarios/crear-datos-sanitarios.component";
 import {AuthGuard} from "./guards/auth.guard";
 import {environment} from "../environments/environment";
+import {BotonInfoAyudasComponent} from "./componentes/boton-info-ayudas/boton-info-ayudas.component";
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
   {path: 'inicio', canActivate: [AuthGuard], component: HomeComponent},
@@ -1363,6 +1364,8 @@ const routes: Routes = [
       role:null
     },
   },
+  {path:'alarmas/boton_info_ayudas',
+  component:BotonInfoAyudasComponent},
   {path: '', redirectTo: '/inicio', pathMatch: 'full'},
   {path: '**', redirectTo: '/inicio', pathMatch: 'full'}
 ];

@@ -14,7 +14,9 @@
           <input id="campoBusqueda" type="text" class="form-control" placeholder="Busqueda..." [(ngModel)]="inputBusqueda">
         </div>
       </div>
-
+      <div class="col-4 d-flex justify-content-end">
+        <button class="btn btn-success" [routerLink]="['/alarmas/boton_info_ayudas']"  >Ayuda</button>
+      </div>
       <div class="col-4 d-flex justify-content-end">
         <button class="btn btn-success" [routerLink]="['/alarmas/nueva']" *ngIf="isAdmin">Crear Alarma</button>
       </div>

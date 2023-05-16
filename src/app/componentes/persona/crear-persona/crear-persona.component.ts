@@ -54,7 +54,7 @@ export class CrearPersonaComponent implements OnInit {
     this.persona.id_direccion = this.dire;
     this.cargaPersonas.nuevaPersona(this.persona).subscribe(
       e => {
-        this.nuevaDireccion();
+        // this.nuevaDireccion();
         this.alertExito()
         this.router.navigate(['/personas']);
         },
