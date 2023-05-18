@@ -1364,7 +1364,7 @@ const routes: Routes = [
       role:null
     },
   },
-  {path:'alarmas/boton_info_ayudas',
+  {path:'boton_info_ayudas/:clave',
   component:BotonInfoAyudasComponent},
   {path: '', redirectTo: '/inicio', pathMatch: 'full'},
   {path: '**', redirectTo: '/inicio', pathMatch: 'full'}

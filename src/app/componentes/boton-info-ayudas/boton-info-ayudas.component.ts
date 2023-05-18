@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {info_ayudas} from "../../../environments/info_ayudas";
 
 @Component({
   selector: 'app-boton-info-ayudas',
@@ -6,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./boton-info-ayudas.component.scss']
 })
 export class BotonInfoAyudasComponent implements OnInit {
+  private clave: any;
+  public contenido: any;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
+
+    this.clave = this.route.snapshot.params['clave'];
+    this.contenido=info_ayudas[this.clave];
+
   }
 
 }
