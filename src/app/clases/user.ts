@@ -10,6 +10,7 @@ export class User implements IUsers{
   email:       string;
   date_joined: Date;
   groups:      any;
+  imagen:       File;
 }
 
 export interface Group {

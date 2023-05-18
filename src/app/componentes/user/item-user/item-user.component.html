@@ -1,3 +1,4 @@
+<td> <img class="imagenUsuario" alt="mdo" width="40" height="40" class="rounded-circle" *ngIf="user.imagen" src="{{ user.imagen['imagen']}}"> </td>
 <td>{{ user.username }}</td>
 <td>{{ user.first_name }}</td>
 <td>{{ user.last_name }}</td>
@@ -9,5 +10,7 @@
   </button>
   <button type="submit" class="btn btn-delete m-1" (click)="modalConfirmacion()"
   ><i class="fa fa-trash"></i></button>
-
+  <button type="submit" class="btn btn-outline-secondary btn-modify" [routerLink]="['/usuarios/modificarPassword', user.id]">
+    <i class="fa fa-key"></i>
+  </button>
 </td>

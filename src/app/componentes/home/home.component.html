@@ -127,43 +127,80 @@
           IES <em>“Valle del Jerte”</em> de Plasencia, con la colaboración principal de Fréderic Sánchez, Angel Enrique
           Pineda y Jesús Redondo.</p>
         <p class="lead">Especial mención al departamento de Atención Sociosanitaria del IES “San Martín” de Talayuela. Partícipes e impulsores de la plataforma de prácticas de teleasistencia
-          </p>
+        </p>
         <p class="lead">Los alumnos que han contribuido en el desarrollo de este proyecto son:</p>
       </div>
       <div class="col-md-5">
         <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto imgColaboradores"
              src="./assets/home-colaboradores.png" title="Colaboradores" alt="Colaboradores"/>
       </div>
-      <div class="tecnologias" *ngFor="let convocatoria of desarrolladores">
+      <div class="tecnologias">
         <div>
-          <p class="tituloConvocatoria"><b>Convocatoria: {{convocatoria.convocatoria}}</b></p>
-          <ng-container *ngFor="let desarrollador of convocatoria.desarrolladores">
-            <div class="divDesarrolladores container">
-              <div class="divTitulosDesarrollador">
-                <span>{{desarrollador.nombre}}</span><span>Tecnologías</span><span></span>
-              </div>
-              <div class="divImagenesDesarrollador">
-                <div ><img class="imagenDesarrollador" [src]="desarrollador.desarrollador_tecnologias[0].id_desarrollador.imagen" [title]="desarrollador.desarrollador_tecnologias[0].id_desarrollador.nombre" />
+          <p class="tituloConvocatoria"><b>Profesores:</b></p>
+          <div class="tab">
+            <ng-container *ngFor="let desarrollador of profesores">
+              <button class="tablinks" (click)="abrirDesarrollador($event, desarrollador.nombre)">
+                <img class="imagenDesarrollador" [src]="desarrollador.imagen" />
+              </button>
+            </ng-container>
+          </div>
+          <ng-container *ngFor="let desarrollador of profesores">
+            <div class="tabcontent" id="{{desarrollador.nombre}}">
+              <div class="container">
+                <div class="divTitulosDesarrollador">
+                  <span>{{desarrollador.nombre}}</span>
                 </div>
-                <div class="divTecnologias" >
-                  <ng-container *ngFor="let tecnologia of desarrollador.desarrollador_tecnologias">
-                    <img class="imagenTecnologia" [src]="tecnologia.id_tecnologia.imagen" [title]="tecnologia.id_tecnologia.nombre"/>
-                  </ng-container>
+                <div class="divImagenesDesarrollador">
+                  <div ><img class="imagenDesarrollador" [src]="desarrollador.imagen" [title]="desarrollador.nombre" />
+                  </div>
                 </div>
-                <div>
-                  <img class="botonMas" src="./assets/verDescripcion.png" (click)="mostrarDescripcion($event)" title="Ver descripción"/>
+                <div class="parrafoDescripcionTecnologia" >
+                  <h2 class="tituloDescripcion">Descripción del Profesor.</h2>
+                  <p>{{desarrollador.descripcion}}</p>
                 </div>
+                <hr>
               </div>
-              <div class="parrafoDescripcionTecnologia d-none" >
-                <h2 class="tituloDescripcion">Descripción del Proyecto.</h2>
-                <p>{{desarrollador.desarrollador_tecnologias[0].id_desarrollador.descripcion}}</p>
-              </div>
-              <hr>
             </div>
           </ng-container>
         </div>
+      </div>
+      <div class="tecnologias" *ngFor="let convocatoria of desarrolladores">
+        <div>
+          <p class="tituloConvocatoria"><b>Convocatoria: {{convocatoria.convocatoria}}</b></p>
+          <div class="tab h-100">
+            <ng-container *ngFor="let desarrollador of alumnos">
+              <button *ngIf="convocatoria.desarrolladores.indexOf(desarrollador) >= 0" class="tablinks" (click)="abrirDesarrollador($event, desarrollador.nombre)">
+                <img class="imagenDesarrollador" [src]="desarrollador.imagen" />
+              </button>
+            </ng-container>
+          </div>
+          <ng-container *ngFor="let desarrollador of alumnos">
+            <div *ngIf="convocatoria.desarrolladores.indexOf(desarrollador) >= 0" class="tabcontent" id="{{desarrollador.nombre}}">
+              <div class="container">
+                <div class="divTitulosDesarrollador">
+                  <span>{{desarrollador.nombre}}</span><span>Tecnologías</span><span></span>
+                </div>
+                <div class="divImagenesDesarrollador">
+                  <div ><img class="imagenDesarrollador" [src]="desarrollador.imagen" [title]="desarrollador.nombre" />
+                  </div>
+                  <div class="divTecnologias" >
+                    <ng-container *ngFor="let tecnologia of desarrollador.desarrollador_tecnologias">
+                      <img class="imagenTecnologia" [src]="tecnologia.id_tecnologia.imagen" [title]="tecnologia.id_tecnologia.nombre"/>
+                    </ng-container>
+                  </div>
+                </div>
+                <div class="parrafoDescripcionTecnologia" >
+                  <h2 class="tituloDescripcion">Descripción del Proyecto.</h2>
+                  <p>{{desarrollador.descripcion}}</p>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </ng-container>
         </div>
       </div>
+    </div>
+
     <hr class="featurette-divider">
   </div>
 </main>

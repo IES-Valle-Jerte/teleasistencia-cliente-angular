@@ -1,4 +1,4 @@
 export interface IGrupo {
-  id: number;
+  pk: number;
   name: string;
 }

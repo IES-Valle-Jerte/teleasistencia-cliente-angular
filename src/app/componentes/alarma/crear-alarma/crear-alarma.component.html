@@ -1,5 +1,4 @@
 <main class="text-center row p-0 m-0 justify-content-center">
-
   <div class="container">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
@@ -11,7 +10,6 @@
     <div class="row d-flex justify-content-center">
     <div class="col-12 col-xl-6">
     <h1 class="component-title" >Crear Alarma</h1>
-
     <form [formGroup]="formCrearA" (submit)="nuevaAlarma()" [ngClass]="this.mostrar || this.mostrarModificar ? 'inactiveForm':''">
       <div class="form-group mb-3 row">
         <label for="tipos_alarma" class="form-label text-start p-0">Tipo de alarma</label>
@@ -58,14 +56,14 @@
           <label for="terminal" class="form-label">Terminal</label>
             <ng-select id="terminal" name="terminal" formControlName="id_terminal">
               <ng-option class="relacion_recurso_option" *ngFor="let terminal of terminales; let i = index"
-                      [value]="terminal.id">{{terminal.numero_terminal}} -- {{terminal.id_titular.id_persona.nombre}} {{terminal.id_titular.id_persona.apellidos}} </ng-option>
+                      [value]="terminal?.id">{{terminal?.numero_terminal}} -- {{terminal.id_titular?.id_persona.nombre}} {{terminal.id_titular?.id_persona.apellidos}} </ng-option>
             </ng-select>
         </ng-container>
         <ng-template #selectPaciente>
           <label for="paciente" class="form-label">Paciente</label>
           <ng-select id="paciente" name="paciente" formControlName="id_paciente_ucr">
             <ng-option *ngFor="let paciente of pacientes_ucr; let i = index"
-                    [value]="paciente.id">{{paciente.numero_expediente}} -- {{paciente.id_persona.nombre}} {{paciente.id_persona.apellidos}}</ng-option>
+                    [value]="paciente?.id">{{paciente.numero_expediente}} -- {{paciente?.id_persona?.nombre}} {{paciente?.id_persona?.apellidos}}</ng-option>
           </ng-select>
         </ng-template>
       </div>

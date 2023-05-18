@@ -1,0 +1,37 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/usuarios']">Usuarios</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Modificar imagen {{ idUser }}</li>
+      </ol>
+    </nav>
+    <h1 class="component-title">Modificar Imagen {{idUser}}</h1>
+    <form [formGroup]="formModificarU" (submit)="modificarUser()">
+
+      <!-- añadir visualizacion imagen antigua -->
+      <div class="d-inline" *ngIf="img; else imgNull">
+        <img [src]="img" class="imagenUsuario" alt="mdo" width="120" height="120" class="rounded-circle">
+      </div>
+      <ng-template class="d-inline" #imgNull>
+        <img src="./assets/user.png" alt="mdo" width="120" height="120" class="rounded-circle">
+      </ng-template>
+
+      <div class="form-group mb-3">
+        <label for="imagen" class="form-label">Imagen</label>
+        <input type="file" class="file-input" id="imagen" class="form-control" formControlName="imagen" (change)="onFileChanged($event)">
+      </div>
+
+      <button type="submit" class="btn btn-outline-success m-1" (click)="modificarUser()"
+              [disabled]="!formModificarU.valid"
+              aria-label="Try me! Example: Mixin">
+        Guardar
+      </button>
+      <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/inicio']">
+        Volver
+      </button>
+
+    </form>
+  </div>
+</main>

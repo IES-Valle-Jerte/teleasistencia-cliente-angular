@@ -8,62 +8,73 @@
       </ol>
     </nav>
     <h1 class="component-title">Modificar datos agenda {{idAgenda}}</h1>
-    <form #modificarAgenda="ngForm">
+    <form [formGroup]="modAgenda" (ngSubmit)="onSubmit()">
 
-      <div class="form-group mb-3">
-        <label for="idPaciente" class="form-label">Paciente</label>
-        <select name="idPaciente" id="idPaciente" [(ngModel)]="agenda.id_paciente"
-                #idPaciente="ngModel" class="form-select" required>
-          <option class="agenda_option" *ngFor="let paciente of pacientes; let i = index" [value]="paciente.id">
-            {{ agenda.id_paciente.id === paciente.id ? optionSelected(i) : "" }}
-            {{paciente.id_persona.nombre + ' ' + paciente.id_persona.apellidos}}
-          </option>
-        </select>
-        <div *ngIf="idPaciente.invalid && (idPaciente.dirty || idPaciente.touched)" class="alert alert-secondary" role="alert">
-          <div *ngIf="idPaciente.errors?.required">
-            El campo paciente es obligatorio.
+      <div class="form-group mb-3 row">
+        <div class="col-6 p-0">
+          <label for="idPaciente" class="form-label">Paciente</label>
+          <ng-select name="idPaciente" id="idPaciente"
+                  formControlName="paciente" (change)="obtenerExpediente()" required>
+            <ng-option class="agenda_option" *ngFor="let paciente of pacientes" [value]="paciente.id">
+              {{paciente.id_persona.nombre + ' ' + paciente.id_persona.apellidos}}
+            </ng-option>
+          </ng-select>
+          <div *ngIf="form.paciente.invalid && (form.paciente.dirty || form.paciente.touched)" class="alert alert-secondary" role="alert">
+            <div *ngIf="form.paciente.errors?.required">
+              El campo paciente es obligatorio.
+            </div>
+          </div>
+        </div>
+        <div class="col-4 ms-auto">
+          <div class="row">
+            <label for="n_expediente" class="form-label p-0">Nº Expediente</label>
+          </div>
+          <div class="row">
+            <input type="text" class="form-control" id="n_expediente" name="n_expediente"
+                   formControlName="n_expediente" disabled>
+          </div>
+          <div *ngIf="form.n_expediente.invalid && (form.n_expediente.dirty || form.n_expediente.touched)" class="alert alert-secondary" role="alert">
+            <div *ngIf="form.n_expediente.errors?.required">
+              El campo nº expediente es obligatorio.
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="form-group mb-3">
-        <label for="id_tipo_agenda" class="form-label">Tipo agenda</label>
-        <select name="id_tipo_agenda" id="id_tipo_agenda" [(ngModel)]="agenda.id_tipo_agenda"
-                #id_tipo_agenda="ngModel" class="form-select" required>
-          <option class="agenda_option" *ngFor="let tipo_agenda of tipos_agenda; let i = index" [value]="tipo_agenda.id">
-            {{ agenda.id_tipo_agenda.id === tipo_agenda.id ? optionSelected(i) : "" }}
-            {{tipo_agenda.nombre}}
-          </option>
-        </select>
-        <div *ngIf="id_tipo_agenda.invalid && (id_tipo_agenda.dirty || id_tipo_agenda.touched)" class="alert alert-secondary" role="alert">
-          <div *ngIf="id_tipo_agenda.errors?.required">
+      <div class="form-group mb-3 row">
+        <label for="id_tipo_agenda" class="form-label p-0">Tipo agenda</label>
+        <div class="row p-0 m-0">
+          <div class="p-0 pb-1 pb-lg-0 w-100">
+            <ng-select name="id_tipo_agenda" id="id_tipo_agenda" formControlName="tipo_agenda" required (change)="obtenerImportancia()">
+              <ng-option class="agenda_option" *ngFor="let tipo_agenda of tipos_agenda; let i = index" [value]="tipo_agenda.id">
+                {{tipo_agenda.nombre}}
+              </ng-option>
+            </ng-select>
+          </div>
+        </div>
+        <div *ngIf="form.tipo_agenda.invalid && (form.tipo_agenda.dirty || form.tipo_agenda.touched)" class="alert alert-secondary" role="alert">
+          <div *ngIf="form.tipo_agenda.errors?.required">
             El campo tipo de agenda es obligatorio.
           </div>
         </div>
       </div>
 
-      <div class="form-group mb-3">
-        <label for="id_persona_contacto" class="form-label">Persona de contacto</label>
-        <select name="id_persona_contacto" id="id_persona_contacto" [(ngModel)]="agenda.id_persona"
-                #id_persona_contacto="ngModel" class="form-select" required>
-          <option class="agenda_option" *ngFor="let persona of personas_contacto; let i = index" [value]="persona.id">
-            {{ agenda.id_persona.id === persona.id ? optionSelected(i) : "" }}
-            {{persona.nombre}}
-          </option>
-        </select>
-        <div *ngIf="id_persona_contacto.invalid && (id_persona_contacto.dirty || id_persona_contacto.touched)" class="alert alert-secondary" role="alert">
-          <div *ngIf="id_persona_contacto.errors?.required">
-            El campo persona de contacto es obligatorio.
+      <div class="form-group mb-3 row">
+        <label for="importanciaSelect" class="form-label p-0">Importancia</label>
+        <input name="importanciaSelect" id="importanciaSelect" formControlName="importancia" class="form-control" disabled>
+        <div *ngIf="form.importancia.invalid && (form.importancia.dirty || form.importancia.touched)" class="alert alert-secondary" role="alert">
+          <div *ngIf="form.importancia.errors?.required">
+            El campo importancia es obligatorio
           </div>
         </div>
       </div>
 
       <div class="form-group mb-3">
         <label for="fecha_prevista" class="form-label">Fecha prevista</label>
-        <input type="date" name="fecha_prevista" id="fecha_prevista" class="form-control"
-               required maxlength="200" [(ngModel)]="agenda.fecha_prevista" #fecha_prevista="ngModel">
-        <div *ngIf="fecha_prevista.invalid && (fecha_prevista.dirty || fecha_prevista.touched)" class="alert alert-secondary" role="alert">
-          <div *ngIf="fecha_prevista.errors?.required">
+        <input type="datetime-local" name="fecha_prevista" id="fecha_prevista" class="form-control"
+               required maxlength="200" formControlName="fecha_prevista" [value]="agenda.fecha_prevista" placeholder="{{agenda.fecha_prevista}}">
+        <div *ngIf="form.fecha_prevista.invalid && (form.fecha_prevista.dirty || form.fecha_prevista.touched)" class="alert alert-secondary" role="alert">
+          <div *ngIf="form.fecha_prevista.errors?.required">
             La fecha prevista es obligatoria.
           </div>
         </div>
@@ -72,16 +83,16 @@
       <div class="form-group mb-3">
         <label for="observaciones" class="form-label">Observaciones</label>
         <textarea rows="5" cols="50" name="observaciones" id="observaciones" class="form-control"
-                  required maxlength="200" [(ngModel)]="agenda.observaciones" #observaciones="ngModel"></textarea>
-        <div *ngIf="observaciones.invalid && (observaciones.dirty || observaciones.touched)" class="alert alert-secondary" role="alert">
-          <div *ngIf="observaciones.errors?.required">
+                  required maxlength="200" formControlName="observaciones"></textarea>
+        <div *ngIf="form.observaciones.invalid && (form.observaciones.dirty || form.observaciones.touched)" class="alert alert-secondary" role="alert">
+          <div *ngIf="form.observaciones.errors?.required">
             La fecha prevista es obligatoria.
           </div>
         </div>
       </div>
 
-      <button type="submit" class="btn btn-outline-success m-1" (click)="modificarEventoAgenda()"
-              [disabled]="!modificarAgenda.form.valid">
+      <button type="submit" class="btn btn-outline-success m-1"
+              [disabled]="!modAgenda.valid">
         Guardar
       </button>
       <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/agenda']">

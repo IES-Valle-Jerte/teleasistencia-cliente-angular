@@ -8,6 +8,7 @@ import {IPersona} from "../../../interfaces/i-persona";
 import {CargaAgendaService} from "../../../servicios/carga-agenda.service";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 
 @Component({
@@ -20,14 +21,17 @@ export class ModificarAgendaComponent implements OnInit {
   public agenda: IAgenda;
   public idAgenda: number;
   public tipos_agenda: ITipoAgenda[];
+  public tipo_agenda: ITipoAgenda;
   public pacientes: IPaciente[];
-  public personas_contacto: IPersona[];
+  public modAgenda: FormGroup;
+  submitted = false;
 
   constructor(
     private route: ActivatedRoute,
     private titleService: Title,
     private cargaAgendaService: CargaAgendaService,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder
   ) { }
 
   // Carga de los datos al cargar el componente
@@ -36,12 +40,44 @@ export class ModificarAgendaComponent implements OnInit {
     this.tipos_agenda = this.route.snapshot.data['tipos_agenda'];
     this.idAgenda = this.route.snapshot.params['id'];
     this.pacientes = this.route.snapshot.data['pacientes'];
-    this.personas_contacto = this.route.snapshot.data['personas_contacto'];
     this.titleService.setTitle('Modificar agenda ' + this.idAgenda);
+    this.crearForm();
+    this.obtenerExpediente();
+    this.obtenerImportancia();
+  }
 
-    this.agenda.id_tipo_agenda = this.agenda.id_tipo_agenda.id;
-    this.agenda.id_paciente = this.agenda.id_paciente.id;
-    this.agenda.id_persona = this.agenda.id_persona.id;
+  public crearForm() {
+    var fecha = new Date(this.agenda.fecha_prevista).toISOString().slice(0, 16);
+    if (this.agenda.id_tipo_agenda == null) {
+      var tipo: ITipoAgenda = {
+        id: this.tipos_agenda[0].id,
+        nombre: "",
+        codigo: "",
+        importancia: ""
+      }
+      this.agenda.id_tipo_agenda = tipo;
+    }
+    this.modAgenda = this.formBuilder.group({
+      paciente: [this.agenda.id_paciente.id,[
+        Validators.required
+      ]],
+      n_expediente: [this.agenda.id_paciente.n_expediente, [
+        Validators.required
+      ]],
+      tipo_agenda: [this.agenda.id_tipo_agenda.id, [
+        Validators.required
+      ]],
+      importancia: [this.agenda.id_tipo_agenda.importancia, [
+        Validators.required
+      ]],
+      fecha_prevista: [ fecha, [
+        Validators.required
+      ]],
+      observaciones: [this.agenda.observaciones, [
+        Validators.required,
+        Validators.minLength(10)
+      ]]
+    })
   }
 
   // Método que realiza la petición al servidor de modificación de una agenda seleccionada
@@ -100,5 +136,47 @@ export class ModificarAgendaComponent implements OnInit {
       icon: 'error',
       title: environment.fraseErrorModificar
     })
+  }
+
+  //Método para obtener los valores del formulario
+  get form() {
+    return this.modAgenda.controls;
+  }
+
+  //Método para comprobar si es válida la modificación
+  onSubmit() {
+    this.submitted = true;
+
+    if (this.modAgenda.invalid) {
+      return;
+    }
+
+    this.modificarAgenda();
+  }
+
+  //Método en el que se crea el que se sobreescriben los valores del objeto de tipo agenda
+  modificarAgenda() {
+    this.agenda = {
+      'id': this.agenda.id,
+      'id_paciente': this.modAgenda.get('paciente').value,
+      'id_tipo_agenda': this.modAgenda.get('tipo_agenda').value,
+      'fecha_registro': this.agenda.fecha_registro,
+      'fecha_prevista': this.modAgenda.get('fecha_prevista').value,
+      'fecha_resolucion': null,
+      'observaciones': this.modAgenda.get('observaciones').value
+    }
+    this.modificarEventoAgenda();
+  }
+
+  //Método para obtener el número de expediente del paciente seleccionado en el formulario
+  obtenerExpediente() {
+    this.agenda.id_paciente = this.pacientes.find(paciente => paciente.id == this.modAgenda.get('paciente').value);
+    this.modAgenda.get('n_expediente').setValue(this.agenda.id_paciente.numero_expediente);
+  }
+
+  //Método para obtener la prioridad del tipo de agenda
+  obtenerImportancia() {
+    this.agenda.id_tipo_agenda = this.tipos_agenda.find(tipo => tipo.id == this.modAgenda.get('tipo_agenda').value);
+    this.modAgenda.get('importancia').setValue(this.agenda.id_tipo_agenda.importancia);
   }
 }

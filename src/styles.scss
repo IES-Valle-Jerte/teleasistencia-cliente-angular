@@ -559,7 +559,8 @@ footer {
 
 .imagenDesarrollador{
   margin-top: 20px;
-  height: 150px;
+  height: 100px;
+  width: 100px;
   margin-bottom: 20px;
 }
 .imagenTecnologia{
@@ -579,7 +580,6 @@ footer {
 .d-none{
   display: none;
 }
-
 .tecnologias > div >.tituloConvocatoria{
   font-size: 30px;
   color:#75597D;
@@ -614,6 +614,23 @@ footer {
   text-align: left;
   display: block;
 }
+/*
 .row{
   align-items: center;
+}
+*/
+.tabcontent {
+  display: none;
+}
+
+.tablinks {
+  border-color: #75597D;
+}
+
+.active {
+  background-color: #75587D;
+}
+
+li.active {
+  background-color: white;
 }

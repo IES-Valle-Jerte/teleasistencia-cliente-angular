@@ -1,0 +1,47 @@
+<div>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/recursos_comunitarios']">Recursos comunitarios</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Ver recurso comunitario</li>
+    </ol>
+  </nav>
+  <div class="titulo">
+    <h1>Recurso Comunitario: {{recurso_comunitario.id}}</h1>
+  </div>
+  <div class="form-group mb-3 left ">
+    <label for="nombreRecurso" class="form-label">Nombre:</label>
+    <input type="text" name="tipoAlarma" id="nombreRecurso" class="form-control" disabled
+           value="{{recurso_comunitario.nombre}}" >
+  </div>
+  <div class="form-group mb-3 left ">
+    <label for="telefonoRecurso" class="form-label">Teléfono:</label>
+    <input type="text" name="tipoAlarma" id="telefonoRecurso" class="form-control" disabled
+           value="{{recurso_comunitario.telefono}}" >
+  </div>
+  <div class="form-group mb-3 left ">
+    <label for="tipoRecurso" class="form-label">Tipo de Recursos:</label>
+    <input type="text" name="tipoAlarma" id="tipoRecurso" class="form-control" disabled
+           value="{{ recurso_comunitario.id_tipos_recurso_comunitario.nombre }}" >
+  </div>
+  <div class="form-group mb-3 left ">
+    <label for="localidad" class="form-label">Localidad:</label>
+    <input type="text" name="tipoAlarma" id="localidad" class="form-control" disabled
+            value="{{recurso_comunitario.id_direccion.localidad}}" >
+  </div>
+  <div class="form-group mb-3 left ">
+    <label for="provincia" class="form-label">Provincia:</label>
+    <input type="text" name="tipoAlarma" id="provincia" class="form-control" disabled
+           value="{{recurso_comunitario.id_direccion.provincia}}" >
+  </div>
+  <div class="form-group mb-3 left ">
+    <label for="cd" class="form-label">Código Postal:</label>
+    <input type="text" name="tipoAlarma" id="cd" class="form-control" disabled
+           value="{{recurso_comunitario.id_direccion.codigo_postal}}" >
+  </div>
+  <div class="form-group mb-3 left ">
+    <label for="direccion" class="form-label">Dirección:</label>
+    <input type="text" name="tipoAlarma" id="direccion" class="form-control" disabled
+           value="{{ recurso_comunitario.id_direccion.direccion}}" >
+  </div>
+</div>

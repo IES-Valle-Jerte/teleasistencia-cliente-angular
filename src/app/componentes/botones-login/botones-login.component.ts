@@ -12,6 +12,7 @@ import {AuthService} from "../../servicios/auth.service";
 
 export class BotonesLoginComponent implements OnInit, DoCheck {
   public estaLogin: boolean;
+  public id:string
   public username:string
   public userlastname:string
   public img:string
@@ -27,6 +28,7 @@ export class BotonesLoginComponent implements OnInit, DoCheck {
 // Obtengo la imagen del usuario y compruebo si es null o tiene imagen para mostrar una por defecto o la del usuario
   ngDoCheck(): void {
     this.estaLogin =this.auth.isLoggedIn();
+    this.id=localStorage.getItem('id');
     this.username= localStorage.getItem('username');
     this.userlastname= localStorage.getItem('userlastname');
     const imagen=localStorage.getItem('img')

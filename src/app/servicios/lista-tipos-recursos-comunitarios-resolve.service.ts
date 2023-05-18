@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot} from '@angular/router';
 import {ITipoRecursoComunitario} from '../interfaces/i-tipo-recurso-comunitario';
-import {CargaTipoRecursoComunitarioService} from './carga-tipo-recurso-comunitario.service';
+import {CargaTipoRecursoComunitarioService} from '../services/recursos/carga-tipo-recurso-comunitario.service';
 import {Observable, of} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 

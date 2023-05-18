@@ -1,18 +1,18 @@
-<td>{{ agenda.id_paciente?.id_persona?.nombre +' ' + agenda.id_paciente?.id_persona?.apellidos }}</td>
+<td>{{ agenda.id_tipo_agenda?.importancia }}</td>
+<td>{{ agenda.id_paciente?.id_persona?.nombre }}</td>
+<td>{{ agenda.id_paciente?.id_persona?.apellidos }}</td>
 <td>{{ agenda.id_tipo_agenda?.nombre }}</td>
-<td>{{ agenda.id_persona?.nombre + ' ' + agenda.id_persona?.apellidos }}</td>
-<td>{{ agenda.id_persona?.telefono_movil }}</td>
-<td>{{ agenda.fecha_prevista }}</td>
-<td>{{ agenda.observaciones }}</td>
+<td>{{ n_expediente }}</td>
+<td>{{ agenda.fecha_prevista | date:'HH:mm' }}</td>
 <td>
-  <button type="submit" class="btn btn-outline-secondary btn-modify"
+  <button type="submit" class="btn btn-outline-warning btn-modify"
           [routerLink]="['/agenda/modificar', agenda.id]">
     <i class="fa fa-pen"></i>
   </button>
   <!-- Button trigger modal -->
   <button type="submit" class="btn btn-outline-danger m-1" (click)="modalConfirmacion()"
   ><i class="fa fa-trash"></i></button>
-  <button *ngIf="agenda.fecha_resolucion === null" type="submit" class="btn btn-outline-success m-1" [routerLink]="['/historico_agenda/nuevo', agenda.id]">
+  <button *ngIf="agenda.fecha_resolucion === null" [disabled]="botonDes()" type="submit" class="btn btn-outline-success m-1" [routerLink]="['/historico_agenda/nuevo', agenda.id]">
     <i class="fa fa-check"></i>
   </button>
   <button *ngIf="agenda.fecha_resolucion !== null" type="submit" class="btn btn-outline-primary m-1" (click)="redirigirAhistorico()">

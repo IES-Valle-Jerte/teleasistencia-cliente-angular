@@ -1,0 +1,45 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Recursos comunitarios</li>
+      </ol>
+    </nav>
+    <h1 class="component-title">Recursos {{clasificacion?.nombre}}</h1>
+    <div class="m-2 row">
+
+      <div class="col-8 d-flex justify-content-end">
+        <div class="col-6">
+          <input id="campoBusqueda" type="text" class="form-control" placeholder="Busqueda..." [(ngModel)]="inputBusqueda">
+        </div>
+      </div>
+      <!-- Con la id cojo la clasificación de recurso comunitario -->
+      <div class="col-4 d-flex justify-content-end" [routerLink]="['/recursos_comunitarios/nuevo',id]">
+        <button class="btn btn-success">Crear Recursos</button>
+      </div>
+    </div>
+    <div class="table-responsive m-2">
+      <table id="tableList" class="table table-hover text-center">
+        <thead>
+        <tr class="table-purple">
+          <th class="ordenable" (click)="ordenacionTabla(0, 'string')" scope="col">Nombre <i class="fas fa-sort"></i></th>
+          <th class="ordenable" (click)="ordenacionTabla(1, 'string')" scope="col">Teléfono <i class="fas fa-sort"></i></th>
+          <th class="ordenable" (click)="ordenacionTabla(2, 'string')" scope="col">Tipo de Recurso <i class="fas fa-sort"></i></th>
+          <th class="ordenable" (click)="ordenacionTabla(3, 'string')" scope="col">Localidad <i class="fas fa-sort"></i></th>
+          <th class="ordenable" (click)="ordenacionTabla(4, 'string')" scope="col">Provincia <i class="fas fa-sort"></i></th>
+          <th class="ordenable" (click)="ordenacionTabla(5, 'string')" scope="col">CP <i class="fas fa-sort"></i></th>
+          <th class="ordenable" (click)="ordenacionTabla(6, 'string')" scope="col">Dirección <i class="fas fa-sort"></i></th>
+          <th scope="col"></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <!--El ngFor es utilizado para recorrer los recursos e ir mostrandolos utilizando el item-recurso-comunitario-->
+        <tr *ngFor="let recurso of recursos_comunitarios | filtroBusqueda: inputBusqueda" item-recurso-comunitario [recurso_comunitario]="recurso">
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>

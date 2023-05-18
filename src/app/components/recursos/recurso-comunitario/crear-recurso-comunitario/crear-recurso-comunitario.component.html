@@ -1,0 +1,99 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/recursos_comunitarios/listar/',id]">Recursos comunitarios</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Crear recurso comunitario</li>
+      </ol>
+    </nav>
+    <div class="row d-flex justify-content-center">
+    <div class="col-12 col-xl-6">
+    <h1 class="component-title">Crear nuevo recurso comunitario</h1>
+    <form [formGroup]="nuevoRecurso" (ngSubmit)="nuevoRecursoComunitario()" [ngClass]="this.mostrar || this.mostrarModificar ? 'inactiveForm':''">
+      <div class="form-group mb-3 row">
+        <label for="tipo_recursos_comunitario" class="form-label">Tipo de recurso comunitario</label>
+        <select class="form-select" id="tipo_recursos_comunitario" name="tipo_recurso_comunitario" formControlName="tipo_recursos_comunitario">
+          <!-- La variable tipo_recurso_comunitario será iterada y se mostrarán todos los tipos de recursos comunitarios -->
+          <option class="tipo_recurso_comunitario_option"
+                  *ngFor="let tipo_recurso_comunitario of tipos_recursos_comunitarios"
+                  value="{{tipo_recurso_comunitario.id}}">
+            {{ tipo_recurso_comunitario.nombre }}
+          </option>
+        </select>
+
+        <div class="col-4 col-lg-1  p-0">
+          <button class="btn btn-success botonOperacion" type="button" (click)="mostratCrearTipo()"
+                  data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+            <i class="fa fa-solid fa-plus"></i>
+          </button>
+        </div>
+
+        <div class="col-4 col-lg-1  p-0">
+          <button class="btn btn-warning botonOperacion" id="des1" type="button" (click)="mostrarEditarTipo()"
+                  data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false" aria-controls="collapseWidthExample2">
+            <i class="fa fa-sharp fa-solid fa-pen fa-sm"></i>
+          </button>
+        </div>
+
+        <div class="col-4 col-lg-1  p-0">
+          <button class="btn btn-danger botonOperacion" id="des2" type="button" (click)="modalConfirmacion()">
+            <i class="fa fa-solid fa-trash"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" name="nombre" id="nombre" class="form-control" formControlName="nombre">
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="telefono" class="form-label">Teléfono</label>
+        <input type="tel" name="telefono" id="telefono" class="form-control" formControlName="telefono">
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="localidad" class="form-label">Localidad</label>
+        <input type="text" name="localidad" id="localidad" class="form-control" formControlName="localidad">
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="provincia" class="form-label">Provincia</label>
+        <input type="text" name="provincia" id="provincia" class="form-control" formControlName="provincia">
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="direccion" class="form-label">Dirección</label>
+        <input type="text" name="direccion" id="direccion" class="form-control" formControlName="direccion">
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="codigo_postal" class="form-label">Código postal</label>
+        <input type="text" name="codigo_postal" id="codigo_postal" class="form-control" formControlName="cd">
+      </div>
+
+      <button type="submit" class="btn btn-outline-success m-1">
+        Guardar
+      </button>
+      <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/recursos_comunitarios/listar/',id]">
+        Volver
+      </button>
+    </form>
+    </div>
+      <!-- Aparecerá el formulario de crear un nuevoi tipo de recurso comunitario-->
+      <div class="col-12 col-xl-6" id="collapseWidthExample" *ngIf="this.mostrar">
+        <app-crear-tipo-recurso-comunitario (mostrar)="this.mostrar=$event">
+        </app-crear-tipo-recurso-comunitario>
+      </div>
+      <!-- Al ser el mostrarModificar = true mostrará el form,ulario de modificar el tipo recurso y se enviará un array de todos los
+      tipos de recursos comunitarios y el valor del tipo_recursos_comunitario (la id)-->
+      <div class="col-12 col-xl-6" *ngIf="this.mostrarModificar">
+        <app-modificar-tipo-recurso-comunitario (mostrar)="this.mostrarModificar=$event"
+        [TipoRecurso]="tipos_recursos_comunitarios"
+        [idTipoRecursoComunitario]="nuevoRecurso.value.tipo_recursos_comunitario">
+        </app-modificar-tipo-recurso-comunitario>
+      </div>
+    </div>
+  </div>
+</main>

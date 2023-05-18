@@ -29,7 +29,7 @@
           <select class="form-select" id="teleoperador" name="teleoperador"
                   [(ngModel)]="alarma.id_teleoperador" required>
             <option class="form-select" *ngFor="let teleoperador of teleoperadores; let i = index"
-                    [value]="teleoperador.id" >{{ alarma.id_teleoperador.id === teleoperador.id? optionSelected(i):"" }}{{ teleoperador.first_name }}</option>
+                    [value]="teleoperador?.id" >{{ alarma?.id_teleoperador?.id === teleoperador.id? optionSelected(i):"" }}{{ teleoperador.first_name }}</option>
           </select>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import {IGrupo} from '../interfaces/i-grupo';
 
 export class Grupo implements IGrupo {
-  id: number;
+  pk: number;
   name:string;
 }

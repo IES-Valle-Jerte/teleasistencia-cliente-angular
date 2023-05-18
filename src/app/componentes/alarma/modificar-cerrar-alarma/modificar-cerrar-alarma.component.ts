@@ -1,12 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component,OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { Alarma } from "../../../clases/alarma";
-import { User } from "../../../clases/user";
 import { CargaAlarmaService } from "../../../servicios/alarmas/carga-alarma.service";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
 import {Paciente} from "../../../clases/paciente";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {IAlarma} from "../../../interfaces/i-alarma";
+import {
+  CargaRelacionPacientePersonaService
+} from "../../../servicios/relacion-paciente-persona/carga-relacion-paciente-persona.service";
+import {IRelacionPacientePersona} from "../../../interfaces/i-relacion-paciente-persona";
+import {
+  CargaPersonaContactoAlarmaService
+} from "../../../servicios/persona-contacto-alarma/carga-persona-contacto-alarma.service";
+import {IClasificacioRecurso} from "../../../interfaces/i-clasificacio-recurso";
+import {IRelacionTerminalRecursoComunitarios} from "../../../interfaces/i-relacion-terminal-recurso-comunitarios";
+import {IPersonaContactoAlarma} from "../../../interfaces/i-persona-contacto-alarma";
 
 
 @Component({
@@ -15,23 +25,63 @@ import {Paciente} from "../../../clases/paciente";
   styleUrls: ['./modificar-cerrar-alarma.component.scss']
 })
 export class ModificarCerrarAlarmaComponent implements OnInit {
-  public alarma: Alarma
+  public alarma: IAlarma
   public idAlarma: number
   public paciente_ucr: Paciente
+  //FORMS
+  public formInf: FormGroup;
+  public formPersona: FormGroup;
+  public idTerminal: number;
+  public idTerminalPersona: number;
+  //PERSONA CONTACTO
+  public listaPersonas: IRelacionPacientePersona[];
+  public personas_en_alarma: IPersonaContactoAlarma[];
+  //RECURSOS
+  public tiposRecursos: IClasificacioRecurso[];
 
 
-  constructor(private route: ActivatedRoute, private titleService: Title, private router: Router, private cargarAlarmas: CargaAlarmaService) { }
+
+  constructor(private route: ActivatedRoute,
+              private cargaPersonaAlarma: CargaPersonaContactoAlarmaService,private cargarPersona:CargaRelacionPacientePersonaService,
+              private titleService: Title,private formBuilder: FormBuilder, private router: Router,
+              private cargarAlarmas: CargaAlarmaService) { }
 
   ngOnInit(): void {
+
+    //PETICIONES
     this.alarma = this.route.snapshot.data['alarma'];
     this.idAlarma = this.route.snapshot.params['id'];
+    this.personas_en_alarma = this.route.snapshot.data['personas_en_alarma'];
     this.paciente_ucr = this.alarma.id_paciente_ucr
-    if (this.alarma.id_teleoperador) {
-      this.alarma.id_teleoperador = this.alarma.id_teleoperador.id;
+    //FORMULARIO NIVEL 1
+    this.formInf = this.formBuilder.group({
+      observaciones:[this.alarma?.observaciones,Validators.required],
+      resumen:[this.alarma?.resumen,Validators.required],
+    })
+    //FORMULARIO NIVEL 2
+    this.formPersona = this.formBuilder.group({
+      persona:['',Validators.required]
+    })
+    //SACAR ID DE TERMINAL
+    if (this.alarma.id_terminal) {
+      this.idTerminal = this.alarma.id_terminal.id;
+      this.idTerminalPersona = this.alarma.id_terminal.id;
+    }else{
+      this.idTerminal = this.alarma.id_paciente_ucr.id_terminal.id;
+      this.idTerminalPersona = this.alarma.id_paciente_ucr.id;
     }
-    if (this.alarma.id_paciente_ucr) {
-      this.alarma.id_paciente_ucr = this.alarma.id_paciente_ucr.id;
-    }
+    //PETICION GET PACIENTES DE CONTACTO
+    this.cargarPersona.getRelacionPacientePersonaTerminal(this.idTerminalPersona).subscribe(
+      lista =>{
+        this.listaPersonas = lista;
+        this.filtrarPersonasRelacionPaciente()
+      },
+      error => {},
+      ()=>{
+      }
+    )
+    //NIVEL 3
+    this.tiposRecursos = this.route.snapshot.data['clas_recursos']
 
 
   }
@@ -40,8 +90,13 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
     document.getElementsByClassName('form-select')[i].setAttribute('selected', '');
   }
   modificarAlarma(): void {
-    this.alarma.estado_alarma = "Cerrada"
-    this.cargarAlarmas.modificarAlarma(this.alarma).subscribe(
+    let datos = {
+      estado_alarma:"Cerrada",
+      observaciones: this.formInf.value.observaciones,
+      resumen: this.formInf.value.resumen,
+      id_teleoperador: localStorage.getItem("id")
+    }
+    this.cargarAlarmas.cerrarAlarma(datos,this.idAlarma).subscribe(
       e => {
         this.alertExito()
         this.router.navigate(['/alarmas'])
@@ -124,4 +179,58 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
   obtenerTerminal() {
     return this.alarma.id_terminal.numero_terminal
   }
+  //NIVEL 2
+  subirPost(){
+    let datos=
+    {
+      id_alarma:this.idAlarma,
+      id_persona_contacto:this.formPersona.value.persona.id,
+      fecha_registro:this.fechaActual()
+    }
+    this.cargaPersonaAlarma.nuevaPersonaContactoAlarma(datos).subscribe(()=>{
+      this.cargaPersonaAlarma.getPersonasEnAlarmaSegunId(this.alarma.id).subscribe(personas=>{
+          this.personas_en_alarma = personas;
+        },
+        error => {},
+        ()=>{
+          this.filtrarPersonasRelacionPaciente();
+          this.formPersona.get('persona').setValue(null);
+        })
+    })
+  }
+  borrarPersona(objetoPersona:IPersonaContactoAlarma){
+    //ELIMINAR EL BLOQUE de PERSONA CORRESPONDIENTE
+    let contenedor = document.getElementById('personas');
+    contenedor.removeChild(document.getElementById(""+objetoPersona.id))
+    this.cargaPersonaAlarma.eliminarPersonaContactoAlarma(objetoPersona).subscribe(
+      ()=>{
+        this.cargaPersonaAlarma.getPersonasEnAlarmaSegunId(this.alarma.id).subscribe(personas=>{
+          this.personas_en_alarma = personas;
+          this.cargarPersona.getRelacionPacientePersonaTerminal(this.idTerminalPersona).subscribe(recursos=>{
+            this.listaPersonas = recursos;
+            //Se llama a esta funcion para filtrar los distintos campos del select
+            this.filtrarPersonasRelacionPaciente()
+          })
+        })
+      }
+    )
+  }
+
+  //Funcion que permite actualizar los valores del select segun los peticiones que se realicen.
+  filtrarPersonasRelacionPaciente(){
+    let arrayPersonasAlarma = this.personas_en_alarma;
+    for(let i = 0;i<arrayPersonasAlarma.length;i++){
+      this.listaPersonas = this.listaPersonas.filter(persona => persona.id !== arrayPersonasAlarma[i].id_persona_contacto.id)
+    }
+  }
+  fechaActual(){
+    let fecha = new Date();
+    let anio = fecha.getFullYear();
+    let mes = fecha.getMonth() + 1;
+    let dia = fecha.getDate();
+    let hora =fecha.getHours();
+    let minutos =fecha.getMinutes();
+    return`${anio}-${mes.toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')} ${hora.toString().padStart(2,'0')}:${minutos.toString().padStart(2, '0')}`;
+  }
+
 }

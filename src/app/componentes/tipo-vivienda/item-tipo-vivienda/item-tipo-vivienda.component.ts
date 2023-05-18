@@ -66,7 +66,7 @@ export class ItemTipoViviendaComponent implements OnInit {
       confirmButtonText: 'Aceptar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.eliminarTipoVivienda('situaciones')
+        this.eliminarTipoVivienda('viviendas')
       }
     })
   }

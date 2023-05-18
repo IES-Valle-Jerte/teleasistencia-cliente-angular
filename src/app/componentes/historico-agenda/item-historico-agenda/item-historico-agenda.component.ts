@@ -24,6 +24,7 @@ export class ItemHistoricoAgendaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.historico_agenda.fecha_llamada)
   }
 
   //Toast para el Alert indicando que la operación fue exitosa

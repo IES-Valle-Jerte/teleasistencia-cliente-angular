@@ -8,21 +8,20 @@
     </ol>
   </nav>
   <h1 class="component-title">Crear nuevo usuario</h1>
-  <form #nuevoUserForm="ngForm">
+  <form [formGroup]="formCrearU" (submit)="nuevoUser()">
 
     <div class="form-group mb-3">
       <label for="username" class="form-label">Nombre de usuario</label>
-      <input type="text" name="username" id="username" class="form-control"
-             required minlength="4" maxlength="20" pattern="^[a-zA-Z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){2,18}[a-zA-Z0-9]$" [(ngModel)]="user.username" #username="ngModel">
-      <div *ngIf="username.invalid && (username.dirty || username.touched)"
-           class="alert alert-secondary" role="alert">
-        <div *ngIf="username.errors?.required">
+      <input type="text" id="username" class="form-control" formControlName="username"
+             required minlength="4" maxlength="20" pattern="^[a-zA-Z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){2,18}[a-zA-Z0-9]$">
+      <div *ngIf="this.formCrearU.controls.username.invalid && (this.formCrearU.controls.username.dirty || this.formCrearU.controls.username.touched)" class="alert alert-secondary" role="alert">
+        <div *ngIf="this.formCrearU.controls.username.errors.required">
           El nombre de usuario es obligatorio
         </div>
-        <div *ngIf="username.errors?.minlength">
+        <div *ngIf="this.formCrearU.controls.username.errors?.minlength">
           El nombre de usuario debe tener al menos 4 caracteres
         </div>
-        <div *ngIf="username.errors?.pattern">
+        <div *ngIf="this.formCrearU.controls.username.errors?.pattern">
           Introduzca un nombre de usuario válido
         </div>
       </div>
@@ -30,31 +29,43 @@
 
     <div class="form-group mb-3">
       <label for="password" class="form-label">Contraseña</label>
-      <input type="password" name="password" id="password" class="form-control"
-             required minlength="8" maxlength="16" pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$"
-             [(ngModel)]="user.password" #password="ngModel">
-      <div *ngIf="password.invalid && (password.dirty || password.touched)"
+      <div class="input-group">
+        <input [type]="!hide ? 'password' : 'text'" type="password" id="password" formControlName="password" class="form-control"
+               required minlength="8" maxlength="16" pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$">
+          <i class="input-group-text" (click)="hide = !hide" class="{{hide ? 'fas fa-eye' : 'fas fa-eye-slash'}}" ></i>
+      </div>
+      <div *ngIf="this.formCrearU.controls.password.invalid && (this.formCrearU.controls.password.dirty || this.formCrearU.controls.password.touched)"
            class="alert alert-secondary" role="alert">
-        <div *ngIf="password.errors?.required; else elseBlock">
+        <div *ngIf="this.formCrearU.controls.password.errors?.required; else elseBlock">
           La contraseña es obligatoria
         </div>
         <ng-template #elseBlock>
           La contraseña debe tener al menos un dígito, al menos una minúscula y al menos una mayúscula
         </ng-template>
-        <div *ngIf="password.errors?.minlength">
+        <div *ngIf="this.formCrearU.controls.password.errors?.minlength">
           La contraseña debe tener entre 8 y 16 caracteres
         </div>
       </div>
     </div>
 
     <div class="form-group mb-3">
+      <label for="password" class="form-label">Confirmar Contraseña</label>
+      <div class="input-group">
+        <input [type]="!hide ? 'password' : 'text'" type="password" id="confirmpassword" formControlName="confirmpassword" class="form-control"
+               required minlength="8" maxlength="16" pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$">
+        <i class="input-group-text" (click)="hide = !hide" class="{{hide ? 'fas fa-eye' : 'fas fa-eye-slash'}}" ></i>
+      </div>
+      <div *ngIf="this.formCrearU.controls.confirmpassword.value!=this.formCrearU.controls.password.value" class="alert alert-secondary" role="alert">
+        La confirmacion de contraseña debe coincidir con la contraseña
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
       <label for="first_name" class="form-label">Nombre</label>
-      <input type="text" name="first_name" id="first_name" class="form-control"
-             required maxlength="200" pattern="^[\w'\-,.][^0-9_!¡?÷?¿(\)\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"
-             [(ngModel)]="user.first_name"
-             #first_name="ngModel">
-      <div *ngIf="first_name.invalid && (first_name.dirty || first_name.touched)" class="alert alert-secondary" role="alert">
-        <div *ngIf="first_name.errors?.required; else elseBlock">
+      <input type="text" id="first_name" formControlName="first_name" class="form-control"
+             required maxlength="200" pattern="^[\w'\-,.][^0-9_!¡?÷?¿(\)\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$">
+      <div *ngIf="this.formCrearU.controls.first_name.invalid && (this.formCrearU.controls.first_name.dirty || this.formCrearU.controls.first_name.touched)" class="alert alert-secondary" role="alert">
+        <div *ngIf="this.formCrearU.controls.first_name.errors?.required; else elseBlock">
           El nombre es obligatorio
         </div>
         <ng-template #elseBlock>
@@ -65,12 +76,11 @@
 
     <div class="form-group mb-3">
       <label for="apellidos" class="form-label">Apellidos</label>
-      <input type="text" name="apellidos" id="apellidos" class="form-control"
-             required maxlength="200" pattern="^[\w'\-,.][^0-9_!¡?÷?¿(\)\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"
-             [(ngModel)]="user.last_name" #last_name="ngModel">
-      <div *ngIf="last_name.invalid && (last_name.dirty || last_name.touched)" class="alert alert-secondary"
+      <input type="text" id="apellidos" formControlName="last_name" class="form-control"
+             required maxlength="200" pattern="^[\w'\-,.][^0-9_!¡?÷?¿(\)\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$">
+      <div *ngIf="this.formCrearU.controls.last_name.invalid && (this.formCrearU.controls.last_name.dirty || this.formCrearU.controls.last_name.touched)" class="alert alert-secondary"
            role="alert">
-        <div *ngIf="last_name.errors?.required; else elseBlock">
+        <div *ngIf="this.formCrearU.controls.last_name.errors?.required; else elseBlock">
           Los apellidos son obligatorios
         </div>
       </div>
@@ -81,11 +91,11 @@
 
     <div class="form-group mb-3">
       <label for="email" class="form-label">Email</label>
-      <input type="email" name="email" id="email" class="form-control" required
-              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="user.email" #email="ngModel">
-      <div *ngIf="email.invalid && (email.dirty || email.touched)"
+      <input type="email" id="email" formControlName="email" class="form-control" required
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+      <div *ngIf="this.formCrearU.controls.email.invalid && (this.formCrearU.controls.email.dirty || this.formCrearU.controls.email.touched)"
            class="alert alert-secondary" role="alert">
-        <div *ngIf="email.errors?.required; else elseBlock">
+        <div *ngIf="this.formCrearU.controls.email.errors?.required; else elseBlock">
           El email es obligatorio
         </div>
         <ng-template #elseBlock>
@@ -95,19 +105,23 @@
     </div>
 
     <div class="form-group mb-3">
+      <label for="imagen" class="form-label">Imagen</label>
+      <input type="file" class="file-input" id="imagen" class="form-control" formControlName="imagen" (change)="onFileChanged($event)">
+    </div>
+
+    <div class="form-group mb-3">
       <label for="groups" class="form-label">Grupo</label>
-      <select class="form-select" id="groups" name="grupos"
-              [(ngModel)]="user.groups" required>
-        <option class="grupo_option"
-                *ngFor="let group of this.grupos; let i = index"
-                [value]="group.pk">{{ group.name }}</option>
-      </select>
+      <ng-select id="groups" name="grupos" formControlName="groups">
+        <ng-option *ngFor="let group of this.grupos; let i = index"
+                   [value]="group.pk">{{group.name}}</ng-option>
+      </ng-select>
     </div>
 
     <button type="submit" class="btn btn-outline-success m-1" (click)="nuevoUser()"
-            [disabled]="!nuevoUserForm.form.valid">
+            [disabled]="!formCrearU.valid || this.formCrearU.controls.confirmpassword.value!=this.formCrearU.controls.password.value">
       Guardar
     </button>
+
     <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/usuarios']">
       Volver
     </button>

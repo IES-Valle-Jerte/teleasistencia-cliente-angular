@@ -13,7 +13,7 @@ export class BorrarTipoViviendaService implements Resolve<ITipoVivienda>{
   constructor(private cargaViviendas: CargaViviendaService, private router: Router) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ITipoVivienda> {
-    return this.cargaViviendas.getVivienda(route.params['id']).pipe(
+    return this.cargaViviendas.getViviendas().pipe(
       catchError(error => {
         this.router.navigate(['/inicio']);
         return of(null);

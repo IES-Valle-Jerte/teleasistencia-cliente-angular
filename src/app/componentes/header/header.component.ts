@@ -10,6 +10,8 @@ import {Router} from "@angular/router";
 import {ModificarAlarmaResolveService} from "../../servicios/alarmas/modificar-alarma-resolve.service";
 import {ProfileService} from "../../servicios/profile.service";
 import {IProfileUser} from "../../interfaces/i-profile-user";
+import {IClasificacioRecurso} from "../../interfaces/i-clasificacio-recurso";
+import {CargarClasificacionRecursosService} from "../../services/recursos/cargar-clasificacion-recursos.service";
 import {AuthService} from "../../servicios/auth.service";
 
 @Component({
@@ -25,13 +27,17 @@ export class HeaderComponent implements OnInit, DoCheck {
   public accion: string
   public teleoperador: number
   public grupoTeleoperador: string;
+  public clasificacionRecursos: IClasificacioRecurso[] | []; // Esta variable la utilizaremos para obtener la clasificacion de recursos que mostraremos en el apartado de Recursos
+
+  public cookiesAceptadas: boolean;
+
   isAdmin: boolean;
 
   subdominioNombre = environment.subdominio.nombre;
   subdominioColor = environment.subdominio.color;
 
   constructor(private auth: AuthService, private profileService: ProfileService,
-              private cargarAlarma: CargaAlarmaService, private router: Router) {
+              private cargarAlarma: CargaAlarmaService, private router: Router,private cargarClasificacion: CargarClasificacionRecursosService,) {
   }
 
   ngOnInit(): void {
@@ -43,21 +49,29 @@ export class HeaderComponent implements OnInit, DoCheck {
         next: msg => this.comprobarAccion(msg), // Called whenever there is a message from the server.
         error: err => console.log(err), // Called if at any point WebSocket API signals some kind of error.
         complete: () => console.log('complete') // Called when connection is closed (for whatever reason).
-
       })
-    }
-  }
 
+      // Utilizamos un GET para cargar la clasificacion de los recursos
+      this.cargarClasificacion.getClasificacionRecursosComunitarios().subscribe(
+        listaClasificacion => {
+          this.clasificacionRecursos = listaClasificacion;
+        },
+        error => console.log(error),
+        () => console.log('Fin de observable')
+      )
+    }
+    this.cookiesAceptadas=true; //esto desactiva el popput de cookies
+  }
   //Compruebo si esta login para ocultar el navbar
+
   ngDoCheck():
     void {
     this.isLoggedIn = this.auth.isLoggedIn()
     this.isAdmin = this.auth.isAdmin();
-
   }
 
   //Toast para el Alert indicando que la operación fue exitosa
-  alertExito()
+  alertExito(texto:string)
     :
     void {
     const Toast = Swal.mixin({
@@ -75,7 +89,7 @@ export class HeaderComponent implements OnInit, DoCheck {
 
     Toast.fire({
       icon: 'success',
-      title: environment.fraseAlarmaAceptada,
+      title: texto,
     })
   }
 
@@ -107,6 +121,7 @@ export class HeaderComponent implements OnInit, DoCheck {
                 any
   ):
     void {
+
     //obtenemos el usuario logeado
     this.profileService.getProfile()
       .subscribe((resp: IProfileUser[]) => {
@@ -118,12 +133,14 @@ export class HeaderComponent implements OnInit, DoCheck {
             this.accion = msg['action']
             //asignamos el valor de alarma a otra variable
             this.alarmaAModificar = msg['alarma']
+
             //iniciamos el modal mostrando la id y comprobando la procedencia de la alarma
             Swal.fire({
               html: '<h3>¡Atención! Nueva alarma desde ' + this.comprobarProcedencia(this.alarmaAModificar) + '<h3>' +
                 '<p class="left">Identificador de alarma: ' + this.alarmaAModificar.id + '</p>' +
+                '<p class="left"> Tipo de alarma: ' + this.alarmaAModificar.id_tipo_alarma.nombre + ' ('+this.alarmaAModificar.id_tipo_alarma.id_clasificacion_alarma.nombre+')'+'</p>' +
                 '<p class="left">' + this.comprobarProcedenciaTitular(this.alarmaAModificar) + '</p>' +
-                '<p class="left"> Tipo de alarma: ' + this.alarmaAModificar.id_tipo_alarma.nombre + '</p>' +
+                '<p class="left"> Nº Telefono: ' + this.obtenerTelefonoMovil() + '</p>' +
                 '<p class="left">¿Desea Asignarse esta alarma?</p>',
               showCancelButton: true,
               confirmButtonText: 'Aceptar',
@@ -138,6 +155,14 @@ export class HeaderComponent implements OnInit, DoCheck {
         }
       )
 
+  }
+  obtenerTelefonoMovil() {
+    //si existe paciente ucr devolvemos el telefono moviul
+    if (this.alarmaAModificar.id_paciente_ucr) {
+      return  this.alarmaAModificar.id_paciente_ucr.id_persona.telefono_movil
+    }
+    // en otro caso devolvemos el telefono movil asociado al terminal
+    return this.alarmaAModificar.id_terminal.id_titular.id_persona.telefono_movil
   }
 
   // con este metodo se asigna el teleoperador a la alarma y con el servicio se
@@ -175,7 +200,12 @@ export class HeaderComponent implements OnInit, DoCheck {
     // si una alarma fue asignada ya se cierra el modal
     if (msg['action'] == 'alarm_assignment') {
       Swal.close()
-      this.alertExito()
+      this.alertExito(environment.fraseAlarmaAceptada)
+    }
+    // si una alarma fue asignada ya se cierra el modal
+    if (msg['action'] == 'alarm_auto_resolve') {
+      Swal.close()
+      this.alertExito(environment.fraseCerrarAlarmaVoluntario)
     }
   }
 
@@ -190,8 +220,8 @@ export class HeaderComponent implements OnInit, DoCheck {
 
     //si no ese null el terminal devolvemos  su numero y el titular del mismo
     if (msg.id_terminal)
-      return 'Titular: ' + msg.id_terminal.id_titular.id_persona.nombre + ' ' + msg.id_terminal.id_titular.id_persona.apellidos + '' +
-        '\nTerminal ' + msg.id_terminal.numero_terminal
+      return 'Titular: ' + msg.id_terminal.id_titular.id_persona.nombre + ' ' + msg.id_terminal.id_titular.id_persona.apellidos /*+ '' +
+        '\nTerminal ' + msg.id_terminal.numero_terminal*/
   }
 
   comprobarProcedencia(msg)
@@ -204,8 +234,11 @@ export class HeaderComponent implements OnInit, DoCheck {
 
     //si no ese null devolvemos terminal
     if (msg.id_terminal)
-      return 'Terminal'
+      return 'Terminal '+msg.id_terminal.numero_terminal
   }
 
+  aceptarCookies(): void{
+    this.cookiesAceptadas=true;
+  }
 
 }

@@ -37,7 +37,6 @@ export class ModificarTipoAlarmaComponent implements OnInit {
       es_dispositivo:[this.tipo_alarma.es_dispositivo,Validators.required],
       id_clasificacion_alarma:[this.tipo_alarma.id_clasificacion_alarma.id,Validators.required],
     });
-    console.log(this.tipo_alarma.es_dispositivo);
     this.comprobarBoton();
   }
   get f(){
@@ -72,7 +71,6 @@ export class ModificarTipoAlarmaComponent implements OnInit {
 
 
   modificarTipoAlarma(): void {
-    console.log(this.formEdit.value);
 
     this.cargaTiposAlarmas.modificarTipoAlarma(this.formEdit.value,this.idTipoAlarma).subscribe(
       e => {

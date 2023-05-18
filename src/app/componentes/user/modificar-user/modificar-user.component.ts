@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import {IGrupo} from "../../../interfaces/i-grupo";
 import {CargaGrupoService} from "../../../servicios/carga-grupo.service";
 import {environment} from "../../../../environments/environment";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-modificar-user',
@@ -18,9 +19,9 @@ export class ModificarUserComponent implements OnInit {
   public user: IUsers;
   public idUser: number;
   public grupos: IGrupo[];
+  public formModificarU: FormGroup;
 
-
-  constructor(private route: ActivatedRoute, private titleService: Title, private cargaUsers: CargaUserService, private router: Router, private cargaGrupo : CargaGrupoService) {
+  constructor(private route: ActivatedRoute, private titleService: Title, private cargaUsers: CargaUserService, private router: Router, private cargaGrupo : CargaGrupoService, private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -36,6 +37,14 @@ export class ModificarUserComponent implements OnInit {
 
     this.user.groups = this.user.groups[0].id;
 
+    this.formModificarU = this.formBuilder.group({
+      username:  [this.user.username,[Validators.required,Validators.min(4),Validators.pattern('^[a-zA-Z0-9](_(?!(\\.|_))|\\.(?!(_|\\.))|[a-zA-Z0-9]){2,18}[a-zA-Z0-9]$')]],
+      first_name: [this.user.first_name,[Validators.required,Validators.max(200),Validators.pattern('^[\\w\'\\-,.][^0-9_!¡?÷?¿(\\)\\\\+=@#$%ˆ&*(){}|~<>;:[\\]]{2,}$')]],
+      last_name: [this.user.last_name,[Validators.required,Validators.max(200),Validators.pattern('^[\\w\'\\-,.][^0-9_!¡?÷?¿(\\)\\\\+=@#$%ˆ&*(){}|~<>;:[\\]]{2,}$')]],
+      email: [this.user.email,[Validators.required,Validators.email,Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      groups: [this.user.groups,Validators.required],
+      imagen: ['']
+    });
   }
 
   optionSelected(i: number): void {
@@ -43,7 +52,12 @@ export class ModificarUserComponent implements OnInit {
   }
 
   modificarUser(): void {
-    this.cargaUsers.modificarUser(this.user).subscribe(
+    const myFormData = new FormData();
+    console.log(this.formModificarU)
+    for ( let key in  this.formModificarU.controls) {
+      myFormData.append(key, this.formModificarU.get(key).value);
+    }
+    this.cargaUsers.modificarUser(myFormData,this.idUser).subscribe(
       e => {
         this.alertExito()
         this.router.navigate(['/usuarios']);
@@ -52,6 +66,12 @@ export class ModificarUserComponent implements OnInit {
         this.alertError()
       }
     );
+  }
+  onFileChanged(event: any) {
+    if (event.target.files && event.target.files.length) {
+      const file = event.target.files[0];
+      this.formModificarU.controls.imagen.setValue(file)
+    }
   }
   //Toast para el Alert indicando que la operación fue exitosa
   alertExito() :void {
@@ -92,5 +112,6 @@ export class ModificarUserComponent implements OnInit {
       title: environment.fraseErrorModificar
     })
   }
-
+  //variable necesaria para ocultar/mostrar la contraseña
+  hide = false;
 }

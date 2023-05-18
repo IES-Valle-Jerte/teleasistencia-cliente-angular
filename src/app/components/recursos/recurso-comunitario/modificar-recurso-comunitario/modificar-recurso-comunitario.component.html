@@ -1,0 +1,62 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+<div class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/recursos_comunitarios/listar/',id]">Recursos comunitarios</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Modificar recurso comunitario</li>
+    </ol>
+  </nav>
+  <h1 class="component-title">Modificar datos recurso comunitario {{idRecursoComunitario}}</h1>
+  <form [formGroup]="editarRecurso">
+    <div class="form-group mb-3">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input type="text" name="nombre" id="nombre" class="form-control" value="{{recurso_comunitario.nombre}}" formControlName="nombre">
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="telefono" class="form-label">Teléfono</label>
+      <input type="tel" name="telefono" id="telefono" class="form-control" value="{{recurso_comunitario.telefono}}" formControlName="telefono">
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="tipo_recurso_comunitario" class="form-label">Tipo de recurso comunitario</label>
+      <select class="form-select" id="tipo_recurso_comunitario" name="tipo_recurso_comunitario" value="{{recurso_comunitario.telefono}}"
+              formControlName="clasificacion_recursos_comunitario">
+        <option class="tipo_recurso_comunitario_option"
+                *ngFor="let tipo_recurso_comunitario of tipo_recurso"
+                value="{{tipo_recurso_comunitario.id}}">
+          {{tipo_recurso_comunitario.nombre}}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="localidad" class="form-label">Localidad</label>
+      <input type="text" name="localidad" id="localidad" class="form-control" value="{{direccion.localidad}}" formControlName="localidad">
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="provincia" class="form-label">Provincia</label>
+      <input type="text" name="provincia" id="provincia" class="form-control" value="{{direccion.provincia}}" formControlName="provincia">
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="direccion" class="form-label">Dirección</label>
+      <input type="text" name="direccion" id="direccion" class="form-control" value="{{direccion.direccion}}" formControlName="direccion">
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="codigo_postal" class="form-label">Código postal</label>
+      <input type="text" name="codigo_postal" id="codigo_postal" class="form-control" value="{{direccion.codigo_postal}}" formControlName="cd">
+    </div>
+
+    <button type="submit" class="btn btn-outline-success m-1" (click)="modificarRecursoComunitario()">
+      Guardar
+    </button>
+    <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/recursos_comunitarios']">
+      Volver
+    </button>
+  </form>
+</div>
+</main>

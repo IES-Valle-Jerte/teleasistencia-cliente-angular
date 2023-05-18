@@ -16,11 +16,11 @@ import {ListaTiposCentrosSanitariosResolveService} from './servicios/lista-tipos
 import {ModificarTipoCentroSanitarioComponent} from './componentes/tipo-centro-sanitario/modificar-tipo-centro-sanitario/modificar-tipo-centro-sanitario.component';
 import {ModificarTipoCentroSanitarioResolveService} from './servicios/modificar-tipo-centro-sanitario-resolve.service';
 import {CrearTipoCentroSanitarioComponent} from './componentes/tipo-centro-sanitario/crear-tipo-centro-sanitario/crear-tipo-centro-sanitario.component';
-import {ListaTiposRecursosComunitariosComponent} from './componentes/tipo-recurso-comunitario/lista-tipos-recursos-comunitarios/lista-tipos-recursos-comunitarios.component';
+import {ListaTiposRecursosComunitariosComponent} from './components/recursos/tipo-recurso-comunitario/lista-tipos-recursos-comunitarios/lista-tipos-recursos-comunitarios.component';
 import {ListaTiposRecursosComunitariosResolveService} from './servicios/lista-tipos-recursos-comunitarios-resolve.service';
-import {ModificarTipoRecursoComunitarioComponent} from './componentes/tipo-recurso-comunitario/modificar-tipo-recurso-comunitario/modificar-tipo-recurso-comunitario.component';
+import {ModificarTipoRecursoComunitarioComponent} from './components/recursos/tipo-recurso-comunitario/modificar-tipo-recurso-comunitario/modificar-tipo-recurso-comunitario.component';
 import {ModificarTipoRecursoComunitarioResolveService} from './servicios/modificar-tipo-recurso-comunitario-resolve.service';
-import {CrearTipoRecursoComunitarioComponent} from './componentes/tipo-recurso-comunitario/crear-tipo-recurso-comunitario/crear-tipo-recurso-comunitario.component';
+import {CrearTipoRecursoComunitarioComponent} from './components/recursos/tipo-recurso-comunitario/crear-tipo-recurso-comunitario/crear-tipo-recurso-comunitario.component';
 import {ListaTiposModalidadesPacientesComponent} from './componentes/tipo-modalidad-paciente/lista-tipos-modalidades-pacientes/lista-tipos-modalidades-pacientes.component';
 import {ListaTiposModalidadesPacientesResolveService} from './servicios/lista-tipos-modalidades-pacientes-resolve.service';
 import {ModificarTipoModalidadPacienteComponent} from './componentes/tipo-modalidad-paciente/modificar-tipo-modalidad-paciente/modificar-tipo-modalidad-paciente.component';
@@ -43,11 +43,11 @@ import {ModificarPersonaComponent} from './componentes/persona/modificar-persona
 import {ModificarPersonaResolveService} from './servicios/modificar-persona-resolve.service';
 import {CrearPersonaComponent} from './componentes/persona/crear-persona/crear-persona.component';
 import {ModificarCentroSanitarioResolveService} from './servicios/modificar-centro-sanitario-resolve.service';
-import {ListaRecursosComunitariosComponent} from './componentes/recurso-comunitario/lista-recursos-comunitarios/lista-recursos-comunitarios.component';
+import {ListaRecursosComunitariosComponent} from './components/recursos/recurso-comunitario/lista-recursos-comunitarios/lista-recursos-comunitarios.component';
 import {ListaRecursosComunitariosResolveService} from './servicios/lista-recursos-comunitarios-resolve.service';
-import {ModificarRecursoComunitarioComponent} from './componentes/recurso-comunitario/modificar-recurso-comunitario/modificar-recurso-comunitario.component';
+import {ModificarRecursoComunitarioComponent} from './components/recursos/recurso-comunitario/modificar-recurso-comunitario/modificar-recurso-comunitario.component';
 import {ModificarRecursoComunitarioResolveService} from './servicios/modificar-recurso-comunitario-resolve.service';
-import {CrearRecursoComunitarioComponent} from './componentes/recurso-comunitario/crear-recurso-comunitario/crear-recurso-comunitario.component';
+import {CrearRecursoComunitarioComponent} from './components/recursos/recurso-comunitario/crear-recurso-comunitario/crear-recurso-comunitario.component';
 import {PantallaLoginComponent} from './componentes/pantalla-login/pantalla-login.component';
 import {ListaRelacionTerminalRecursosComunitariosResolveService} from "./servicios/relacion-terminal-recurso-comunitario/lista-relacion-terminal-recursos-comunitarios-resolve.service";
 import {
@@ -231,6 +231,10 @@ import { NuevoTipoAgendaComponent } from './componentes/tipo-agenda/nuevo-tipo-a
 import { DetallesTipoAgendaComponent } from './componentes/tipo-agenda/detalles-tipo-agenda/detalles-tipo-agenda.component';
 import { DetallesTipoAgendaResolveService } from './servicios/detalles-tipo-agenda-resolve.service';
 import { AgendaComponent } from './componentes/agenda/lista-agenda/agenda.component';
+import {VerRecursoComponent} from "./components/recursos/recurso-comunitario/ver-recurso/ver-recurso.component";
+
+
+
 import {
   CrearPersonaContactoComponent
 } from "./componentes/personas-contacto/crear-persona-contacto/crear-persona-contacto.component";
@@ -239,12 +243,22 @@ import {
 } from "./componentes/datos-sanitario/crear-datos-sanitarios/crear-datos-sanitarios.component";
 import {AuthGuard} from "./guards/auth.guard";
 import {environment} from "../environments/environment";
+
 import {BotonInfoAyudasComponent} from "./componentes/boton-info-ayudas/boton-info-ayudas.component";
+
+import {ModificarPasswordComponent} from "./componentes/user/modificar-password/modificar-password.component";
+import {ModificarPasswordUsuarioComponent} from "./componentes/botones-modificar/modificar-password-usuario/modificar-password-usuario.component";
+import {ModificarImagenUsuarioComponent} from "./componentes/botones-modificar/modificar-imagen-usuario/modificar-imagen-usuario.component";
+import {ItemRecursoComunitarioComponent} from "./components/recursos/recurso-comunitario/item-recurso-comunitario/item-recurso-comunitario.component";
+import {
+  ClasificacionRecursoscomunitariosResolveService
+} from "./servicios/cerrar-alarma/clasificacion-recursoscomunitarios-resolve.service";
+import {PersonasEnAlarmaResolveService} from "./servicios/persona-contacto-alarma/personas-en-alarma-resolve.service";
+
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
   {path: 'inicio', canActivate: [AuthGuard], component: HomeComponent},
   {path: 'recurso-comunitarios-personales', canActivate: [AuthGuard], component: RecursosComunitariosPersonalesComponent},
-
   {
     path: 'usuarios',
     component: ListaUsersComponent,
@@ -489,8 +503,19 @@ const routes: Routes = [
       tipos_centros_sanitarios: ListaTiposCentrosSanitariosResolveService
     }
   },
-  {
+  /*{
     path: 'recursos_comunitarios',
+    component: ListaRecursosComunitariosComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
+    },
+    resolve: {
+      recursos_comunitarios: ListaRecursosComunitariosResolveService
+    }
+  },*/
+  {
+    path: 'recursos_comunitarios/listar/:id',
     component: ListaRecursosComunitariosComponent,
     canActivate: [AuthGuard],
     data:{
@@ -513,7 +538,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'recursos_comunitarios/nuevo',
+    path: 'recursos_comunitarios/nuevo/:id', // Va a ser un nuevo recurso pero de la clasificación específica
     component: CrearRecursoComunitarioComponent,
     canActivate: [AuthGuard],
     data:{
@@ -521,6 +546,22 @@ const routes: Routes = [
     },
     resolve: {
       tipos_recursos_comunitarios: ListaTiposRecursosComunitariosResolveService
+    }
+  },
+  {
+    path: 'recursos_comunitarios/ver_recursos/:id',
+    component: VerRecursoComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
+    }
+  },
+  {
+    path: 'recursos_comunitarios/borrado/:id',
+    component:ItemRecursoComunitarioComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
     }
   },
   {
@@ -576,6 +617,17 @@ const routes: Routes = [
     data:{
       role:null
     },
+    resolve: {
+      agendas: ListaAgendaResolveService,
+      tipos_agenda: ListaTiposAgendaResolveService,
+      personas: ListaPersonasResolveService,
+      pacientes: ListaPacientesResolveService
+    }
+  },
+  {
+    path:'agenda/nueva/:id',
+    component: NuevoAgendaComponent,
+    canActivate: [AuthGuard],
     resolve: {
       agendas: ListaAgendaResolveService,
       tipos_agenda: ListaTiposAgendaResolveService,
@@ -756,6 +808,30 @@ const routes: Routes = [
     }
   },
   {
+    path: 'usuarios/modificarPassword/:id',
+    component: ModificarPasswordComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
+    },
+  },
+  {
+    path: 'usuarios/modificarPasswordUsuario/:id',
+    component: ModificarPasswordUsuarioComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
+    },
+  },
+  {
+    path: 'usuarios/modificarImagenUsuario/:id',
+    component: ModificarImagenUsuarioComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
+    },
+  },
+  {
     path: 'situaciones',
     component: ListaTiposSituacionComponent,
     canActivate: [AuthGuard],
@@ -929,6 +1005,8 @@ const routes: Routes = [
     },
     resolve: {
       alarma: ModificarAlarmaResolveService,
+      clas_recursos: ClasificacionRecursoscomunitariosResolveService,
+      personas_en_alarma: PersonasEnAlarmaResolveService
     }
   },
   {
@@ -940,6 +1018,8 @@ const routes: Routes = [
     },
     resolve: {
       alarma: ModificarAlarmaResolveService,
+      clas_recursos: ClasificacionRecursoscomunitariosResolveService,
+      personas_en_alarma: PersonasEnAlarmaResolveService
     }
   },
   {

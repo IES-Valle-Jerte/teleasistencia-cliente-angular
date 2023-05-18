@@ -13,7 +13,7 @@ export class BorrarTipoSituacionService {
   constructor(private cargaSituacion: CargaTipoSituacionService, private router: Router) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ITipoVivienda> {
-    return this.cargaSituacion.getTipoSituacion(route.params['id']).pipe(
+    return this.cargaSituacion.getTiposSituaciones().pipe(
       catchError(error => {
         this.router.navigate(['/inicio']);
         return of(null);

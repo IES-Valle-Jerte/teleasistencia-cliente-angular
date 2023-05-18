@@ -8,44 +8,32 @@
       </ol>
     </nav>
     <h1 class="component-title">Crear histórico de agenda</h1>
-    <form #crearHistoricoAgenda="ngForm">
+    <form [formGroup]="nuevoHistorico" (ngSubmit)="onSubmit()">
 
       <div class="form-group mb-3">
-        <label for="idPaciente" class="form-label">Paciente</label>
-        <input type="text" name="idPaciente" id="idPaciente" class="form-control"
-               required maxlength="200" [(ngModel)]="agenda.id_paciente.id_persona.nombre" disabled>
+        <label for="paciente" class="form-label">Persona a cargo</label>
+        <input type="text" name="paciente" id="paciente" class="form-control"
+               required maxlength="200" formControlName="paciente" disabled>
       </div>
 
       <div class="form-group mb-3">
         <label for="telefonoPaciente" class="form-label">Teléfono del paciente</label>
         <input type="text" name="telefonoPaciente" id="telefonoPaciente" class="form-control"
-               required maxlength="200" [(ngModel)]="agenda.id_paciente.id_persona.telefono_movil" disabled>
+               required maxlength="200" formControlName="movil_paciente" disabled>
       </div>
 
       <div class="form-group mb-3">
         <label for="id_tipo_agenda" class="form-label">Tipo agenda</label>
         <input type="text" name="id_tipo_agenda" id="id_tipo_agenda" class="form-control"
-               required maxlength="200" [(ngModel)]="agenda.id_tipo_agenda.nombre" disabled>
-      </div>
-
-      <div class="form-group mb-3">
-        <label for="id_persona_contacto" class="form-label">Persona de contacto</label>
-        <input type="text" name="id_persona_contacto" id="id_persona_contacto" class="form-control"
-               required maxlength="200" [(ngModel)]="agenda.id_persona.nombre" disabled>
-      </div>
-
-      <div class="form-group mb-3">
-        <label for="telefonoContacto" class="form-label">Teléfono de contacto</label>
-        <input type="text" name="telefonoContacto" id="telefonoContacto" class="form-control"
-               required maxlength="200" [(ngModel)]="agenda.id_persona.telefono_movil" disabled>
+               required maxlength="200" formControlName="tipo_agenda" disabled>
       </div>
 
       <div class="form-group mb-3">
         <label for="fecha_prevista" class="form-label">Fecha prevista</label>
-        <input type="date" name="fecha_prevista" id="fecha_prevista" class="form-control"
-               required maxlength="200" [(ngModel)]="agenda.fecha_prevista" #fecha_prevista="ngModel" disabled>
-        <div *ngIf="fecha_prevista.invalid && (fecha_prevista.dirty || fecha_prevista.touched)" class="alert alert-secondary" role="alert">
-          <div *ngIf="fecha_prevista.errors?.required">
+        <input type="datetime-local" name="fecha_prevista" id="fecha_prevista" class="form-control"
+               required maxlength="200" formControlName="fecha_prevista" disabled>
+        <div *ngIf="form.fecha_prevista.invalid && (form.fecha_prevista.dirty || form.fecha_prevista.touched)" class="alert alert-secondary" role="alert">
+          <div *ngIf="form.fecha_prevista.errors?.required">
             La fecha prevista es obligatoria.
           </div>
         </div>
@@ -54,9 +42,9 @@
       <div class="form-group mb-3">
         <label for="observacionesPaciente" class="form-label">Observaciones</label>
         <textarea disabled rows="5" cols="50" name="observacionesPaciente" id="observacionesPaciente" class="form-control"
-                  required maxlength="200" [(ngModel)]="agenda.observaciones" #observaciones="ngModel"></textarea>
-        <div *ngIf="observaciones.invalid && (observaciones.dirty || observaciones.touched)" class="alert alert-secondary" role="alert">
-          <div *ngIf="observaciones.errors?.required">
+                  required maxlength="200" formControlName="observaciones"></textarea>
+        <div *ngIf="form.observaciones.invalid && (form.observaciones.dirty || form.observaciones.touched)" class="alert alert-secondary" role="alert">
+          <div *ngIf="form.observaciones.errors?.required">
             La fecha prevista es obligatoria.
           </div>
         </div>
@@ -64,15 +52,10 @@
 
       <div class="form-group mb-3">
         <label for="id_agenda" class="form-label">Agenda</label>
-        <select name="id_agenda" id="id_agenda" [(ngModel)]="historico_agenda.id_agenda" disabled
-                #id_agenda="ngModel" class="form-select" required>
-          <option class="agenda_id_option" *ngFor="let agendaObj of agendas; let i = index" [value]="agendaObj.id">
-            {{ agenda.id === agendaObj.id ? optionSelected(i) : "" }}
-            {{ agendaObj.id + ' - ' + agendaObj.id_tipo_agenda.nombre}}
-          </option>
-        </select>
-        <div *ngIf="id_agenda.invalid && (id_agenda.dirty || id_agenda.touched)" class="alert alert-secondary" role="alert">
-          <div *ngIf="id_agenda.errors?.required">
+        <input name="id_agenda" id="id_agenda" formControlName="agenda" disabled
+                class="form-select" required>
+        <div *ngIf="form.agenda.invalid && (form.agenda.dirty || form.agenda.touched)" class="alert alert-secondary" role="alert">
+          <div *ngIf="form.agenda.errors?.required">
             El campo agenda es obligatorio.
           </div>
         </div>
@@ -80,14 +63,13 @@
 
       <div class="form-group mb-3">
         <label for="id_teleoperador" class="form-label">Teleoperador</label>
-        <select name="id_teleoperador" id="id_teleoperador" [(ngModel)]="historico_agenda.id_teleoperador"
-                #id_teleoperador="ngModel" class="form-select" required>
+        <select name="id_teleoperador" id="id_teleoperador" formControlName="teleoperador" class="form-select" required disabled>
           <option *ngFor="let teleoperador of teleoperadores; let i = index" [value]="teleoperador.id">
             {{teleoperador.first_name + ' ' + teleoperador.last_name}}
           </option>
         </select>
-        <div *ngIf="id_teleoperador.invalid && (id_teleoperador.dirty || id_teleoperador.touched)" class="alert alert-secondary" role="alert">
-          <div *ngIf="id_teleoperador.errors?.required">
+        <div *ngIf="form.teleoperador.invalid && (form.teleoperador.dirty || form.teleoperador.touched)" class="alert alert-secondary" role="alert">
+          <div *ngIf="form.teleoperador.errors?.required">
             El campo terminal es obligatorio.
           </div>
         </div>
@@ -95,10 +77,10 @@
 
       <div class="form-group mb-3">
         <label for="fecha_llamada" class="form-label">Fecha de llamada</label>
-        <input type="date" name="fecha_llamada" id="fecha_llamada" class="form-control"
-               required maxlength="200" [(ngModel)]="historico_agenda.fecha_llamada" #fecha_llamada="ngModel">
-        <div *ngIf="fecha_llamada.invalid && (fecha_llamada.dirty || fecha_llamada.touched)" class="alert alert-secondary" role="alert">
-          <div *ngIf="fecha_llamada.errors?.required">
+        <input type="datetime-local" name="fecha_llamada" id="fecha_llamada" class="form-control"
+               required maxlength="200" formControlName="fecha_llamada" disabled>
+        <div *ngIf="form.fecha_llamada.invalid && (form.fecha_llamada.dirty || form.fecha_llamada.touched)" class="alert alert-secondary" role="alert">
+          <div *ngIf="form.fecha_llamada.errors?.required">
             La fecha es obligatoria
           </div>
         </div>
@@ -107,16 +89,16 @@
       <div class="form-group mb-3">
         <label for="observaciones" class="form-label">Observaciones</label>
         <textarea rows="5" cols="50" name="observaciones" id="observaciones" class="form-control"
-                  required maxlength="200" [(ngModel)]="historico_agenda.observaciones" #observaciones="ngModel"></textarea>
-        <div *ngIf="observaciones.invalid && (observaciones.dirty || observaciones.touched)" class="alert alert-secondary" role="alert">
-          <div *ngIf="observaciones.errors?.required">
+                  required maxlength="200" formControlName="observaciones_historico"></textarea>
+        <div *ngIf="form.observaciones_historico.invalid && (form.observaciones_historico.dirty || form.observaciones_historico.touched)" class="alert alert-secondary" role="alert">
+          <div *ngIf="form.observaciones_historico.errors?.required">
             El campo observaciones es obligatorio
           </div>
         </div>
       </div>
 
       <button type="submit" class="btn btn-outline-success m-1" (click)="nuevoHistoricoAgenda()"
-              [disabled]="!crearHistoricoAgenda.form.valid">
+              [disabled]="!nuevoHistorico.valid">
         Guardar
       </button>
       <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/agenda']">

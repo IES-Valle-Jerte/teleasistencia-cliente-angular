@@ -11,7 +11,9 @@
     <h1 class="component-title">
       {{ fechaString }}
     </h1>
-
+    <button type="button" class="btn btn-success me-5 float-end" [routerLink]="['/agenda/nueva']">
+      Nueva Agenda
+    </button>
     <div style="display: none" id="actualizarPagina"></div>
 
     <div class="form-group mb-3">
@@ -27,12 +29,12 @@
       <table id="tableList" class="table table-hover text-center">
         <thead>
         <tr class="table-purple">
-          <th (click)="ordenacionTabla(0, 'string')" scope="col">Paciente <i class="fas fa-sort"></i></th>
-          <th (click)="ordenacionTabla(1, 'number')" scope="col">Tipo Agenda <i class="fas fa-sort"></i></th>
-          <th (click)="ordenacionTabla(2, 'string')" scope="col">Persona de contacto <i class="fas fa-sort"></i></th>
-          <th (click)="ordenacionTabla(3, 'string')" scope="col">Tlf. contacto <i class="fas fa-sort"></i></th>
-          <th (click)="ordenacionTabla(4, 'string')" scope="col">Fecha <i class="fas fa-sort"></i></th>
-          <th (click)="ordenacionTabla(5, 'string')" scope="col">Observaciones <i class="fas fa-sort"></i></th>
+          <th (click)="ordenacionTabla(0, 'string')" scope="col">Prioridad <i class="fas fa-sort"></i></th>
+          <th (click)="ordenacionTabla(1, 'string')" scope="col">Nombre <i class="fas fa-sort"></i></th>
+          <th (click)="ordenacionTabla(2, 'string')" scope="col">Apellido <i class="fas fa-sort"></i></th>
+          <th (click)="ordenacionTabla(3, 'number')" scope="col">Tipo Agenda <i class="fas fa-sort"></i></th>
+          <th (click)="ordenacionTabla(4, 'number')" scope="col">Nº Expediente <i class="fas fa-sort"></i></th>
+          <th (click)="ordenacionTabla(5, 'number')" scope="col">Hora prevista <i class="fas fa-sort"></i></th>
           <th scope="col"></th>
         </tr>
         </thead>

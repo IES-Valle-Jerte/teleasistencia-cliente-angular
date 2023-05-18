@@ -12,6 +12,7 @@ import {environment} from "../../environments/environment";
 export class CargaUserService {
   private urlBase = environment.urlBase;
   private URL_SERVER_USERS = this.urlBase + 'users';
+  private url_SERVER_PROFILES = this.urlBase + 'profile';
 
   constructor(private http: HttpClient) {
   }
@@ -24,11 +25,16 @@ export class CargaUserService {
     return this.http.get<IUsers>(this.URL_SERVER_USERS + '/' + idUser);
   }
 
-  modificarUser(user: IUsers): Observable<IUsers> {
-    return this.http.put<IUsers>(user.url, user);
+  modificarUser(user: FormData, id: number): Observable<IUsers> {
+    //return this.http.put<IUsers>(user.url, user);
+    return this.http.put<IUsers>(this.URL_SERVER_USERS +'/' + id, user);
   }
 
-  nuevoUser(user: IUsers): Observable<IUsers> {
+  modificarProfile(user: FormData, id: number): Observable<IUsers> {
+    return this.http.patch<IUsers>(this.url_SERVER_PROFILES +'/' + id, user);
+  }
+
+  nuevoUser(user: FormData): Observable<IUsers> {
     return this.http.post<IUsers>(this.URL_SERVER_USERS, user);
   }
   eliminarUsuario(user:IUsers): Observable<IUsers> {

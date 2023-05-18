@@ -1,0 +1,27 @@
+<h1 class="component-title">Crear nuevo tipo recurso comunitario</h1>
+<!-- Al enviar el resultado del formulario se ejecutará el POST del nuevo Tipo de recurso -->
+<form [formGroup]="formCrearTipo" (ngSubmit)="nuevoTipoRecursoComunitario()" class="border-left">
+
+  <div class="form-group mb-3">
+    <label for="nombre" class="form-label">Nombre</label>
+    <input type="text" name="nombre" id="nombre" class="form-control" formControlName="nombre">
+    <!--Mostrará este mensaje si se cumplen las especificaciones-->
+    <div *ngIf="valorForm.nombre.invalid && (valorForm.nombre.dirty || valorForm.nombre.touched)" class="alert alert-secondary" role="alert">
+      <div *ngIf="valorForm.nombre.errors?.required">
+        El nombre es obligatorio
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-outline-success m-1" data-bs-toggle="collapse"
+          data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample"
+          [disabled]="this.formCrearTipo.invalid"
+          (click)="actualizarTipoRecurso()">
+    Guardar
+  </button>
+  <!--Con este botón se podrá volver al crear recurso comunitario-->
+  <button type="button" class="btn btn-outline-secondary m-1" (click)="mostrarCrearTipo()" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+    Volver
+  </button>
+
+</form>

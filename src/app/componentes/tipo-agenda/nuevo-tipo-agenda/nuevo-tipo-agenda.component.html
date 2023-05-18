@@ -1,59 +1,52 @@
-<main class="text-center row p-0 m-0 justify-content-center">
-  <div class="container">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
-        <li class="breadcrumb-item"><a [routerLink]="['/tipo_agenda']">Tipos de agenda</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Crear tipo de agenda</li>
-      </ol>
-    </nav>
-    <h1 class="component-title">Crear nuevo tipo agenda</h1>
-    <form #nuevoTipoAgendaForm="ngForm">
+  <h1 class="component-title">Crear nuevo tipo agenda</h1>
+      <div>
+        <form [formGroup]="nuevoTipo" (ngSubmit)="onSubmit()">
 
-      <div class="form-group mb-3">
-        <label for="nombre" class="form-label">Nombre</label>
-        <input type="text" name="nombre" id="nombre" class="form-control"
-               required maxlength="200" [(ngModel)]="tipo_agenda.nombre" #nombre="ngModel">
-        <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-secondary" role="alert">
-          <div *ngIf="nombre.errors?.required">
-            El nombre es obligatorio
+          <div class="form-group mb-3 row">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" name="nombre" id="nombre" class="form-control"
+                   required maxlength="200" formControlName="nombre">
+            <div *ngIf="form.nombre.invalid && (form.nombre.dirty || form.nombre.touched)" class="alert alert-secondary" role="alert">
+              <div *ngIf="form.nombre.errors?.required">
+                El nombre es obligatorio
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div class="form-group mb-3">
-        <label for="codigo" class="form-label">Código</label>
-        <input type="text" name="codigo" id="codigo" class="form-control"
-               required maxlength="200" [(ngModel)]="tipo_agenda.codigo" #codigo="ngModel">
-        <div *ngIf="codigo.invalid && (codigo.dirty || codigo.touched)" class="alert alert-secondary" role="alert">
-          <div *ngIf="codigo.errors?.required">
-            El codigo es obligatorio
+          <div class="form-group mb-3 row">
+            <label for="codigo" class="form-label">Código</label>
+            <input type="text" name="codigo" id="codigo" class="form-control"
+                   required maxlength="200" formControlName="codigo">
+            <div *ngIf="form.codigo.invalid && (form.codigo.dirty || form.codigo.touched)" class="alert alert-secondary" role="alert">
+              <div *ngIf="form.codigo.errors?.required">
+                El codigo es obligatorio
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div class="form-group mb-3">
-        <label for="importancia" class="form-label">Importancia</label>
-        <select name="importancia" id="importancia" [(ngModel)]="tipo_agenda.importancia"
-                #importancia="ngModel" class="form-select" required>
-          <option *ngFor="let importancia of importanciaArray" [value]="importancia">{{importancia}}</option>
-        </select>
-        <div *ngIf="importancia.invalid && (importancia.dirty || importancia.touched)" class="alert alert-secondary" role="alert">
-          <div *ngIf="importancia.errors?.required">
-            El campo importancia es obligatorio
+          <div class="form-group mb-3 row">
+            <label for="importancia" class="form-label">Importancia</label>
+            <div class="row p-0 m-0">
+              <div class="p-0 pb-1 pb-lg-0 w-100">
+                <ng-select class="" name="importancia" id="importancia" formControlName="importancia" required>
+                  <ng-option *ngFor="let importancia of importanciaArray" [value]="importancia">{{importancia}}</ng-option>
+                </ng-select>
+              </div>
+            </div>
+            <div *ngIf="form.importancia.invalid && (form.importancia.dirty || form.importancia.touched)" class="alert alert-secondary" role="alert">
+              <div *ngIf="form.importancia.errors?.required">
+                El campo importancia es obligatorio
+              </div>
+            </div>
           </div>
-        </div>
+
+          <button type="submit" class="btn btn-outline-success m-1" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample"
+                  [disabled]="nuevoTipo.invalid">
+            Guardar
+          </button>
+          <button type="button" class="btn btn-outline-secondary m-1" (click)="onReset()" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+            Cancelar
+          </button>
+
+        </form>
       </div>
-
-      <button type="submit" class="btn btn-outline-success m-1" (click)="nuevoTipoAgenda()"
-              [disabled]="!nuevoTipoAgendaForm.form.valid">
-        Guardar
-      </button>
-      <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/tipo_agenda']">
-        Volver
-      </button>
-
-    </form>
-  </div>
-</main>
-

@@ -26,6 +26,8 @@ export const environment = {
   fraseAlarmaAceptada: 'Alarma asignada correctamente',
   //Frase para cuando ocurre algun error al asignar una alarma
   fraseErrorAsignarAlarma: 'Se ha Producido Un Error Inesperado',
+  //Frase pera cuando la alarma se cierra de manera voluntaria
+  fraseCerrarAlarmaVoluntario:'Alarma cerrada por pulsación voluntaria',
 
 
   //Modal

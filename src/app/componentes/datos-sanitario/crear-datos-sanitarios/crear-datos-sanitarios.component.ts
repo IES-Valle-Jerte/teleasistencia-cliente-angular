@@ -9,13 +9,13 @@ import {
 } from "../../../servicios/relacion-terminal-recurso-comunitario/carga-relacion-terminal-recursos-comunitarios.service";
 import {ITerminal} from "../../../interfaces/i-terminal";
 import {CargaTerminalesService} from "../../../servicios/terminal/carga-terminales.service";
-import {CargaTipoRecursoComunitarioService} from "../../../servicios/carga-tipo-recurso-comunitario.service";
+import {CargaTipoRecursoComunitarioService} from "../../../services/recursos/carga-tipo-recurso-comunitario.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {RelacionTerminalRecursoComunitarios} from "../../../clases/relacion-terminal-recurso-comunitarios";
 import {CargaDireccionService} from "../../../servicios/carga-direccion.service";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
-import {CargaRecursoComunitarioService} from "../../../servicios/carga-recurso-comunitario.service";
+import {CargaRecursoComunitarioService} from "../../../services/recursos/carga-recurso-comunitario.service";
 import {IPaciente} from "../../../interfaces/i-paciente";
 import {CargaPacienteService} from "../../../servicios/paciente/carga-paciente.service";
 

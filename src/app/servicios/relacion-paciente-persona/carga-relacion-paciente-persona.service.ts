@@ -21,6 +21,9 @@ export class CargaRelacionPacientePersonaService {
   getRelacionPacientePersona(idRelacionPacientePersona: number): Observable<IRelacionPacientePersona> {
     return this.http.get<IRelacionPacientePersona>(this.URL_SERVER_RELACION_PACIENTE_PERSONA + '/' + idRelacionPacientePersona);
   }
+  getRelacionPacientePersonaTerminal(idRelacionPacientePersona: number): Observable<IRelacionPacientePersona[]> {
+    return this.http.get<IRelacionPacientePersona[]>(this.URL_SERVER_RELACION_PACIENTE_PERSONA + '?id_paciente__id_terminal=' + idRelacionPacientePersona);
+  }
 
   modificarRelacionPacientePersona(relacionPacientePersona: IRelacionPacientePersona): Observable<IRelacionPacientePersona> {
     return this.http.put<IRelacionPacientePersona>(this.URL_SERVER_RELACION_PACIENTE_PERSONA + '/' + relacionPacientePersona.id, relacionPacientePersona)

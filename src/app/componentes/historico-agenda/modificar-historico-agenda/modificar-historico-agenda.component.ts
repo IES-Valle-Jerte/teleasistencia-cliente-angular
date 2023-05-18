@@ -6,6 +6,13 @@ import {IAgenda} from "../../../interfaces/i-agenda";
 import {CargaHistoricoAgendaService} from "../../../servicios/carga-historico-agenda.service";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
+import {CargaAgendaService} from "../../../servicios/carga-agenda.service";
+import {ProfileService} from "../../../servicios/profile.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {IProfileUser} from "../../../interfaces/i-profile-user";
+import {IPaciente} from "../../../interfaces/i-paciente";
+import {CargaPacienteService} from "../../../servicios/carga-paciente.service";
+import {CargaPersonaService} from "../../../servicios/carga-persona.service";
 
 
 @Component({
@@ -19,12 +26,19 @@ export class ModificarHistoricoAgendaComponent implements OnInit {
   public id_historico_agenda: number;
   public agendas: IAgenda[];
   public teleoperadores: any[];
+  public datosAgenda: FormGroup;
+  public paciente: IPaciente | any;
+  public teleoperador: any;
 
   constructor(
-    private route: ActivatedRoute,
     private titleService: Title,
+    private route: ActivatedRoute,
     private cargaHistoricoAgenda: CargaHistoricoAgendaService,
-    private router: Router
+    private cargaAgendaService: CargaAgendaService,
+    private cargaPersona: CargaPersonaService,
+    private cargaUserLogued: ProfileService,
+    private router: Router,
+    private formBuilder: FormBuilder
   ) {}
 
   // Carga de los datos necesarios al cargar el componente.
@@ -33,8 +47,13 @@ export class ModificarHistoricoAgendaComponent implements OnInit {
     this.id_historico_agenda = this.route.snapshot.params['id'];
     this.agendas = this.route.snapshot.data['agendas'];
     this.teleoperadores = this.route.snapshot.data['teleoperadores'];
-    this.historico_agenda.id_agenda = this.historico_agenda.id_agenda.id;
-    this.historico_agenda.id_teleoperador = this.historico_agenda.id_teleoperador.id;
+    this.teleoperador = this.historico_agenda.id_teleoperador;
+    this.paciente = this.historico_agenda.id_agenda.id_paciente;
+    this.crearForm();
+  }
+
+  get form() {
+    return this.datosAgenda.controls;
   }
 
   // Petición al servidor para modificar un histórico de agenda seleccionado
@@ -100,4 +119,47 @@ export class ModificarHistoricoAgendaComponent implements OnInit {
     })
   }
 
+  private crearForm() {
+    this.cargaPersona.getPersona(this.paciente.id_persona).subscribe(
+      pers => {
+        this.paciente = pers;
+        this.datosAgenda.get('paciente').setValue(this.paciente.nombre + ' ' + this.paciente.apellidos + " " + this.paciente.dni);
+        this.datosAgenda.get("movil_paciente").setValue(this.paciente.telefono_movil);
+      },
+      error => {
+        this.alertError();
+      }
+    );
+    this.datosAgenda = this.formBuilder.group({
+      paciente: [ '',[
+        Validators.required
+      ]],
+      movil_paciente: [ '', [
+        Validators.required
+      ]],
+      tipo_agenda: [this.historico_agenda.id_agenda.id_tipo_agenda.nombre, [
+        Validators.required
+      ]],
+      fecha_prevista: [ this.historico_agenda.id_agenda.fecha_prevista.slice(0, 16), [
+        Validators.required
+      ]],
+      observaciones: [this.historico_agenda.id_agenda.observaciones, [
+        Validators.required,
+        Validators.minLength(10)
+      ]],
+      agenda: [this.historico_agenda.id_agenda.id + " - " + this.historico_agenda.id_agenda.id_tipo_agenda.nombre, [
+        Validators.required
+      ]],
+      teleoperador: [ this.teleoperador.first_name + " " + this.teleoperador.last_name,[
+        Validators.required
+      ]],
+      fecha_llamada: [ this.historico_agenda.id_agenda.fecha_registro.slice(0, 16), [
+        Validators.required
+      ]],
+      observaciones_historico: [ this.historico_agenda.observaciones, [
+        Validators.required,
+        Validators.minLength(10)
+      ]]
+    })
+  }
 }

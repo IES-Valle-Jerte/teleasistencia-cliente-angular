@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ITipoAlarma} from '../../../interfaces/i-tipo-alarma';
 import Swal from 'sweetalert2';
-import {CargaDireccionService} from "../../../servicios/carga-direccion.service";
 import {Router} from "@angular/router";
 import {CargaTipoAlarmaService} from "../../../servicios/carga-tipo-alarma.service";
 import {environment} from "../../../../environments/environment";

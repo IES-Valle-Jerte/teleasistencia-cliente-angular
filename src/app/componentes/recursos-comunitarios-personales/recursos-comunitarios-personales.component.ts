@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RecursosComunitariosPerosnalesService} from "../../servicios/recursos-comunitarios-perosnales.service";
 import {IRecursoComunitarioPersonal} from "../../interfaces/i-recurso-comunitario-persona";
-import {CargaTipoRecursoComunitarioService} from "../../servicios/carga-tipo-recurso-comunitario.service";
+import {CargaTipoRecursoComunitarioService} from "../../services/recursos/carga-tipo-recurso-comunitario.service";
 import {ITipoRecursoComunitario} from "../../interfaces/i-tipo-recurso-comunitario";
 import {CargaTipoCentroSanitarioService} from "../../servicios/carga-tipo-centro-sanitario.service";
 import {ITipoCentroSanitario} from "../../interfaces/i-tipo-centro-sanitario";

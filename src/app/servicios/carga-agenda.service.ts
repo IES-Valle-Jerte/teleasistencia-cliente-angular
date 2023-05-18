@@ -33,7 +33,7 @@ export class CargaAgendaService {
   }
 
   getAgendasPorFechaPrevista(fechaPrevista: string): Observable<IAgenda> {
-    return this.http.get<IAgenda>(this.URL_SERVER_AGENDAS + '?fecha_prevista=' + fechaPrevista).pipe(take(1)).pipe(
+    return this.http.get<IAgenda>(this.URL_SERVER_AGENDAS + '?fecha_prevista__startswith=' + fechaPrevista).pipe(take(1)).pipe(
       map(datos => {
         return datos;
       })

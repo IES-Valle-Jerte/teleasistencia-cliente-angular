@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ITipoAgenda} from "../../../interfaces/i-tipo-agenda";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 import {CargaTipoAgendaService} from "../../../servicios/carga-tipo-agenda.service";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
+import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-detalles-tipo-agenda',
@@ -13,20 +14,72 @@ import {environment} from "../../../../environments/environment";
 })
 export class DetallesTipoAgendaComponent implements OnInit {
 
+  @Input () idTipo: number | any;
   public tipo_agenda: ITipoAgenda;
-  public tipos_agenda: ITipoAgenda[];
-  public idTipoAgenda: number;
-  public importanciaArray = ['Urgente', 'Importante'];
+  @Input () tipos_agenda: ITipoAgenda[];
+  /*public idTipoAgenda: number;*/
+  public importanciaArray = ['Alta', 'Baja'];
+  public modTipo: FormGroup;
+  public submitted = false;
+  public mostrar = false;
+  @Output () tipoMod= new EventEmitter<ITipoAgenda>();
+  @Output () mostrarEditarTipo= new EventEmitter<boolean>();
 
-  constructor(private route: ActivatedRoute, private titleService: Title, private cargaTipoAgendaService: CargaTipoAgendaService, private router: Router) {
+  constructor(private route: ActivatedRoute, private titleService: Title, private cargaTipoAgendaService: CargaTipoAgendaService, private router: Router, private formBuilder: FormBuilder) {
   }
 
   // Carga de los datos para que se muestren correctamente en el formulario a la hora de modificar un tipo de agenda.
   ngOnInit(): void {
-    this.tipo_agenda = this.route.snapshot.data['tipo_agenda'];
+    /*this.tipo_agenda = this.route.snapshot.data['tipo_agenda'];
     this.idTipoAgenda = this.route.snapshot.params['id'];
     this.titleService.setTitle('Modificar tipo agenda ' + this.idTipoAgenda);
-    this.tipos_agenda = this.route.snapshot.data['tipos_agenda'];
+    this.tipos_agenda = this.route.snapshot.data['tipos_agenda'];*/
+    this.crearForm();
+  }
+
+  //Método en el que se inicializan los campos del formulario con los valores del objeto a modificar
+  crearForm() {
+    this.tipo_agenda = this.tipos_agenda.find(tipo => tipo.id == this.idTipo);
+    this.modTipo = this.formBuilder.group({
+      nombre: [this.tipo_agenda.nombre, [
+        Validators.required,
+        Validators.maxLength(64)
+      ]],
+      codigo: [this.tipo_agenda.codigo, [
+        Validators.required,
+        Validators.maxLength(64)
+      ]],
+      importancia: [this.tipo_agenda.importancia, [
+        Validators.required
+      ]]
+    })
+  }
+
+  //Método para obtener los valores del formulario
+  get form() {
+    return this.modTipo.controls;
+  }
+
+  //Método para comprobar si es válida la modificación
+  onSubmit() {
+    this.submitted = true;
+
+    if (this.modTipo.invalid) {
+      return;
+    }
+
+    this.modificarTipo();
+  }
+
+  //Método en el que se crea el que se sobreescriben los valores del objeto de tipo agenda
+  modificarTipo() {
+    this.tipo_agenda = {
+      "id": this.tipo_agenda.id,
+      "nombre": this.modTipo.get('nombre').value,
+      "codigo": this.modTipo.get('codigo').value,
+      "importancia": this.modTipo.get('importancia').value
+    }
+    this.modificarTipoAgenda();
   }
 
   // Lanza una petición al servidor para modificar un tipo de agenda.
@@ -34,7 +87,10 @@ export class DetallesTipoAgendaComponent implements OnInit {
     this.cargaTipoAgendaService.modificarTipoAgenda(this.tipo_agenda).subscribe(
       e => {
         this.alertExito();
-        this.router.navigate(['/tipo_agenda']);
+        this.tipoMod.emit(e);
+        this.mostrarEditarTipo.emit(this.mostrar);
+        this.idTipo = "";
+        this.modTipo.reset();
       },
       error => {
         this.alertError();
@@ -87,4 +143,10 @@ export class DetallesTipoAgendaComponent implements OnInit {
     })
   }
 
+  //Método para reiniciar los campos del modificar tipo de la agenda
+  onReset() {
+    this.submitted = false;
+    this.modTipo.reset();
+    this.mostrarEditarTipo.emit(this.mostrar);
+  }
 }

@@ -1,5 +1,5 @@
-<td>{{ historico_agenda.id_agenda !== null ? historico_agenda.id_agenda?.id + ' - ' + historico_agenda.id_agenda?.id_tipo_agenda?.nombre : '' }}</td>
-<td>{{ historico_agenda.id_teleoperador?.first_name + ' ' + historico_agenda.id_teleoperador?.last_name }}</td>
+<td>{{ historico_agenda.id_agenda !== null ? historico_agenda.id_agenda.id + ' - ' + historico_agenda.id_agenda.id_tipo_agenda.nombre : '' }}</td>
+<td>{{ historico_agenda.id_teleoperador.first_name + ' ' + historico_agenda.id_teleoperador.last_name }}</td>
 <td>{{ historico_agenda.fecha_llamada }}</td>
 <td>{{ historico_agenda.observaciones }}</td>
 <td>

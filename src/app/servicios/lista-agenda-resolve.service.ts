@@ -13,12 +13,12 @@ export class ListaAgendaResolveService implements Resolve<IAgenda> {
 
   constructor(private cargaAgendaService: CargaAgendaService, private router: Router) {
   }
-  fechaPrevista = new Date();
+  fechaPrevista = new Date().toISOString().slice(0, 10);
 
-  fechaParseada =  this.fechaPrevista.getFullYear() +'-'+ (this.fechaPrevista.getMonth()+1) +'-'+ this.fechaPrevista.getDate();
+  //fechaParseada =  this.fechaPrevista.getFullYear() +'-'+ (this.fechaPrevista.getMonth()+1) +'-'+ this.fechaPrevista.getDate();
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IAgenda> {
-    return this.cargaAgendaService.getAgendasPorFechaPrevista(this.fechaParseada).pipe(
+    return this.cargaAgendaService.getAgendasPorFechaPrevista(this.fechaPrevista).pipe(
       catchError(error => {
         this.router.navigate(['/inicio']);
         return of(null);

@@ -7,7 +7,7 @@ import {CargaTipoAlarmaService} from '../../../servicios/carga-tipo-alarma.servi
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {TipoAlarma} from "../../../clases/tipo-alarma";
+
 
 
 @Component({
@@ -25,7 +25,6 @@ export class CrearTipoAlarmaComponent implements OnInit {
   @Output () alarma_creada= new EventEmitter;
   @Input () listaTiposAlarma: ITipoAlarma[];
   public formCrear: FormGroup;
-  public tipoAlarma: TipoAlarma;
 
   constructor(private titleService: Title, private route: ActivatedRoute, private cargaTiposAlarmas: CargaTipoAlarmaService, private router: Router, private formBuilder: FormBuilder) {
   }
@@ -62,13 +61,12 @@ export class CrearTipoAlarmaComponent implements OnInit {
         this.alertError()
       },
       ()=>{
-        //Reseteamos el formulario<para que quede vacio
+        //Reseteamos el formulario para que quede vacio
         this.formCrear.reset();
         //Establecemos de nuevo al boton de SI el valor true
         this.formCrear.get('es_dispositivo').setValue(true);
         //Ponemos la la varible a true para que aparezca sin opacity
         this.opcion = true;
-        console.log("VALOR ES_DIPSOSITIVO"+this.formCrear.value.es_dispositivo);
       }
     );
   }
