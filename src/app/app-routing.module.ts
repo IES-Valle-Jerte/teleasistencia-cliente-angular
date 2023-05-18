@@ -254,6 +254,9 @@ import {
   ClasificacionRecursoscomunitariosResolveService
 } from "./servicios/cerrar-alarma/clasificacion-recursoscomunitarios-resolve.service";
 import {PersonasEnAlarmaResolveService} from "./servicios/persona-contacto-alarma/personas-en-alarma-resolve.service";
+import {
+  UserAgendasAlarmasResueltasComponent
+} from "./componentes/user/user-agendas-alarmas-resueltas/user-agendas-alarmas-resueltas.component";
 
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
@@ -1444,8 +1447,21 @@ const routes: Routes = [
       role:null
     },
   },
-  {path:'boton_info_ayudas/:clave',
-  component:BotonInfoAyudasComponent},
+  {
+    path:'boton_info_ayudas/:clave',
+    component:BotonInfoAyudasComponent
+  },
+  {
+    path:'usuarios/user-agendas-alarmas-resueltas',
+    component:UserAgendasAlarmasResueltasComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
+    },
+    resolve: {
+      users: ListaUsersResolveService
+    }
+  },
   {path: '', redirectTo: '/inicio', pathMatch: 'full'},
   {path: '**', redirectTo: '/inicio', pathMatch: 'full'}
 ];

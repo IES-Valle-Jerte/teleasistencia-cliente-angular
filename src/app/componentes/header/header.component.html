@@ -2,7 +2,8 @@
   <div class="container-fluid contenedor-cabecera">
     <a class="navbar-brand" [routerLink]="['/inicio']">
       <img src="./assets/cabecera-logo.png" alt="Logo TLA" width="100" height="71" class="d-inline-block">
-      <span class="titulo-cabecera">TLA<span class="nombre-servicio"> - Servicio de teleasistencia<b style="color: {{subdominioColor}}"> - {{subdominioNombre}}</b></span></span>
+      <span class="titulo-cabecera">TLA<span class="nombre-servicio"> - Servicio de teleasistencia<b style="
+       color: {{subdominioColor}}"> - {{subdominioNombre}}</b></span></span>
     </a>
     <div class="col-md-3 text-end login">
       <app-botones-login></app-botones-login>
@@ -82,6 +83,7 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownUsers">
             <li><a class="dropdown-item" [routerLink]="['/usuarios']">Consultar usuarios</a></li>
             <li><a class="dropdown-item" [routerLink]="['/usuarios/nuevo']">Crear nuevos usuarios</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/usuarios/user-agendas-alarmas-resueltas']">Alarmas y Agendas Resueltas</a></li>
           </ul>
         </li>
 
