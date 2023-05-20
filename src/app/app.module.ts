@@ -166,6 +166,7 @@ import { ModificarPasswordUsuarioComponent } from './componentes/botones-modific
 
 import { TiposRecursosComunitariosComponent } from './componentes/alarma/tipos-recursos-comunitarios/tipos-recursos-comunitarios.component';
 import { UserAgendasAlarmasResueltasComponent } from './componentes/user/user-agendas-alarmas-resueltas/user-agendas-alarmas-resueltas.component';
+import { ItemTeleoperadorComponent } from './componentes/user/item-teleoperador/item-teleoperador.component';
 
 
 
@@ -302,6 +303,7 @@ import { UserAgendasAlarmasResueltasComponent } from './componentes/user/user-ag
     ModificarPasswordUsuarioComponent,
     TiposRecursosComunitariosComponent,
     UserAgendasAlarmasResueltasComponent,
+    ItemTeleoperadorComponent,
   ],
   imports: [
     BrowserModule,

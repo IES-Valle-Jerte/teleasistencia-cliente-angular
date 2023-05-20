@@ -1,0 +1,14 @@
+<td>{{teleoperador.id}}</td>
+<td>{{ teleoperador.first_name }}</td>
+<td>{{ teleoperador.second_name }}</td>
+<td>{{ teleoperador.alertas_total }}</td>
+<td>{{ teleoperador.agendas_total != 0?teleoperador.agendas_total : "0" }}</td>
+<td>
+  <button type="submit" class="btn btn-outline-secondary btn-modify" [routerLink]="['/', teleoperador.id]">
+    <i class="fa fa-pen"></i>
+  </button>
+<!--  <button type="submit" class="btn btn-outline-secondary btn-modify" [routerLink]="['/usuarios/modificarPassword', user.id]">-->
+<!--    <i class="fa fa-key"></i>-->
+<!--  </button>-->
+</td>
+

@@ -4,6 +4,7 @@ import {IUsers} from "../../../interfaces/i-users";
 import {environment} from "../../../../environments/environment";
 import {ActivatedRoute} from "@angular/router";
 import {Title} from "@angular/platform-browser";
+import {ITeleoperador} from "../../../interfaces/i-teleoperador";
 
 @Component({
   selector: 'app-user-agendas-alarmas-resueltas',
@@ -11,7 +12,7 @@ import {Title} from "@angular/platform-browser";
   styleUrls: ['./user-agendas-alarmas-resueltas.component.scss']
 })
 export class UserAgendasAlarmasResueltasComponent implements OnInit {
-  public users: IUsers[];
+  public teleoperadores: ITeleoperador[];
   numPaginacion: number = 1;
   inputBusqueda: any = '';
   elementosPaginacion: number = environment.num_paginacion;
@@ -20,8 +21,8 @@ export class UserAgendasAlarmasResueltasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.users = this.route.snapshot.data['users'];
-    this.titleService.setTitle('Usuarios del sistema');
+    this.teleoperadores = this.route.snapshot.data['seguimiento_teleoperador'];
+    this.titleService.setTitle('Seguimiento Teleoperadores');
   }
 
   ordenacionTabla(indice: number, tipo: string){
