@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {OrdenacionTablasService} from "../../../servicios/ordenacion-tablas.service";
-import {IUsers} from "../../../interfaces/i-users";
+
 import {environment} from "../../../../environments/environment";
 import {ActivatedRoute} from "@angular/router";
 import {Title} from "@angular/platform-browser";
@@ -22,6 +22,7 @@ export class UserAgendasAlarmasResueltasComponent implements OnInit {
 
   ngOnInit(): void {
     this.teleoperadores = this.route.snapshot.data['seguimiento_teleoperador'];
+    console.log("hola");
     this.titleService.setTitle('Seguimiento Teleoperadores');
   }
 

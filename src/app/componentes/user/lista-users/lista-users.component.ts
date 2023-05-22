@@ -22,6 +22,7 @@ export class ListaUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.users = this.route.snapshot.data['users'];
+
     this.titleService.setTitle('Usuarios del sistema');
   }
 
