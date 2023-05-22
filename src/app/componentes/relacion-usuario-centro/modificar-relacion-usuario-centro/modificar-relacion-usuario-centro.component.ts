@@ -29,7 +29,7 @@ export class ModificarRelacionUsuarioCentroComponent implements OnInit {
     this.relacionUsuarioCentro = this.route.snapshot.data['relacion_usuario_centro'];
     this.idRelacionUsuarioCentro = this.route.snapshot.params['id'];
     this.pacientes = this.route.snapshot.data['pacientes'];
-    this.centrosSanitario = this.route.snapshot.data['centros_sanitarios']
+    this.centrosSanitario = this.route.snapshot.data['centros_sanitarios'];
     this.titleService.setTitle('Modificar relacion usuario centro ' + this.idRelacionUsuarioCentro);
 
     this.relacionUsuarioCentro.id_centro_sanitario = this.relacionUsuarioCentro.id_centro_sanitario.id;

@@ -7,7 +7,7 @@ import {Title} from "@angular/platform-browser";
 import {ITeleoperador} from "../../../interfaces/i-teleoperador";
 
 @Component({
-  selector: 'app-user-agendas-alarmas-resueltas',
+  selector: 'app-lista-seguimiento-teleoperador',
   templateUrl: './user-agendas-alarmas-resueltas.component.html',
   styleUrls: ['./user-agendas-alarmas-resueltas.component.scss']
 })

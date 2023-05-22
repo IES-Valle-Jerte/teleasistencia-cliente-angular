@@ -165,8 +165,10 @@ import { ModificarImagenUsuarioComponent } from './componentes/botones-modificar
 import { ModificarPasswordUsuarioComponent } from './componentes/botones-modificar/modificar-password-usuario/modificar-password-usuario.component';
 
 import { TiposRecursosComunitariosComponent } from './componentes/alarma/tipos-recursos-comunitarios/tipos-recursos-comunitarios.component';
-import { UserAgendasAlarmasResueltasComponent } from './componentes/user/user-agendas-alarmas-resueltas/user-agendas-alarmas-resueltas.component';
-import { ItemTeleoperadorComponent } from './componentes/user/item-teleoperador/item-teleoperador.component';
+import { UserAgendasAlarmasResueltasComponent } from './componentes/seguimiento_teleoperador/lista-seguimiento-teleoperador/user-agendas-alarmas-resueltas.component';
+import { ItemTeleoperadorComponent } from './componentes/seguimiento_teleoperador/item-teleoperador/item-teleoperador.component';
+import { ListaAlarmasResueltasComponent } from './componentes/seguimiento_teleoperador/lista-alarmas-resueltas/lista-alarmas-resueltas.component';
+import { ItemAlarmasResueltasComponent } from './componentes/seguimiento_teleoperador/item-alarmas-resueltas/item-alarmas-resueltas.component';
 
 
 
@@ -304,6 +306,8 @@ import { ItemTeleoperadorComponent } from './componentes/user/item-teleoperador/
     TiposRecursosComunitariosComponent,
     UserAgendasAlarmasResueltasComponent,
     ItemTeleoperadorComponent,
+    ListaAlarmasResueltasComponent,
+    ItemAlarmasResueltasComponent,
   ],
   imports: [
     BrowserModule,

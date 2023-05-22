@@ -256,8 +256,11 @@ import {
 import {PersonasEnAlarmaResolveService} from "./servicios/persona-contacto-alarma/personas-en-alarma-resolve.service";
 import {
   UserAgendasAlarmasResueltasComponent
-} from "./componentes/user/user-agendas-alarmas-resueltas/user-agendas-alarmas-resueltas.component";
+} from "./componentes/seguimiento_teleoperador/lista-seguimiento-teleoperador/user-agendas-alarmas-resueltas.component";
 import {ListaTeleoperadorResolveService} from "./servicios/lista-teleoperador-resolve.service";
+import {
+  ListaAlarmasResueltasComponent
+} from "./componentes/seguimiento_teleoperador/lista-alarmas-resueltas/lista-alarmas-resueltas.component";
 
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
@@ -1453,7 +1456,7 @@ const routes: Routes = [
     component:BotonInfoAyudasComponent
   },
   {
-    path:'user-agendas-alarmas-resueltas',
+    path:'lista-seguimiento-teleoperador',
     component:UserAgendasAlarmasResueltasComponent,
     canActivate: [AuthGuard],
     data:{
@@ -1462,6 +1465,17 @@ const routes: Routes = [
     resolve: {
       seguimiento_teleoperador: ListaTeleoperadorResolveService
     }
+  },
+  {
+    path:'lista-seguimiento-teleoperador/:id',
+    component:ListaAlarmasResueltasComponent,
+    canActivate: [AuthGuard]
+    // data:{
+    //   role:null
+    // },
+    // resolve: {
+    //   seguimiento_teleoperador: ListaTeleoperadorResolveService
+    // }
   },
   {path: '', redirectTo: '/inicio', pathMatch: 'full'},
   {path: '**', redirectTo: '/inicio', pathMatch: 'full'}
