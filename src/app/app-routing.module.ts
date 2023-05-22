@@ -257,6 +257,7 @@ import {PersonasEnAlarmaResolveService} from "./servicios/persona-contacto-alarm
 import {
   UserAgendasAlarmasResueltasComponent
 } from "./componentes/user/user-agendas-alarmas-resueltas/user-agendas-alarmas-resueltas.component";
+import {ListaTeleoperadorResolveService} from "./servicios/lista-teleoperador-resolve.service";
 
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
@@ -1452,14 +1453,14 @@ const routes: Routes = [
     component:BotonInfoAyudasComponent
   },
   {
-    path:'usuarios/user-agendas-alarmas-resueltas',
+    path:'user-agendas-alarmas-resueltas',
     component:UserAgendasAlarmasResueltasComponent,
     canActivate: [AuthGuard],
     data:{
       role:null
     },
     resolve: {
-      users: ListaUsersResolveService
+      seguimiento_teleoperador: ListaTeleoperadorResolveService
     }
   },
   {path: '', redirectTo: '/inicio', pathMatch: 'full'},

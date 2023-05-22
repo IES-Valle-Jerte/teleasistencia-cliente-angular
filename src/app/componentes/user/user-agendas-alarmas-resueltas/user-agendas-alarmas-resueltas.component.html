@@ -25,8 +25,8 @@
         </thead>
         <tbody>
 
-        <tr *ngFor="let teleoperador of teleoperadores | filtroBusqueda: inputBusqueda | paginate: { itemsPerPage: elementosPaginacion, currentPage: numPaginacion }"
-            app-item-teleoperador [teleoperador]="teleoperador" ]>
+       <tr *ngFor="let teleoperador of teleoperadores | filtroBusqueda: inputBusqueda | paginate: { itemsPerPage: elementosPaginacion, currentPage: numPaginacion }"
+            app-item-teleoperador [teleoperador]="teleoperador" >
         </tr>
         </tbody>
       </table>
