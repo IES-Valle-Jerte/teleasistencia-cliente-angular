@@ -22,7 +22,7 @@ export class UserAgendasAlarmasResueltasComponent implements OnInit {
 
   ngOnInit(): void {
     this.teleoperadores = this.route.snapshot.data['seguimiento_teleoperador'];
-    console.log("hola");
+    console.log(this.teleoperadores);
     this.titleService.setTitle('Seguimiento Teleoperadores');
   }
 
