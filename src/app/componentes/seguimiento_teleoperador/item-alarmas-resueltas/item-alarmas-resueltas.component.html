@@ -1,1 +1,20 @@
-<p>item-alarmas-resueltas works!</p>
+<td>{{ alarmaResuelta.estado_alarma }}</td>
+<td>{{ alarmaResuelta.fecha_registro | date : 'HH:MM:SS' }}</td>
+<td class="reducirCaja" [title]="alarmaResuelta.observaciones">{{ alarmaResuelta.observaciones }}</td>
+<td class="reducirCaja" [title]="alarmaResuelta.resumen">{{ alarmaResuelta.resumen }}</td>
+<td>{{ alarmaResuelta.id_tipo_alarma?.nombre }} - {{ alarmaResuelta.id_tipo_alarma?.id_clasificacion_alarma?.nombre }}</td>
+<td>{{ obtenerUcr()}}</td>
+<td>{{ obtenerTerminal()}}</td>
+<td>{{ obtenerNombre()  }}</td>
+<td>
+  <button type="submit" class="btn btn-outline-secondary btn-modify m-1" [routerLink]="['/alarmas/modificar', alarmaResuelta.id]">
+    <ng-container *ngIf="alarmaResuelta.estado_alarma == 'Cerrada'; else bloqueB">
+      <i class="fa fa-eye"></i>
+    </ng-container>
+    <ng-template #bloqueB>
+      <i class="fa fa-check"></i>
+    </ng-template>
+  </button>
+
+
+</td>

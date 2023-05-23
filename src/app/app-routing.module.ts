@@ -1469,13 +1469,13 @@ const routes: Routes = [
   {
     path:'lista-seguimiento-teleoperador/:id',
     component:ListaAlarmasResueltasComponent,
-    canActivate: [AuthGuard]
-    // data:{
-    //   role:null
-    // },
-    // resolve: {
-    //   seguimiento_teleoperador: ListaTeleoperadorResolveService
-    // }
+    canActivate: [AuthGuard],
+     data:{
+       role:null
+     },
+     resolve: {
+       seguimiento_teleoperador: ListaTeleoperadorResolveService
+     }
   },
   {path: '', redirectTo: '/inicio', pathMatch: 'full'},
   {path: '**', redirectTo: '/inicio', pathMatch: 'full'}
