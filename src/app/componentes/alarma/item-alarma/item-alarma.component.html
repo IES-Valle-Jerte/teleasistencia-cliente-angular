@@ -1,5 +1,5 @@
 <td>{{ alarma.estado_alarma }}</td>
-<td>{{ alarma.fecha_registro | date : 'HH:MM:SS' }}</td>
+<td>{{ alarma.fecha_registro | date : 'HH:mm:ss' }}</td>
 <td class="reducirCaja" [title]="alarma.observaciones">{{ alarma.observaciones }}</td>
 <td class="reducirCaja" [title]="alarma.resumen">{{ alarma.resumen }}</td>
 <td>{{ alarma.id_tipo_alarma?.nombre }} - {{ alarma.id_tipo_alarma?.id_clasificacion_alarma?.nombre }}</td>
@@ -7,17 +7,19 @@
 <td>{{ obtenerTerminal()}}</td>
 <td>{{ obtenerNombre()  }}</td>
 <td>
-  <button type="submit" class="btn btn-outline-secondary btn-modify m-1" [routerLink]="['/alarmas/modificar', alarma.id]">
     <ng-container *ngIf="alarma.estado_alarma == 'Cerrada'; else bloqueB">
-      <i class="fa fa-eye"></i>
+      <button type="submit" class="btn btn-outline-info m-1" [routerLink]="['/alarmas/modificar', alarma.id]">
+        <i class="fa fa-eye"></i>
+      </button>
     </ng-container>
     <ng-template #bloqueB>
+      <button type="submit" class="btn btn-outline-success m-1" [routerLink]="['/alarmas/modificar', alarma.id]">
       <i class="fa fa-check"></i>
+      </button>
     </ng-template>
-  </button>
-  <button type="submit" class="btn btn-outline-secondary btn-modify" *ngIf="isAdmin" [routerLink]="['/alarmas/modificar_teleoperador', alarma.id]">
+  <button type="submit" class="btn btn-outline-warning" *ngIf="isAdmin" [routerLink]="['/alarmas/modificar_teleoperador', alarma.id]">
     <i class="fas fa-user-edit"></i>
   </button>
-  <button type="submit" class="btn btn-delete m-1" *ngIf="isAdmin" (click)="modalConfirmacion()"
+  <button type="submit" class="btn btn-outline-danger m-1" *ngIf="isAdmin" (click)="modalConfirmacion()"
   ><i class="fa fa-trash"></i></button>
 </td>

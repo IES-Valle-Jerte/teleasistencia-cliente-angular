@@ -1,0 +1,36 @@
+<div class="row mb-3">
+  <form [formGroup]="formulario">
+    <div class="row mb-3 form-group">
+      <label class="form-label text-start">{{tipoPeticion.nombre}} <span class="obligatorios">*</span></label>
+      <div class="col-10 col-lg-10 pb-1 pb-lg-0">
+        <ng-select id="situaciones" formControlName="datos" [readonly]="blockEditar">
+          <ng-option *ngFor="let tipo of tipoFormulario; let i = index"
+                     [value]="tipo">{{tipo.nombre}}</ng-option>
+        </ng-select>
+      </div>
+      <div class="col-2 col-lg-2 p-0">
+        <button type="button" class="btn btn-info botonOperacion p-0" [disabled]="formulario.invalid"
+                (click)="postAux()">
+          <i class="fa-solid fa-arrow-down"></i>
+        </button>
+      </div>
+      <div class="m-0 p-0" id="{{tipoPeticion?.nombre}}">
+        <div class="row mb-1 mt-1 p-2 d-flex align-items-center justify-content-center borde "
+             *ngFor="let auxiliar of this.dispositivosAuxiliares"
+             id="{{auxiliar?.id_tipo_alarma?.nombre}}">
+          <div class="col-10">
+            {{auxiliar?.id_tipo_alarma?.nombre}}
+          </div>
+          <div class="col-2 p-0 d-flex justify-content-end">
+            <button class="btn btn-danger" type="button"
+                    (click)="borrarRecurso(auxiliar,tipoPeticion?.nombre)" [disabled]="blockEditar">
+              <i class="fa fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+

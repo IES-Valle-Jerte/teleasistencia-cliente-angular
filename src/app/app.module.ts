@@ -1,13 +1,11 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule, Title} from '@angular/platform-browser';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ListaUsersComponent} from './componentes/user/lista-users/lista-users.component';
 import {ItemUserComponent} from './componentes/user/item-user/item-user.component';
 import {ModificarUserComponent} from './componentes/user/modificar-user/modificar-user.component';
 import {CrearUserComponent} from './componentes/user/crear-user/crear-user.component';
-
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FormsModule} from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -63,9 +61,7 @@ import {HeaderComponent} from './componentes/header/header.component';
 import {FooterComponent} from './componentes/footer/footer.component';
 import {BotonesLoginComponent} from './componentes/botones-login/botones-login.component';
 import { AgendaComponent } from './componentes/agenda/lista-agenda/agenda.component';
-import {
-  ModificarHistoricoAgendaComponent
-} from "./componentes/historico-agenda/modificar-historico-agenda/modificar-historico-agenda.component";
+import {ModificarHistoricoAgendaComponent} from "./componentes/historico-agenda/modificar-historico-agenda/modificar-historico-agenda.component";
 import {ModificarAgendaComponent} from "./componentes/agenda/modificar-agenda/modificar-agenda.component";
 import { CommonModule } from '@angular/common';
 import { TipoAgendaComponent } from './componentes/tipo-agenda/lista-tipo-agenda/tipo-agenda.component';
@@ -73,17 +69,14 @@ import { ListaRelacionTerminalRecursosComunitariosComponent } from './componente
 import { ItemRelacionTerminalRecursosComunitariosComponent } from './componentes/relacion-terminal-recursos-comunitarios/item-relacion-terminal-recursos-comunitarios/item-relacion-terminal-recursos-comunitarios.component';
 import { CrearRelacionTerminalRecursosComunitariosComponent } from './componentes/relacion-terminal-recursos-comunitarios/crear-relacion-terminal-recursos-comunitarios/crear-relacion-terminal-recursos-comunitarios.component';
 import { ModificarRelacionTerminalRecursosComunitariosComponent } from './componentes/relacion-terminal-recursos-comunitarios/modificar-relacion-terminal-recursos-comunitarios/modificar-relacion-terminal-recursos-comunitarios.component';
-import {
-  CargaRelacionTerminalRecursosComunitariosService
-} from "./servicios/relacion-terminal-recurso-comunitario/carga-relacion-terminal-recursos-comunitarios.service";
-
+import {CargaRelacionTerminalRecursosComunitariosService} from "./servicios/relacion-terminal-recurso-comunitario/carga-relacion-terminal-recursos-comunitarios.service";
 import {NgxPaginationModule} from 'ngx-pagination';
 import {OrdenacionTablasService} from "./servicios/ordenacion-tablas.service";
 import { FiltroBusquedaPipe } from './pipes/filtro-busqueda.pipe';
 import { ListaTiposViviendaComponent } from './componentes/tipo-vivienda/lista-tipos-vivienda/lista-tipos-vivienda.component';
 import { ListaTiposSituacionComponent } from './componentes/tipo-situacion/lista-tipos-situacion/lista-tipos-situacion.component';
 import { ItemTipoViviendaComponent } from './componentes/tipo-vivienda/item-tipo-vivienda/item-tipo-vivienda.component';
-import { CrearViviendaComponent } from './componentes/tipo-vivienda/crear-tipo-vivienda/crear-vivienda.component';
+import { CrearViviendaComponent } from './componentes/vivienda/crear-tipo-vivienda/crear-vivienda.component';
 import { ModificarTipoViviendaComponent } from './componentes/tipo-vivienda/modificar-tipo-vivienda/modificar-tipo-vivienda.component';
 import {CargaViviendaService} from "./servicios/carga-vivienda.service";
 import { ItemTipoSituacionComponent } from './componentes/tipo-situacion/item-tipo-situacion/item-tipo-situacion.component';
@@ -110,9 +103,7 @@ import {CargaAgendaService} from "./servicios/carga-agenda.service";
 import { ItemAgendaComponent } from './componentes/agenda/item-agenda/item-agenda.component';
 import { ItemHistoricoAgendaComponent } from './componentes/historico-agenda/item-historico-agenda/item-historico-agenda.component';
 import { ListaHistoricoAgendaComponent } from './componentes/historico-agenda/lista-historico-agenda/lista-historico-agenda.component';
-import {
-  NuevoHistoricoAgendaComponent
-} from "./componentes/historico-agenda/nuevo-historico-agenda/nuevo-historico-agenda.component";
+import {NuevoHistoricoAgendaComponent} from "./componentes/historico-agenda/nuevo-historico-agenda/nuevo-historico-agenda.component";
 import { ListaAlarmasComponent } from './componentes/alarma/lista-alarmas/lista-alarmas.component';
 import { ModificarCerrarAlarmaComponent } from './componentes/alarma/modificar-cerrar-alarma/modificar-cerrar-alarma.component';
 import { ItemAlarmaComponent } from './componentes/alarma/item-alarma/item-alarma.component';
@@ -150,6 +141,8 @@ import { ListaRelacionUsuarioCentroComponent } from './componentes/relacion-usua
 import { ModificarTeleoperadorAlarmaComponent } from './componentes/alarma/modificar-teleoperador-alarma/modificar-teleoperador-alarma.component';
 import { RecursosComunitariosPersonalesComponent } from './componentes/recursos-comunitarios-personales/recursos-comunitarios-personales.component';
 import { GruposComponent } from './componentes/grupos/grupos.component';
+import { CrearUserServicioComponent } from './componentes/usuarios-del-servicio/crear-user-servicio/crear-user-servicio.component';
+import { ConsultarUsersServicioComponent } from './componentes/usuarios-del-servicio/consultar-users-servicio/consultar-users-servicio.component';
 import { VerRecursoComponent } from './components/recursos/recurso-comunitario/ver-recurso/ver-recurso.component';
 import { CrearAlarmaComponent} from "./componentes/alarma/crear-alarma/crear-alarma.component";
 import { NgSelectModule} from "@ng-select/ng-select";
@@ -157,20 +150,36 @@ import { CrearPersonaContactoComponent } from './componentes/personas-contacto/c
 import { CrearDatosSanitariosComponent } from './componentes/datos-sanitario/crear-datos-sanitarios/crear-datos-sanitarios.component';
 import { MostrarCrearComponent } from './componentes/personas-contacto/mostrar-crear/mostrar-crear.component';
 
+
 import { BotonInfoAyudasComponent } from './componentes/boton-info-ayudas/boton-info-ayudas.component';
 
+
+
+import { NuevoTipoViviendaComponent } from './componentes/tipo-vivienda/nuevo-tipo-vivienda/nuevo-tipo-vivienda.component';
+import { DispositivosComponent } from './componentes/dispositivos/dispositivos.component';
+import { MostrarClasificacionAlarmaComponent } from './componentes/mostrar-clasificacion-alarma/mostrar-clasificacion-alarma.component';
+import { ModificarUserServicioComponent } from './componentes/usuarios-del-servicio/modificar-user-servicio/modificar-user-servicio.component';
+import { EditarDatosSanitarioComponent } from './componentes/datos-sanitario/editar-datos-sanitario/editar-datos-sanitario.component';
+import { EditarTipoViviendaComponent } from './componentes/vivienda/editar-tipo-vivienda/editar-tipo-vivienda.component';
+import { EditarContactoComponent } from './componentes/personas-contacto/editar-contacto/editar-contacto.component';
+import { MostrarEditarContactoComponent } from './componentes/personas-contacto/mostrar-editar-contacto/mostrar-editar-contacto.component';
+import { CrearEditarContactoComponent } from './componentes/personas-contacto/crear-editar-contacto/crear-editar-contacto.component';
+import { DispositivosEditarComponent } from './componentes/dispositivos-editar/dispositivos-editar.component';
 
 import { ModificarPasswordComponent } from './componentes/user/modificar-password/modificar-password.component';
 import { ModificarImagenUsuarioComponent } from './componentes/botones-modificar/modificar-imagen-usuario/modificar-imagen-usuario.component';
 import { ModificarPasswordUsuarioComponent } from './componentes/botones-modificar/modificar-password-usuario/modificar-password-usuario.component';
-
 import { TiposRecursosComunitariosComponent } from './componentes/alarma/tipos-recursos-comunitarios/tipos-recursos-comunitarios.component';
+
 import { UserAgendasAlarmasResueltasComponent } from './componentes/seguimiento_teleoperador/lista-seguimiento-teleoperador/user-agendas-alarmas-resueltas.component';
 import { ItemTeleoperadorComponent } from './componentes/seguimiento_teleoperador/item-teleoperador/item-teleoperador.component';
 import { ListaAlarmasResueltasComponent } from './componentes/seguimiento_teleoperador/lista-alarmas-resueltas/lista-alarmas-resueltas.component';
 import { ItemAlarmasResueltasComponent } from './componentes/seguimiento_teleoperador/item-alarmas-resueltas/item-alarmas-resueltas.component';
 
 
+
+import { EditMostrarClasificacionAlarmaComponent } from './componentes/edit-mostrar-clasificacion-alarma/edit-mostrar-clasificacion-alarma.component';
+import {NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
@@ -292,14 +301,29 @@ import { ItemAlarmasResueltasComponent } from './componentes/seguimiento_teleope
     ListaRelacionUsuarioCentroComponent,
     ModificarTeleoperadorAlarmaComponent,
     GruposComponent,
+    CrearUserServicioComponent,
+    ConsultarUsersServicioComponent,
     VerRecursoComponent,
     CrearAlarmaComponent,
     CrearPersonaContactoComponent,
     CrearDatosSanitariosComponent,
     MostrarCrearComponent,
 
+
     BotonInfoAyudasComponent,
 
+
+    NuevoTipoViviendaComponent,
+    DispositivosComponent,
+    MostrarClasificacionAlarmaComponent,
+    ModificarUserServicioComponent,
+    EditarDatosSanitarioComponent,
+    ModificarPersonaComponent,
+    EditarTipoViviendaComponent,
+    EditarContactoComponent,
+    MostrarEditarContactoComponent,
+    CrearEditarContactoComponent,
+    DispositivosEditarComponent,
     ModificarPasswordComponent,
     ModificarImagenUsuarioComponent,
     ModificarPasswordUsuarioComponent,
@@ -308,17 +332,19 @@ import { ItemAlarmasResueltasComponent } from './componentes/seguimiento_teleope
     ItemTeleoperadorComponent,
     ListaAlarmasResueltasComponent,
     ItemAlarmasResueltasComponent,
+    EditMostrarClasificacionAlarmaComponent,
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    FormsModule,
-    NgSelectModule,
-    CommonModule,
-    NgxPaginationModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        AppRoutingModule,
+        FormsModule,
+        NgSelectModule,
+        CommonModule,
+        NgxPaginationModule,
+        ReactiveFormsModule,
+        NgbCollapseModule
+    ],
   providers: [
     CargaUserService,
     CargaClasificacionAlarmaService,

@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Title} from "@angular/platform-browser";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CargaViviendaService} from "../../../servicios/carga-vivienda.service";
 import {ITipoVivienda} from "../../../interfaces/i-tipo-vivienda";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
+import {ITipoModalidadPaciente} from "../../../interfaces/i-tipo-modalidad-paciente";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-modificar-tipo-vivienda',
@@ -12,30 +14,67 @@ import {environment} from "../../../../environments/environment";
   styleUrls: ['./modificar-tipo-vivienda.component.scss']
 })
 export class ModificarTipoViviendaComponent implements OnInit {
+  @Output() public mostrarModificar = new EventEmitter;
+  @Input() public listaViviendas: ITipoModalidadPaciente[];
+  @Input() public idVivienda: number;
+
+  public formulario: FormGroup;
   public tipo_vivienda: ITipoVivienda;
-  public idTipoVivienda: number;
 
-  constructor(private route: ActivatedRoute, private titleService: Title, private cargaViviendas: CargaViviendaService, private router: Router) {
+  constructor(private route: ActivatedRoute,
+              private titleService: Title,
+              private cargaViviendas: CargaViviendaService,
+              private router: Router,
+              private formBuilder: FormBuilder) {
   }
+
   ngOnInit(): void {
-    this.idTipoVivienda = this.route.snapshot.params['id'];
-    this.tipo_vivienda = this.route.snapshot.data['tipo_vivienda'];
-    this.titleService.setTitle('Modificar tipo vivienda ' + this.tipo_vivienda);
+    this.buscarVivienda()
+    this.formulario = this.formBuilder.group({
+      nombre: [this.tipo_vivienda.nombre, [Validators.required]]
+    });  //Formularios reactivos
   }
 
-  modificarTipoVivienda(): void {
-    this.cargaViviendas.modificarTipoVivienda(this.tipo_vivienda).subscribe(
+  modificarVivienda(): void {
+    let vivienda = {
+      id: this.idVivienda,
+      nombre: this.formulario.value.nombre
+    }
+    this.cargaViviendas.modificarTipoVivienda(vivienda).subscribe(
       e => {
+        this.mostrarModificar.emit(!this.mostrarModificar);
         this.alertExito()
-        this.router.navigate(['/viviendas']);
       },
       error => {
         this.alertError()
       }
     );
   }
+
+  mostrarModificarTipo() {
+    this.mostrarModificar.emit(!this.mostrarModificar);
+  }
+
+  buscarVivienda() {
+    let enc = false;
+    let i = 0;
+    while ((i < this.listaViviendas.length) && (enc == false)) {
+      if (this.listaViviendas[i].id == this.idVivienda) {
+        enc = true;
+        this.tipo_vivienda = this.listaViviendas[i];
+      }
+      i++;
+    }
+  }
+
+
+  /* Getters del Formulario reactivo para los banners de error */
+  get controles() {
+    return this.formulario.controls;
+  }
+
   //Toast para el Alert indicando que la operación fue exitosa
-  alertExito() :void {
+  alertExito(): void {
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',
@@ -54,8 +93,9 @@ export class ModificarTipoViviendaComponent implements OnInit {
       title: environment.fraseModificar,
     })
   }
+
   //Toast para el alert indicando que hubo algún error en la operación
-  alertError() :void {
+  alertError(): void {
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',

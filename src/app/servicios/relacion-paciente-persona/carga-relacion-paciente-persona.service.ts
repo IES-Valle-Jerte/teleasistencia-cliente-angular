@@ -12,10 +12,15 @@ export class CargaRelacionPacientePersonaService {
   private urlBase = environment.urlBase;
   private URL_SERVER_RELACION_PACIENTE_PERSONA = this.urlBase + 'relacion_paciente_persona';
 
+
   constructor(private http: HttpClient) { }
 
   getRelacionesPacientePersona(): Observable<IRelacionPacientePersona[]> {
     return this.http.get<IRelacionPacientePersona[]>(this.URL_SERVER_RELACION_PACIENTE_PERSONA);
+  }
+
+  getRelacionesPacientePersonaPorPaciente(idPaciente:any): Observable<IRelacionPacientePersona[]> {
+    return this.http.get<IRelacionPacientePersona[]>(this.URL_SERVER_RELACION_PACIENTE_PERSONA + '?id_paciente=' +idPaciente);
   }
 
   getRelacionPacientePersona(idRelacionPacientePersona: number): Observable<IRelacionPacientePersona> {
@@ -43,4 +48,6 @@ export class CargaRelacionPacientePersonaService {
   eliminarRelacionPacientePersona(relacionPacientePersona: IRelacionPacientePersona): Observable<IRelacionPacientePersona> {
     return this.http.delete<IRelacionPacientePersona>(this.URL_SERVER_RELACION_PACIENTE_PERSONA +'/'+ relacionPacientePersona.id)
   }
+
+
 }

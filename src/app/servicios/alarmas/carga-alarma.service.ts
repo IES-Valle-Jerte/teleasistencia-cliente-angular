@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from "../../../environments/environment";
 import {IAlarma} from "../../interfaces/i-alarma";
+import {IPaciente} from "../../interfaces/i-paciente";
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,10 @@ export class CargaAlarmaService {
     getAlarmasPorFecha(fecha_registro:string): Observable<IAlarma> {
       return this.http.get<IAlarma>(this.URL_SERVER_ALARMA+ '?fecha_registro=' + fecha_registro);
     }
+
+  getAlarmaPorPaciente(idPaciente: IPaciente |any): Observable<IAlarma> {
+    return this.http.get<IAlarma>(this.URL_SERVER_ALARMA+ '/?id_paciente_ucr=' + idPaciente);
+  }
 
     modificarAlarma(alarma: IAlarma): Observable<IAlarma> {
       return this.http.put<IAlarma>(this.URL_SERVER_ALARMA+ '/' + alarma.id, alarma);

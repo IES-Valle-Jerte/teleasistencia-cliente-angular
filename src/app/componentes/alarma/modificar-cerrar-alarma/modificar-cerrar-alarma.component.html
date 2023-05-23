@@ -9,8 +9,8 @@
     </nav>
     <div class="row">
       <div class="col-12 col-xl-6 p-0">
-        <h1 class="component-title" >INFORME</h1>
-        <form [formGroup]="this.formInf" (submit)="modificarAlarma()" >
+        <h1 class="component-title" >Informe</h1>
+        <form [formGroup]="this.formInf" >
           <div class="form-group mb-5">
             <label for="motivo" class="form-label">Motivo:</label>
             <textarea class="form-control" id="motivo" rows="7" formControlName="resumen" [attr.disabled]="this.alarma.estado_alarma =='Cerrada'?true:null">
@@ -24,12 +24,12 @@
             </div>
             <div class="row form-group mb-5" >
               <div class="col-4 d-flex align-items-start p-0">
-                <div><button class="btn btn-success" data-bs-toggle="collapse" data-bs-target="#nivel2" type="button">Nivel 2</button></div>
+                <div><button class="btn btn-success" data-bs-toggle="collapse" data-bs-target="#nivel2" type="button" [disabled]="this.alarma.estado_alarma =='Cerrada'">Nivel 2</button></div>
               </div>
-              <div class="col-8 p-0 collapse" id="nivel2">
+              <div class="col-8 p-0" [ngClass]="this.alarma.estado_alarma =='Cerrada'? '':'collapse'" id="nivel2">
                 <form [formGroup]="formPersona" (submit)="subirPost()" class="border-0">
                 <div class="row m-0">
-                  <h6>Personas de Contacto</h6>
+                  <h6>Personas de contacto</h6>
                   <ng-container *ngIf="this.alarma.estado_alarma =='Abierta'">
                       <div class="col-12 col-sm-10 p-0">
                       <ng-select formControlName="persona">
@@ -52,9 +52,9 @@
             </div>
             <div class="row form-group mb-5">
               <div class="col-4 d-flex align-items-start p-0">
-                <div><button class="btn btn-success" data-bs-toggle="collapse" data-bs-target="#nivel3" type="button">Nivel 3</button></div>
+                <div><button class="btn btn-success" data-bs-toggle="collapse" data-bs-target="#nivel3" type="button" [disabled]="this.alarma.estado_alarma =='Cerrada'">Nivel 3</button></div>
               </div>
-              <div class="col-8 p-0 collapse" id="nivel3">
+              <div class="col-8 p-0" [ngClass]="this.alarma.estado_alarma =='Cerrada'? '':'collapse'" id="nivel3">
                 <div class="row mb-4" *ngFor="let tipo of this.tiposRecursos;let i = index">
                   <app-tipos-recursos-comunitarios [alarma]="this.alarma" [terminal]="this.idTerminal" [clasificacion]="tipo"></app-tipos-recursos-comunitarios>
                 </div>
@@ -64,11 +64,11 @@
             <label for="observaciones1" class="form-label">Observaciones:</label>
             <textarea class="form-control" id="observaciones1" rows="7" formControlName="observaciones" [attr.disabled]="this.alarma.estado_alarma =='Cerrada'?true:null"></textarea>
           </div>
-          <button [disabled]="this.formInf.invalid"  type="submit" class="btn btn-outline-success m-1" [ngClass]="this.alarma.estado_alarma == 'Cerrada'?'inactiveForm':''">
+          <button [disabled]="this.formInf.invalid" (click)="modificarAlarma(false)" type="submit" class="btn btn-outline-success m-1" [ngClass]="this.alarma.estado_alarma == 'Cerrada'?'inactiveForm':''">
             Guardar
           </button>
-          <button [disabled]="this.formInf.invalid" [routerLink]="" type="submit" class="btn btn-outline-success m-1" [ngClass]="this.alarma.estado_alarma == 'Cerrada'?'inactiveForm':''">
-            Guardar y Nueva Agenda
+          <button [disabled]="this.formInf.invalid" (click)="modificarAlarma(true)"  type="submit" class="btn btn-outline-success m-1" [ngClass]="this.alarma.estado_alarma == 'Cerrada'?'inactiveForm':''">
+            Guardar y crear agenda
           </button>
         </form>
       </div>
@@ -94,7 +94,7 @@
                required maxlength="500" value="{{obtenerTelefonoFijo()}}" >
         </div>
       <div class="form-group mb-3">
-        <label for="telefonoMovil" class="form-label">Numero de telefono movil: </label>
+        <label for="telefonoMovil" class="form-label">Numero de telefono móvil: </label>
         <input type="text" name="telefonoMovil" id="telefonoMovil" class="form-control" disabled
                required maxlength="500" value="{{obtenerTelefonoMovil()}}" >
         </div>
@@ -109,7 +109,7 @@
                required maxlength="500" value="{{alarma?.fecha_registro | date :'dd/MM/YYYY'}}" >
       </div>
       <div class="form-group mb-3">
-        <label for="estado_alarma" class="form-label">Estado Alarma: </label>
+        <label for="estado_alarma" class="form-label">Estado alarma: </label>
         <input type="text" name="estado_alarma" id="estado_alarma" class="form-control" disabled
                required maxlength="500" value="{{alarma?.estado_alarma}}">
       </div>

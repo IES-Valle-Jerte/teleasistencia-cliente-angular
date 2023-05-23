@@ -5,12 +5,12 @@
 <td>{{ user.email }}</td>
 <td>{{  user.groups[0] != null? user.groups[0]?.name : "" }}</td>
 <td>
-  <button type="submit" class="btn btn-outline-secondary btn-modify" [routerLink]="['/usuarios/modificar', user.id]">
-    <i class="fa fa-pen"></i>
-  </button>
-  <button type="submit" class="btn btn-delete m-1" (click)="modalConfirmacion()"
-  ><i class="fa fa-trash"></i></button>
-  <button type="submit" class="btn btn-outline-secondary btn-modify" [routerLink]="['/usuarios/modificarPassword', user.id]">
+  <button type="submit" class="btn btn-outline-success m-1" [routerLink]="['/usuarios/modificarPassword', user.id]">
     <i class="fa fa-key"></i>
   </button>
+  <button type="submit" class="btn btn-outline-warning btn-modify" [routerLink]="['/usuarios/modificar', user.id]">
+    <i class="fa fa-pen"></i>
+  </button>
+  <button type="submit" class="btn btn-outline-danger m-1" (click)="modalConfirmacion()"
+><i class="fa fa-trash"></i></button>
 </td>

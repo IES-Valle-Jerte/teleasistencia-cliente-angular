@@ -134,9 +134,9 @@
         <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto imgColaboradores"
              src="./assets/home-colaboradores.png" title="Colaboradores" alt="Colaboradores"/>
       </div>
-      <div class="tecnologias">
+      <div class="tecnologias" *ngIf="profesores.length > 0">
         <div>
-          <p class="tituloConvocatoria"><b>Profesores:</b></p>
+          <p class="tituloConvocatoria"><b>Profesores</b></p>
           <div class="tab">
             <ng-container *ngFor="let desarrollador of profesores">
               <button class="tablinks" (click)="abrirDesarrollador($event, desarrollador.nombre)">
@@ -147,18 +147,15 @@
           <ng-container *ngFor="let desarrollador of profesores">
             <div class="tabcontent" id="{{desarrollador.nombre}}">
               <div class="container">
-                <div class="divTitulosDesarrollador">
-                  <span>{{desarrollador.nombre}}</span>
-                </div>
-                <div class="divImagenesDesarrollador">
-                  <div ><img class="imagenDesarrollador" [src]="desarrollador.imagen" [title]="desarrollador.nombre" />
+                <div class="divTitulosDesarrollador row">
+                  <div class="col-3 col-md-5 col-sm-8 ps-5 pb-2"><img class="imagenDesarrollador" [src]="desarrollador.imagen" [title]="desarrollador.nombre" /></div>
+                  <div class="divImagenesDesarrollador col-6 pt-4 text-center">
+                    <span class="style">{{desarrollador.nombre}}</span>
                   </div>
                 </div>
                 <div class="parrafoDescripcionTecnologia" >
-                  <h2 class="tituloDescripcion">Descripción del Profesor.</h2>
-                  <p>{{desarrollador.descripcion}}</p>
+                  <p [innerHTML]="desarrollador.descripcion"></p>
                 </div>
-                <hr>
               </div>
             </div>
           </ng-container>
@@ -177,23 +174,22 @@
           <ng-container *ngFor="let desarrollador of alumnos">
             <div *ngIf="convocatoria.desarrolladores.indexOf(desarrollador) >= 0" class="tabcontent" id="{{desarrollador.nombre}}">
               <div class="container">
-                <div class="divTitulosDesarrollador">
-                  <span>{{desarrollador.nombre}}</span><span>Tecnologías</span><span></span>
-                </div>
-                <div class="divImagenesDesarrollador">
-                  <div ><img class="imagenDesarrollador" [src]="desarrollador.imagen" [title]="desarrollador.nombre" />
-                  </div>
-                  <div class="divTecnologias" >
-                    <ng-container *ngFor="let tecnologia of desarrollador.desarrollador_tecnologias">
-                      <img class="imagenTecnologia" [src]="tecnologia.id_tecnologia.imagen" [title]="tecnologia.id_tecnologia.nombre"/>
-                    </ng-container>
+                <div class="divTitulosDesarrollador row">
+                  <div class="col-6 col-md-5 col-sm-6 ps-5 pb-2"><img class="imagenDesarrollador" [src]="desarrollador.imagen" [title]="desarrollador.nombre" /></div>
+                  <div class="divImagenesDesarrollador col-6 col-md-4 col-sm-4 pt-4 text-center">
+                      <span class="style">{{desarrollador.nombre}}</span>
+                      <div class="divTecnologias row justify-content-md-center">
+                        <ng-container *ngFor="let tecnologia of desarrollador.desarrollador_tecnologias">
+                          <div class="col">
+                            <img class="imagenTecnologia" [src]="tecnologia.id_tecnologia.imagen" [title]="tecnologia.id_tecnologia.nombre"/>
+                          </div>
+                        </ng-container>
+                      </div>
                   </div>
                 </div>
                 <div class="parrafoDescripcionTecnologia" >
-                  <h2 class="tituloDescripcion">Descripción del Proyecto.</h2>
-                  <p>{{desarrollador.descripcion}}</p>
+                  <p [innerHTML]="desarrollador.descripcion"></p>
                 </div>
-                <hr>
               </div>
             </div>
           </ng-container>

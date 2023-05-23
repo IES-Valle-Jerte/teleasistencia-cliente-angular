@@ -15,4 +15,6 @@ export class Persona implements IPersona {
   direccion: string;
   codigo_postal: string;
   id_direccion: IDireccion;
+
+
 }

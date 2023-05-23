@@ -1,17 +1,29 @@
-<td> {{ paciente.id_persona?.nombre}} {{paciente.id_persona?.apellidos}}</td>
-<td> {{ comprobarUcr()}}</td>
-<td> {{ paciente.numero_expediente}}</td>
-<td> {{ paciente.id_terminal?.numero_terminal}}</td>
-<td> {{ paciente.numero_seguridad_social}}</td>
-<td> {{ paciente.observaciones_medicas}}</td>
-<td> {{ paciente.intereses_y_actividades}}</td>
-<td> {{ paciente.id_tipo_modalidad_paciente?.nombre}}</td>
+<td>{{paciente?.id_persona?.nombre}} {{paciente?.id_persona?.apellidos}}</td>
+<td>{{paciente?.id_tipo_modalidad_paciente?.nombre}}</td>
+<td>{{paciente?.id_persona?.id_direccion.localidad}}</td>
+<td class="reducirCaja" title="{{paciente?.observaciones_medicas}}">{{paciente?.observaciones_medicas}}</td>
+<td *ngIf="!hayDispositivos">No tiene dispositivos asociados</td>
+<td *ngIf="hayDispositivos">
+  <p class="reducirCaja" title="{{ obtenerListaDispositivos() }}">
+    <ng-container *ngFor="let item of listaDispositivos; let isLast = last">
+      {{item?.id_tipo_alarma?.nombre }}{{ isLast ? '' : ', ' }}
+    </ng-container>
+  </p>
+</td>
+<td> {{paciente?.id_terminal?.id_tipo_situacion?.nombre}}</td>
+
 <td>
-  <button type="submit" class="btn btn-outline-secondary btn-modify" [routerLink]="['/pacientes/modificar', paciente.id]">
-    <i class="fa fa-pen"></i>
+  <button type="button" class="btn btn-outline-primary m-1"
+          [routerLink]="['/usuarios_del_servicio/informacion/', paciente.id]">
+    <i class="fa fa-eye"></i>
   </button>
-  <button type="submit" class="btn btn-delete m-1" (click)="modalConfirmacion()"
+  <button type="submit" class="btn btn-outline-warning btn-modify"
+          [routerLink]="['/modificar-user-servicio/editar/', paciente.id]">
+    <i class="fas fa-user-edit"></i>
+  </button>
+  <button type="button" class="btn btn-outline-danger m-1" (click)="modalConfirmacion()"
   ><i class="fa fa-trash"></i></button>
+
 </td>
 
-<td ></td>
+

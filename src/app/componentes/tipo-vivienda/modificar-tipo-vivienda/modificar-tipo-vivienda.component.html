@@ -1,34 +1,27 @@
-<main class="text-center row p-0 m-0 justify-content-center">
-  <div class="container">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
-        <li class="breadcrumb-item"><a [routerLink]="['/viviendas']">Tipos de viviendas</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Modificar tipo de vivienda {{idTipoVivienda}}</li>
-      </ol>
-    </nav>
-    <h1 class="component-title">Modificar datos tipo alarma {{idTipoVivienda}}</h1>
-    <form #modificarTipoViviendaForm="ngForm">
-
-      <div class="form-group mb-3">
-        <label for="nombre" class="form-label">Nombre</label>
-        <input type="text" name="nombre" id="nombre" class="form-control"
-               required maxlength="200" [(ngModel)]="tipo_vivienda.nombre" #nombre="ngModel">
-        <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-secondary" role="alert">
-          <div *ngIf="nombre.errors?.required">
-            El nombre es obligatorio
-          </div>
-        </div>
+<h1 class="component-title text-center">Modificar Vivienda {{idVivienda}}</h1>
+<form [formGroup]="formulario" (submit)="modificarVivienda()">
+  <div class="form-group mb-3">
+    <label for="nombre" class="form-label">Nombre</label>
+    <input type="text" name="nombre" id="nombre" class="form-control"
+           required maxlength="200" formControlName="nombre">
+    <div *ngIf="controles.nombre.invalid && (controles.nombre.dirty || controles.nombre.touched)"
+         class="alert alert-secondary" role="alert">
+      <div *ngIf="controles.nombre.errors?.required">
+        El nombre es obligatorio
       </div>
-
-      <button type="submit" class="btn btn-outline-success m-1" (click)="modificarTipoVivienda()"
-              [disabled]="!modificarTipoViviendaForm.form.valid">
-        Guardar
-      </button>
-      <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/viviendas']">
-        Volver
-      </button>
-
-    </form>
+    </div>
   </div>
-</main>
+
+  <div class="text-center">
+    <button type="button" class="btn btn-outline-success m-1" (click)="modificarVivienda()"
+            [disabled]="formulario.invalid" data-bs-toggle="collapse"
+            data-bs-target="#vivienda2" aria-expanded="false" aria-controls="vivienda2">
+      Guardar
+    </button>
+    <button type="button" class="btn btn-outline-secondary m-1" (click)="mostrarModificarTipo()" data-bs-toggle="collapse"
+            data-bs-target="#vivienda2" aria-expanded="false" aria-controls="vivienda2">
+      Cancelar
+    </button>
+  </div>
+
+</form>

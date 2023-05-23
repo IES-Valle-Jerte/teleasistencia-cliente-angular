@@ -1,34 +1,28 @@
-<main class="text-center row p-0 m-0 justify-content-center">
-<div class="container">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
-      <li class="breadcrumb-item"><a [routerLink]="['/tipos_modalidades_pacientes']">Tipos de modalidades de pacientes</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Crear tipo de modalidad paciente</li>
-    </ol>
-  </nav>
-  <h1 class="component-title">Crear nuevo tipo modalidad paciente</h1>
-  <form #nuevoTipoModalidadPacienteForm="ngForm">
+<h1 class="component-title text-center">Crear nuevo tipo modalidad paciente</h1>
+<form [formGroup]="formulario">
 
-    <div class="form-group mb-3">
-      <label for="nombre" class="form-label">Nombre</label>
-      <input type="text" name="nombre" id="nombre" class="form-control"
-             required maxlength="200" [(ngModel)]="tipo_modalidad_paciente.nombre" #nombre="ngModel">
-      <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-secondary" role="alert">
-        <div *ngIf="nombre.errors?.required">
-          El nombre es obligatorio
-        </div>
+  <div class="form-group mb-3">
+    <label for="nombre" class="form-label">Nombre</label>
+    <input type="text" name="nombre" id="nombre" class="form-control" formControlName="nombre">
+    <div *ngIf="controls.nombre.invalid && (controls.nombre.dirty || controls.nombre.touched)"
+         class="alert alert-secondary" role="alert">
+      <div *ngIf="controls.nombre.errors?.required">
+        El nombre es obligatorio
       </div>
     </div>
+  </div>
 
-    <button type="submit" class="btn btn-outline-success m-1" (click)="nuevoTipoModalidadPaciente()"
-            [disabled]="!nuevoTipoModalidadPacienteForm.form.valid">
+  <div class="text-center">
+    <button type="submit" class="btn btn-outline-success m-1" (click)="nuevoTipoModalidadPaciente()"  data-bs-toggle="collapse"
+            data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
       Guardar
     </button>
-    <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/tipos_modalidades_pacientes']">
-      Volver
-    </button>
 
-  </form>
-</div>
-</main>
+    <button type="button" class="btn btn-outline-secondary m-1" (click)="mostratCrearTipo()" data-bs-toggle="collapse"
+            data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+      Cancelar
+    </button>
+  </div>
+
+</form>
+

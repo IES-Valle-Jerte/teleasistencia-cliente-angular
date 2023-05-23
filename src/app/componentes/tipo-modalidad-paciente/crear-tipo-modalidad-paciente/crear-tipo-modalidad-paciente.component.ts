@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ITipoModalidadPaciente} from '../../../interfaces/i-tipo-modalidad-paciente';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -6,6 +6,9 @@ import {CargaTipoModalidadPacienteService} from '../../../servicios/carga-tipo-m
 import {TipoModalidadPaciente} from '../../../clases/tipo-modalidad-paciente';
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {IPersona} from "../../../interfaces/i-persona";
+import {IDireccion} from "../../../interfaces/i-direccion";
 
 
 @Component({
@@ -15,29 +18,58 @@ import {environment} from "../../../../environments/environment";
 })
 
 export class CrearTipoModalidadPacienteComponent implements OnInit {
-  public tipo_modalidad_paciente: ITipoModalidadPaciente;
+  @Output() mostrar = new EventEmitter;
+  @Output() refresco = new EventEmitter;
+  public formulario: FormGroup;
 
-  constructor(private titleService: Title, private route: ActivatedRoute, private cargaTiposModalidadesPacientes: CargaTipoModalidadPacienteService, private router: Router) {
+
+  constructor(private route: ActivatedRoute, private cargaTiposModalidadesPacientes: CargaTipoModalidadPacienteService, private router: Router, private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
-    this.titleService.setTitle('Nuevo tipo modalidad paciente');
-    this.tipo_modalidad_paciente = new TipoModalidadPaciente();
+    this.buildForm();  //Formularios reactivos
+
   }
 
+  private buildForm() {
+    this.formulario = this.formBuilder.group({
+      nombre: ['', [Validators.required, Validators.maxLength(200)]]
+    });
+  }
+
+
   nuevoTipoModalidadPaciente(): void {
-    this.cargaTiposModalidadesPacientes.nuevoTipoModalidadPaciente(this.tipo_modalidad_paciente).subscribe(
+    let tipo_modalidad_paciente;
+
+    tipo_modalidad_paciente = {
+      nombre: this.formulario.value.nombre
+    }
+
+    this.cargaTiposModalidadesPacientes.nuevoTipoModalidadPaciente(tipo_modalidad_paciente).subscribe(
       e => {
         this.alertExito()
-        this.router.navigate(['/tipos_modalidades_pacientes']);
+        this.mostrar.emit(!this.mostrar);
+        this.refresco.emit(e.id);
+
       },
       error => {
         this.alertError()
       }
     );
   }
+
+
+  mostratCrearTipo() {
+    this.mostrar.emit(!this.mostrar);
+  }
+
+  get controls() {
+    return this.formulario.controls;
+  }
+
+
   //Toast para el Alert indicando que la operación fue exitosa
-  alertExito() :void {
+  alertExito(): void {
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',
@@ -56,8 +88,9 @@ export class CrearTipoModalidadPacienteComponent implements OnInit {
       title: environment.fraseCrear,
     })
   }
+
   //Toast para el alert indicando que hubo algún error en la operación
-  alertError() :void {
+  alertError(): void {
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',

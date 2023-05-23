@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {IPersona} from '../interfaces/i-persona';
 import {ITipoRecursoComunitario} from "../interfaces/i-tipo-recurso-comunitario";
 import {environment} from "../../environments/environment";
+import {Persona} from "../clases/persona";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,8 @@ import {environment} from "../../environments/environment";
 export class CargaPersonaService {
   private urlBase = environment.urlBase;
   private URL_SERVER_PERSONAS = this.urlBase + 'persona';
+   idPersonaCreada: number;
+   persona: IPersona | any;
 
   constructor(private http: HttpClient) {
   }
@@ -24,8 +27,8 @@ export class CargaPersonaService {
     return this.http.get<IPersona>(this.URL_SERVER_PERSONAS + '/' + idPersona);
   }
 
-  modificarPersona(persona: IPersona): Observable<IPersona> {
-    return this.http.put<IPersona>(this.URL_SERVER_PERSONAS + '/' + persona.id, persona);
+  modificarPersona(persona: IPersona, idPersona: number): Observable<IPersona> {
+    return this.http.put<IPersona>(this.URL_SERVER_PERSONAS + '/' + idPersona, persona);
   }
   nuevaPersona(persona: IPersona): Observable<IPersona> {
     return this.http.post<IPersona>(this.URL_SERVER_PERSONAS, persona);

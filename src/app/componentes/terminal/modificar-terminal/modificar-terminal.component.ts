@@ -28,8 +28,6 @@ export class ModificarTerminalComponent implements OnInit {
     this.idTerminal = this.route.snapshot.params['id'];
     this.titulares = this.route.snapshot.data['titulares'];
     this.tipo_vivienda = this.route.snapshot.data['tipo_vivienda']
-    this.terminal.id_titular = this.terminal.id_titular.id;
-    this.terminal.id_tipo_vivienda = this.terminal.id_tipo_vivienda.id
   }
   optionSelected(i: number): void {
     document.getElementsByClassName('form-select')[i].setAttribute('selected', '');

@@ -12,8 +12,8 @@ export class AuthService {
   constructor() {
   }
 
-  login(id,username, userlastname, role, img) {
 
+  login(id,username, userlastname, role, img) {
 
     /***Apartado LocalStorage***/
     localStorage.setItem('id', id)
@@ -23,12 +23,9 @@ export class AuthService {
     localStorage.setItem('img', img);
   }
 
+
   isLoggedIn(): boolean {
-    if (localStorage.getItem('token') != null) {
-      return true;
-    } else {
-      return false;
-    }
+    return localStorage.getItem('token') != null;
   }
 
   logout(): void {
@@ -50,7 +47,7 @@ export class AuthService {
       return true;
     }
     return false;
-  }
+  }E
 
 
 }

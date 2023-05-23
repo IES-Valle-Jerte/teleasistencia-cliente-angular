@@ -11,5 +11,6 @@ export interface IRelacionPacientePersona {
   observaciones: string;
   prioridad: number;
   es_conviviente: boolean,
+  tiempo_domicilio: number;
   id_paciente: IPaciente;
 }

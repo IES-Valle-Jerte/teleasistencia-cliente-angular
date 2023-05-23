@@ -9,7 +9,7 @@ export interface IUsers {
   email:       string;
   date_joined: Date;
   groups:      any;
-  imagen:       File;
+  imagen:       File | any;
 }
 
 export interface Group {

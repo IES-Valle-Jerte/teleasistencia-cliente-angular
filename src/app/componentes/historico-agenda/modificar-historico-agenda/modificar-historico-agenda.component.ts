@@ -46,7 +46,6 @@ export class ModificarHistoricoAgendaComponent implements OnInit {
     this.historico_agenda = this.route.snapshot.data['historico_agenda'];
     this.id_historico_agenda = this.route.snapshot.params['id'];
     this.agendas = this.route.snapshot.data['agendas'];
-    this.teleoperadores = this.route.snapshot.data['teleoperadores'];
     this.teleoperador = this.historico_agenda.id_teleoperador;
     this.paciente = this.historico_agenda.id_agenda.id_paciente;
     this.crearForm();

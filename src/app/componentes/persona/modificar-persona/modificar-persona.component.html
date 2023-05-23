@@ -1,173 +1,255 @@
-<main class="text-center row p-0 m-0 justify-content-center">
-<div class="container">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
-      <li class="breadcrumb-item"><a [routerLink]="['/personas']">Personas</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Modificar persona {{idPersona}}</li>
-    </ol>
-  </nav>
-  <h1 class="component-title">Modificar datos persona {{idPersona}}</h1>
-  <form #modificarPersonaForm="ngForm">
+<main class="p-0 m-0">
+  <div class="row d-flex justify-content-center">
+    <div class="col-12 col-xl-6">
+      <form [formGroup]="formulario" (submit)="nuevoUsuarioServicio()"
 
-    <div class="form-group mb-3">
-      <label for="nombre" class="form-label">Nombre</label>
-      <input type="text" name="nombre" id="nombre" class="form-control"
-             required maxlength="200" pattern="^[\w'\-,.][^0-9_!¡?÷?¿(\)\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"
-             [(ngModel)]="persona.nombre"
-             #nombre="ngModel">
-      <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-secondary" role="alert">
-        <div *ngIf="nombre.errors?.required; else elseBlock">
-          El nombre es obligatorio
+            [ngClass]="this.mostrar || this.mostrarModificar ? 'inactiveForm':''">
+        <div class="row mb-4">
+          <div class="col-4">
+            <div class="form-group">
+              <label for="nombre" class="form-label text-start">Nombre <span class="obligatorios">*</span></label>
+              <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre"
+                     formControlName="nombre" [readonly]="blockEditar">
+            </div>
+            <div *ngIf="controles.nombre.invalid && (controles.nombre.dirty || controles.nombre.touched)"
+                 class="alert alert-secondary" role="alert">
+              <span *ngIf="controles.nombre.errors.required">El Nombre es obligatorio.</span>
+              <span *ngIf="controles.nombre.errors.pattern">El Nombre no es válido.</span>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <div class="form-group">
+              <label for="apellidos" class="form-label text-start">Apellidos <span class="obligatorios">*</span></label>
+              <input type="text" name="apellidos" id="apellidos" class="form-control "
+                     placeholder="Apellidos" formControlName="apellidos" [readonly]="blockEditar">
+            </div>
+            <div *ngIf="controles.apellidos.invalid && (controles.apellidos.dirty || controles.apellidos.touched)"
+                 class="alert alert-secondary"
+                 role="alert">
+              <span *ngIf="controles.apellidos.errors.required">Los apellidos son obligatorios.</span>
+              <span *ngIf="controles.apellidos.errors.pattern">Los apellidos no son válidos.</span>
+            </div>
+
+          </div>
+
+          <div class="col-4">
+            <div class="form-group">
+              <label for="expediente" class="form-label text-start">Nº Expediente <span
+                class="obligatorios">*</span></label>
+              <input type="text" name="dni" id="expediente" class="form-control " placeholder="Nº Expediente"
+                     formControlName="expediente" [readonly]="blockEditar">
+            </div>
+            <div *ngIf="controles.expediente.invalid && (controles.expediente.dirty || controles.expediente.touched)"
+                 class="alert alert-secondary" role="alert">
+              <span *ngIf="controles.expediente.errors.required">El Expediente es obligatorio.</span>
+              <span *ngIf="controles.expediente.errors.pattern">El Expediente consta de mínimo 4 dígitos.</span>
+
+            </div>
+          </div>
+
         </div>
-        <ng-template #elseBlock>
-          Introduzca un nombre válido
-        </ng-template>
-      </div>
-    </div>
 
-    <div class="form-group mb-3">
-      <label for="apellidos" class="form-label">Apellidos</label>
-      <input type="text" name="apellidos" id="apellidos" class="form-control"
-             required maxlength="200" pattern="^[\w'\-,.][^0-9_!¡?÷?¿(\)\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"
-             [(ngModel)]="persona.apellidos" #apellidos="ngModel">
-      <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)" class="alert alert-secondary"
-           role="alert">
-        <div *ngIf="apellidos.errors?.required; else elseBlock">
-          Los apellidos son obligatorios
+        <div class="row mb-4">
+
+
+          <div class="col-4">
+            <div class="form-group">
+              <label for="dni" class="form-label text-start">DNI <span class="obligatorios">*</span></label>
+              <input type="text" name="dni" id="dni" class="form-control " placeholder="DNI" formControlName="dni"
+                     [readonly]="blockEditar">
+            </div>
+            <div *ngIf="controles.dni.invalid && (controles.dni.dirty || controles.dni.touched)"
+                 class="alert alert-secondary" role="alert">
+              <span *ngIf="controles.dni.errors.required">El DNI es obligatorio.</span>
+              <span *ngIf="controles.dni.errors.pattern">El DNI no es válido.</span>
+            </div>
+          </div>
+
+
+          <div class="col-4">
+            <div class="form-group">
+              <label for="fecha_nacimiento" class="form-label text-start">Fecha de Nacimiento <span
+                class="obligatorios">*</span></label>
+              <input type="date" name="fecha_nacimiento " id="fecha_nacimiento" class="form-control "
+                     max='{{getToday()}}'
+                     formControlName="fecha_nacimiento" [readonly]="blockEditar">
+            </div>
+            <div *ngIf="controles.fecha_nacimiento.errors?.fechaExcedida" class="alert alert-secondary" role="alert">
+              <span>La fecha de nacimiento no puede ser mayor a la actual.</span>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <div class="form-group">
+              <label for="sexo" class="form-label text-start">Género <span class="obligatorios">*</span></label>
+              <ng-select id="tipoTeleasistencia" formControlName="sexo" id="sexo" [readonly]="blockEditar">
+                <ng-option *ngFor="let sexo of listaSexo; let i = index"
+                           [value]="sexo">{{sexo}}</ng-option>
+              </ng-select>
+            </div>
+          </div>
+
         </div>
-        <ng-template #elseBlock>
-          Introduzca unos apellidos válidos
-        </ng-template>
-      </div>
-    </div>
+        <div class="row mb-4">
+          <div class="col-4">
+            <div class="form-group">
+              <label for="telefono_fijo" class="form-label text-start">Télefono Fijo</label>
+              <input type="tel" name="telefono_fijo" id="telefono_fijo" class="form-control "
+                     placeholder="Teléfono Fijo" formControlName="telefono_fijo" [readonly]="blockEditar">
+            </div>
+            <div
+              *ngIf="controles.telefono_fijo.invalid && (controles.telefono_fijo.dirty || controles.telefono_fijo.touched)"
+              class="alert alert-secondary" role="alert">
+              <span *ngIf="controles.telefono_fijo.errors.pattern">Debe empezar por 9 y tener 9 dígitos</span>
+            </div>
+          </div>
 
-    <div class="form-group mb-3">
-      <label for="dni" class="form-label">Dni</label>
-      <input type="text" name="dni" id="dni" class="form-control" required maxlength="9"
-             pattern="((([X-Z])|([LM])){1}([-]?)((\d){7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]))"
-             [(ngModel)]="persona.dni" #dni="ngModel">
-      <div *ngIf="dni.invalid && (dni.dirty || dni.touched)" class="alert alert-secondary" role="alert">
-        <div *ngIf="dni.errors?.required; else elseBlock">
-          El dni es obligatorio
+          <div class="col-4">
+            <div class="form-group">
+              <label for="telefono_movil" class="form-label text-start">Teléfono movil</label>
+              <input type="tel" name="telefono_movil" id="telefono_movil" class="form-control "
+                     placeholder="Teléfono Movil" formControlName="telefono_movil" [readonly]="blockEditar">
+            </div>
+            <div
+              *ngIf="controles.telefono_movil.invalid && (controles.telefono_movil.dirty || controles.telefono_movil.touched)"
+              class="alert alert-secondary" role="alert">
+              <span *ngIf="controles.telefono_movil.errors.pattern">Debe empezar por 6 o 7 y tener 9 dígitos</span>
+            </div>
+          </div>
+
+
+          <div class="col-4">
+            <div class="form-group">
+              <label for="codigo_postal" class="form-label text-start">Código Postal <span
+                class="obligatorios">*</span></label>
+              <input type="text" name="codigo_postal" id="codigo_postal" class="form-control "
+                     placeholder="CP" formControlName="codigo_postal" [readonly]="blockEditar">
+            </div>
+            <div
+              *ngIf="controles.codigo_postal.invalid && (controles.codigo_postal.dirty || controles.codigo_postal.touched)"
+              class="alert alert-secondary" role="alert">
+              <span *ngIf="controles.codigo_postal.errors.required">El código postal es obligatorio.</span>
+              <span *ngIf="controles.codigo_postal.errors.pattern">La código postal no es válido.</span>
+            </div>
+          </div>
+
         </div>
-        <ng-template #elseBlock>
-          Introduzca un dni válido
-        </ng-template>
-      </div>
-    </div>
 
-    <div class="form-group mb-3">
-      <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
-      <input type="date" name="fecha_nacimiento " id="fecha_nacimiento" class="form-control" required
-             max="{{ anno_actual }}-{{ mes_actual }}-{{ dia_actual }}" [(ngModel)]="persona.fecha_nacimiento"
-             #fecha_nacimiento="ngModel">
-      <div *ngIf="fecha_nacimiento.invalid && (fecha_nacimiento.dirty || fecha_nacimiento.touched)"
-           class="alert alert-secondary" role="alert">
-        <div *ngIf="fecha_nacimiento.errors?.required">
-          La fecha de nacimiento es obligatoria
+        <div class="row mb-4">
+          <div class="col-4">
+            <div class="form-group">
+              <label for="localidad" class="form-label text-start">Localidad <span class="obligatorios">*</span></label>
+              <input type="text" name="localidad" id="localidad" class="form-control " placeholder="Localidad"
+                     formControlName="localidad" [readonly]="blockEditar">
+            </div>
+            <div *ngIf="controles.localidad.value.invalid && (controles.localidad.dirty || controles.localidad.touched)"
+                 class="alert alert-secondary"
+                 role="alert">
+              <span *ngIf="controles.localidad.errors.required">La localidad es obligatoria.</span>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label for="provincia" class="form-label text-start">Provincia <span class="obligatorios">*</span></label>
+              <input type="text" name="provincia" id="provincia" class="form-control "
+                     required maxlength="200" placeholder="Provincia" formControlName="provincia"
+                     [readonly]="blockEditar">
+            </div>
+            <div *ngIf="controles.provincia.invalid && (controles.provincia.dirty || controles.provincia.touched)"
+                 class="alert alert-secondary"
+                 role="alert">
+              <span *ngIf="controles.provincia.errors.required">La provincia es obligatoria.</span>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <div class="form-group">
+              <label for="direccion" class="form-label text-start">Dirección <span class="obligatorios">*</span></label>
+              <input type="text" name="direccion" id="direccion" class="form-control "
+                     placeholder="Dirección" formControlName="direccion" [readonly]="blockEditar">
+            </div>
+            <div *ngIf="controles.direccion.invalid && (controles.direccion.dirty || controles.direccion.touched)"
+                 class="alert alert-secondary"
+                 role="alert">
+              <span *ngIf="controles.direccion.errors.required">La dirección es obligatoria.</span>
+            </div>
+          </div>
+
+
         </div>
-      </div>
-    </div>
 
-    <div class="form-group mb-3">
-      <label for="sexo" class="form-label">Sexo</label>
-      <select class="form-select" id="sexo" name="sexo" required
-              [(ngModel)]="persona.sexo">
-        <option class="sexo_option" value="Hombre">Hombre</option>
-        <option class="sexo_option" value="Mujer">Mujer</option>
-      </select>
-    </div>
+        <div class="row mb-3 form-group">
 
-    <div class="form-group mb-3">
-      <label for="telefono_fijo" class="form-label">Teléfono fijo</label>
-      <input type="tel" name="telefono_fijo" id="telefono_fijo" class="form-control" maxlength="12"
-             pattern="^[9]{1}[ ]*([0-9][ ]*){8}$"
-             [(ngModel)]="persona.telefono_fijo" #telefono_fijo="ngModel">
-      <div *ngIf="telefono_fijo.invalid && (telefono_fijo.dirty || telefono_fijo.touched)" class="alert alert-secondary"
-           role="alert">
-        <div *ngIf="telefono_fijo.errors">
-          Introduzca un teléfono fijo válido
+          <label for="tipos_personas" class="form-label text-start">Tipo de persona <span
+            class="obligatorios">*</span></label>
+          <div class="col-12 col-lg pb-1 pb-lg-0">
+            <ng-select id="tipos_personas" formControlName="tipos_personas" [readonly]="blockEditar" (change)="cambiarId()">
+              <ng-option *ngFor="let tipo_persona of tipos_personas; let i = index"
+                         [value]="tipo_persona.id">{{tipo_persona.nombre}}</ng-option>
+            </ng-select>
+            <input type="hidden"  formControlName="id_tipo">
+          </div>
+          <ng-container *ngIf="!blockEditar">
+            <ng-container *ngIf="this.isAdmin">
+              <div class="col-4 col-lg-1  p-0">
+                <button class="btn btn-success botonOperacion" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false"
+                        aria-controls="collapseWidthExample" (click)="mostratCrearTipo()">
+                  <i class="fa-solid fa-circle-plus"></i>
+                </button>
+              </div>
+              <div class="col-4 col-lg-1  p-0">
+                <button class="btn btn-warning botonOperacion" id="des1" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false"
+                        aria-controls="collapseWidthExample2" (click)="mostrarEditarTipo()" [disabled]="desactivado()">
+                  <i class="fa fa-sharp fa-solid fa-pen fa-sm"></i>
+                </button>
+              </div>
+              <div class="col-4 col-lg-1  p-0">
+                <button class="btn btn-danger botonOperacion" id="des2" type="button" [disabled]="desactivado()"
+                        (click)="modalConfirmacion()">
+                  <i class="fa fa-solid fa-trash"></i>
+                </button>
+              </div>
+            </ng-container>
+          </ng-container>
         </div>
-      </div>
-    </div>
 
-    <div class="form-group mb-3">
-      <label for="telefono_movil" class="form-label">Teléfono móvil</label>
-      <input type="tel" name="telefono_movil" id="telefono_movil" class="form-control" maxlength="12"
-             pattern="^[6|7]{1}[ ]*([0-9][ ]*){8}$"
-             [(ngModel)]="persona.telefono_movil" #telefono_movil="ngModel">
-      <div *ngIf="telefono_movil.invalid && (telefono_movil.dirty || telefono_movil.touched)"
-           class="alert alert-secondary" role="alert">
-        <div *ngIf="telefono_movil.errors">
-          Introduzca un teléfono móvil válido
+        <div class="row">
+          <div class="form-group col-12">
+            <label for="text_area" class="form-label text-start">Observaciones</label>
+            <textarea formControlName="text_area" name="text_area" id="text_area" class="form-control"
+                      rows="5" [readonly]="blockEditar"></textarea>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="form-group mb-3">
-      <label for="localidad" class="form-label">Localidad</label>
-      <input type="text" name="localidad" id="localidad" class="form-control"
-             required maxlength="200" [(ngModel)]="dire.localidad"
-             #localidad="ngModel">
-      <div *ngIf="localidad.invalid && (localidad.dirty || localidad.touched)" class="alert alert-secondary"
-           role="alert">
-        <div *ngIf="localidad.errors?.required">
-          La localidad es obligatoria
+        <div class="text-center" *ngIf="!blockEditar">
+          <button [disabled]="formulario.invalid" type="submit" class="btn btn-outline-success m-1 "
+                  (click)="contraer()"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#datosPersonales ,#datosSanitarios" aria-expanded="false"
+                  aria-controls="datosPersonales">Guardar
+          </button>
+          <button type="button" class="btn btn-outline-secondary m-1"
+                  [routerLink]="['/usuarios_del_servicio/consultar']">Volver
+          </button>
         </div>
-      </div>
+
+      </form>
+    </div>
+    <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto" id="collapseWidthExample">
+      <app-crear-tipo-modalidad-paciente (mostrar)="this.mostrar=$event" (refresco)="actualizarModalidades($event)">
+      </app-crear-tipo-modalidad-paciente>
     </div>
 
-    <div class="form-group mb-3">
-      <label for="provincia" class="form-label">Provincia</label>
-      <input type="text" name="provincia" id="provincia" class="form-control"
-             required maxlength="200" [(ngModel)]="dire.provincia"
-             #provincia="ngModel">
-      <div *ngIf="provincia.invalid && (provincia.dirty || provincia.touched)" class="alert alert-secondary"
-           role="alert">
-        <div *ngIf="provincia.errors?.required">
-          La provincia es obligatoria
-        </div>
-      </div>
+    <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto" id="collapseWidthExample2">
+      <app-modificar-tipo-modalidad-paciente
+        (mostrarModificar)="this.mostrarModificar=$event"
+        *ngIf="this.mostrarModificar"
+        [listaTiposModalidad]="tipos_personas"
+        [idTipoModalidad]="formulario.value.id_tipo">
+      </app-modificar-tipo-modalidad-paciente>
     </div>
-
-    <div class="form-group mb-3">
-      <label for="direccion" class="form-label">Dirección</label>
-      <input type="text" name="direccion" id="direccion" class="form-control"
-             required maxlength="200" [(ngModel)]="dire.direccion"
-             #direccion="ngModel">
-      <div *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)" class="alert alert-secondary"
-           role="alert">
-        <div *ngIf="direccion.errors?.required">
-          La dirección es obligatoria
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group mb-3">
-      <label for="codigo_postal" class="form-label">Código postal</label>
-      <input type="text" name="codigo_postal" id="codigo_postal" class="form-control"
-             required minlength="5" maxlength="5" pattern="[0-9]+$" [(ngModel)]="dire.codigo_postal"
-             #codigo_postal="ngModel">
-      <div *ngIf="codigo_postal.invalid && (codigo_postal.dirty || codigo_postal.touched)" class="alert alert-secondary"
-           role="alert">
-        <div *ngIf="codigo_postal.errors?.required; else elseBlock">
-          El código postal es obligatorio
-        </div>
-        <ng-template #elseBlock>
-          El código postal debe tener 5 caracteres numéricos
-        </ng-template>
-      </div>
-    </div>
-
-    <button type="submit" class="btn btn-outline-success m-1" (click)="modificarPersona()"
-            [disabled]="!modificarPersonaForm.form.valid">
-      Guardar
-    </button>
-    <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/personas']">
-      Volver
-    </button>
-
-  </form>
-</div>
+  </div>
 </main>

@@ -69,7 +69,12 @@ export class NuevoAgendaComponent implements OnInit {
     });
     if (this.route.snapshot.paramMap.get('id') != null) {
       let paciente = this.pacientes.find(paciente => paciente.id == Number(this.route.snapshot.paramMap.get('id')));
-      this.nuevaAgenda.get("paciente").setValue(paciente.id_persona.id);
+      if( paciente != undefined) {
+        this.nuevaAgenda.get("paciente").setValue(paciente.id_persona.id);
+      } else {
+        paciente = this.pacientes.find(paciente => paciente.id_persona.id == Number(this.route.snapshot.paramMap.get('id')));
+        this.nuevaAgenda.get("paciente").setValue(paciente.id_persona.id);
+      }
       this.obtenerExpediente();
     }
   }

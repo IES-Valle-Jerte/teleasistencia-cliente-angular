@@ -12,6 +12,7 @@ import {environment} from "../../environments/environment";
 export class CargaTipoAlarmaService {
   private urlBase = environment.urlBase;
   private URL_SERVER_TIPOS_ALARMAS = this.urlBase + 'tipo_alarma';
+  private URL_SERVER_CLASIFICACION_ALARMAS='?id_clasificacion_alarma';
 
   constructor(private http: HttpClient) {
   }
@@ -22,6 +23,10 @@ export class CargaTipoAlarmaService {
 
   getTipoAlarma(idTipoAlarma: number): Observable<ITipoAlarma> {
     return this.http.get<ITipoAlarma>(this.URL_SERVER_TIPOS_ALARMAS + '/' + idTipoAlarma);
+  }
+
+  getTipoAlarmaPorClasificacion(idTipoAlarma:number):Observable<ITipoAlarma[]>{
+    return this.http.get<ITipoAlarma[]>(this.URL_SERVER_TIPOS_ALARMAS+this.URL_SERVER_CLASIFICACION_ALARMAS + '=' + idTipoAlarma);
   }
 
   modificarTipoAlarma(tipoAlarma: ITipoAlarma,id: number): Observable<ITipoAlarma> {

@@ -11,9 +11,11 @@
     <h1 class="component-title">
       {{ fechaString }}
     </h1>
-    <button type="button" class="btn btn-success me-5 float-end" [routerLink]="['/agenda/nueva']">
-      Nueva Agenda
-    </button>
+
+      <button type="button" class="btn btn-success me-5 float-end" [routerLink]="['/agenda/nueva']">
+        Nueva Agenda
+      </button>
+
     <div style="display: none" id="actualizarPagina"></div>
 
     <div class="form-group mb-3">
@@ -32,7 +34,7 @@
           <th (click)="ordenacionTabla(0, 'string')" scope="col">Prioridad <i class="fas fa-sort"></i></th>
           <th (click)="ordenacionTabla(1, 'string')" scope="col">Nombre <i class="fas fa-sort"></i></th>
           <th (click)="ordenacionTabla(2, 'string')" scope="col">Apellido <i class="fas fa-sort"></i></th>
-          <th (click)="ordenacionTabla(3, 'number')" scope="col">Tipo Agenda <i class="fas fa-sort"></i></th>
+          <th (click)="ordenacionTabla(3, 'string')" scope="col">Tipo Agenda <i class="fas fa-sort"></i></th>
           <th (click)="ordenacionTabla(4, 'number')" scope="col">Nº Expediente <i class="fas fa-sort"></i></th>
           <th (click)="ordenacionTabla(5, 'number')" scope="col">Hora prevista <i class="fas fa-sort"></i></th>
           <th scope="col"></th>
@@ -41,7 +43,8 @@
         <tbody>
         <tr
           *ngFor="let agenda of agendasDelDia | filtroBusqueda: inputBusqueda | paginate: { itemsPerPage: 10, currentPage: numPaginacion }"
-          app-item-agenda [agenda]="agenda" [fechaToday]="fechaToday" class="{{agenda.fecha_resolucion === null ? 'noResuelta' : 'resuelta'}}">
+          app-item-agenda [agenda]="agenda" [fechaToday]="fechaToday"
+          class="{{agenda.fecha_resolucion === null ? 'noResuelta' : 'resuelta'}}">
         </tr>
         </tbody>
       </table>

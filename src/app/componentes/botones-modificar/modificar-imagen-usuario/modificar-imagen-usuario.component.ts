@@ -54,8 +54,9 @@ export class ModificarImagenUsuarioComponent implements OnInit {
     }
     this.cargaUsers.modificarProfile(myFormData,this.idUser).subscribe(
       e => {
+        localStorage.setItem('img', e.imagen.imagen);
+        document.querySelector("header img.rounded-circle")["src"] = e.imagen.imagen
         this.alertExito()
-        window.location.reload();
       },
       error => {
         this.alertError()
@@ -65,6 +66,9 @@ export class ModificarImagenUsuarioComponent implements OnInit {
   onFileChanged(event: any) {
     if (event.target.files && event.target.files.length) {
       const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = e => this.img = String( reader.result );
+      reader.readAsDataURL(file);
       this.formModificarU.controls.imagen.setValue(file)
     }
   }

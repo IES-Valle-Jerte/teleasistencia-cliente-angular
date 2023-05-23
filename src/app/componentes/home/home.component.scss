@@ -60,6 +60,54 @@ abbr {
   text-decoration: none;
 }
 
+.imagenDesarrollador {
+  margin-top: 5px;
+  height: 100px;
+  width: 100px;
+  margin-bottom: 5px;
+  object-fit: contain;
+}
+
+.tabcontent {
+  display: none;
+  border: 1px solid #75559d40;
+}
+
+.tablinks {
+  background-color: white;
+  border: 1px solid #75597D;
+}
+
+.active {
+  background-color: #75587D;
+}
+
+.imagenTecnologia {
+  height: 40px;
+}
+
+.divTitulosDesarrollador .imagenDesarrollador {
+  width: 150px;
+  height: auto;
+}
+
+.style {
+  width: 100%;
+  display: block;
+  font-size: 38px;
+  padding-bottom: 20px;
+}
+
+.divImagenesDesarrollador {
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+}
+
+img {
+  max-width: 100%;
+}
+
 @media (min-width: 40em) {
   .carousel-caption p {
     margin-bottom: 1.25rem;

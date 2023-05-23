@@ -1,0 +1,152 @@
+<div class="row d-flex justify-content-center">
+  <div class="col-12 col-xl-6">
+    <form [formGroup]="formulario"
+          [ngClass]="this.mostrar || this.mostrarModificar ? 'inactiveForm':''" (submit)="subirDatos()">
+
+      <div class="row mb-3 form-group">
+        <h3 class="text-center"> Terminal y UCR</h3>
+        <div class="col">
+          <label for="fecha_alta" class="form-label text-start">Fecha de Alta <span
+            class="obligatorios">*</span></label>
+          <input type="date" name="fecha_alta " id="fecha_alta" class="form-control "
+                 max='{{getToday()}}'
+                 formControlName="fecha_alta">
+        </div>
+      </div>
+
+
+      <!-- comienzo tipos de situacion -->
+
+      <div class="row mb-3 form-group">
+        <label class="form-label text-start">Situaciones <span
+          class="obligatorios">*</span></label>
+        <div class="col-12 col-lg pb-1 pb-lg-0">
+          <ng-select id="situaciones" formControlName="situacion">
+            <ng-option *ngFor="let tipoSituacion of listaDeSituaciones; let i = index"
+                       [value]="tipoSituacion.id">{{tipoSituacion.nombre}}</ng-option>
+          </ng-select>
+        </div>
+        <ng-container *ngIf="this.isAdmin">
+          <div class="col-4 col-lg-1  p-0">
+            <button class="btn btn-success botonOperacion" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#situacion" aria-expanded="false"
+                    aria-controls="situacion" (click)="mostrarCrearTipo()">
+              <i class="fa-solid fa-circle-plus"></i>
+            </button>
+          </div>
+          <div class="col-4 col-lg-1  p-0">
+            <button class="btn btn-warning botonOperacion" id="des1" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#situacion2" aria-expanded="false"
+                    aria-controls="situacion2" (click)="mostrarEditarTipo()" [disabled]="desactivado()">
+              <i class="fa fa-sharp fa-solid fa-pen fa-sm"></i>
+            </button>
+          </div>
+          <div class="col-4 col-lg-1  p-0">
+            <button class="btn btn-danger botonOperacion" id="des2" type="button" (click)="modalConfirmacion()"
+                    [disabled]="desactivado()">
+              <i class="fa fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </ng-container>
+      </div>
+      <!-- Fin tipos de situacion -->
+      <!-- Comienzo Paneles editar tipos de situacion -->
+
+      <!-- Fin Paneles editar tipos de situacion -->
+      <!-- Comienzo Terminal y UCR -->
+
+      <div class="row mb-3 form-group border-top p-3">
+        <div class="col-6 p-0">
+          <div class="form-group">
+            <label for="numero_terminal" class="form-label text-start">Nº Terminal <span
+              class="obligatorios">*</span></label>
+            <input type="text" name="numero_terminal" id="numero_terminal" class="form-control "
+                   placeholder="Nº Terminal" formControlName="numero_terminal">
+          </div>
+          <div
+            *ngIf="controles.numero_terminal.invalid && (controles.numero_terminal.dirty || controles.numero_terminal.touched)"
+            class="alert alert-secondary"
+            role="alert">
+            <span *ngIf="controles.numero_terminal.errors.required">El numero del terminal es obligatorio.</span>
+            <span *ngIf="controles.numero_terminal.errors.pattern">El numero del terminal no es válido.</span>
+          </div>
+        </div>
+        <div class="col-6 pl-1">
+          <div class="form-group">
+            <label for="modelo_terminal" class="form-label text-start">Modelo Terminal <span
+              class="obligatorios">*</span></label>
+            <input type="text" name="modelo_terminal" id="modelo_terminal" class="form-control "
+                   placeholder="Modelo del Terminal" formControlName="modelo_terminal">
+          </div>
+          <div
+            *ngIf="controles.modelo_terminal.invalid && (controles.modelo_terminal.dirty ||controles.modelo_terminal.touched)"
+            class="alert alert-secondary"
+            role="alert">
+            <span *ngIf="controles.modelo_terminal.errors.required">El modelo del terminal es obligatorio.</span>
+            <span *ngIf="controles.modelo_terminal.errors.pattern">El modelo del terminal no es válido.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-md-6">
+          <div class="row mb-3 form-group text-center">
+            <span class="p-0">UCR Adicional <span class="obligatorios">*</span></span>
+            <div class="row mt-2 form-inline">
+              <div class="col-6 form-check mt-3">
+
+                <input class="btn-check" type="radio" id="ucrTrue" (click)="elegirOpcion(true)"
+                       name="ucr" [value]="true" formControlName="ucr">
+                <label class="btn btn-success min50w" for="ucrTrue" [ngClass]="opcion? '':'opacity-50'">Sí</label>
+              </div>
+              <div class="col-6 form-check mt-3">
+                <input class="btn-check" type="radio" id="ucrFalse" (click)="elegirOpcion(false)"
+                       name="ucr" [value]="false" formControlName="ucr">
+                <label class="btn btn-success min50w" for="ucrFalse" [ngClass]="opcion? 'opacity-50':''">No</label>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fin Terminal y UCR -->
+
+      <ng-container *ngFor="let tipoAlarma of clasificacionAlarmas; let i = index">
+        <app-mostrar-clasificacion-alarma [tipoPeticion]="tipoAlarma">
+        </app-mostrar-clasificacion-alarma>
+      </ng-container>
+
+      <div class="text-center">
+        <button type="button" class="btn btn-outline-success m-1" (click)="subirDatos()" [disabled]="formulario.invalid"
+                [routerLink]="['/usuarios_del_servicio/consultar']">
+          Guardar y salir
+        </button>
+        <button type="button" class="btn btn-outline-success m-1" (click)="subirDatos()"
+                [disabled]="formulario.invalid" [routerLink]="['/agenda/nueva/'+this.crearPaciente.idPaciente]">
+          Guardar y crear agenda
+        </button>
+        <button type="button" class="btn btn-outline-secondary m-1"
+                data-bs-toggle="collapse"
+                data-bs-target="#personaContacto,#dispositivosForm" aria-expanded="false"
+                aria-controls="datosPersonales" (click)="contraer()">
+          Volver
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto text-center" id="situacion">
+    <app-crear-tipo-situacion (mostrar)="this.mostrar=$event" (refresco)="actualizarTiposSituaciones($event)">
+    </app-crear-tipo-situacion>
+  </div>
+
+  <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto text-center" id="situacion2">
+    <app-modificar-tipo-situacion
+      (mostrarModificar)="this.mostrarModificar=$event;refresco()"
+      *ngIf="this.mostrarModificar"
+      [listaTiposSituaciones]="listaDeSituaciones" [idTipoSituacion]="formulario.value.situacion">
+    </app-modificar-tipo-situacion>
+  </div>
+</div>
+

@@ -33,6 +33,6 @@ export class CargaTipoSituacionService {
   }
 
   eliminarTipoSituacion(tipoSituacion:ITipoSituacion): Observable<ITipoSituacion> {
-    return this.http.delete<ITipoSituacion>(this.URL_SERVER_TIPOS_SITUACIONES + '/' + tipoSituacion.id);
+    return this.http.delete<ITipoSituacion>(this.URL_SERVER_TIPOS_SITUACIONES + '/' + tipoSituacion);
   }
 }

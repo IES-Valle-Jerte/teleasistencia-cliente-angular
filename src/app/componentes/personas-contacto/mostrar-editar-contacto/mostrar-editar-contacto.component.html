@@ -1,0 +1,196 @@
+<div class="row d-flex justify-content-center mt-5">
+  <div class="col-12 col-xl-6 mt-3">
+    <h3 class="mb-3 text-center">Contacto {{indice}}</h3>
+    <form [formGroup]="formulario" (ngSubmit)="onSubmit()" id="formularioRelacion">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group mb-3">
+            <label for="nombre" class="form-label">Nombre <span class="obligatorios">*</span></label>
+            <input type="text" name="nombre" id="nombre" class="form-control"
+                   formControlName="nombre" placeholder="Nombre" [readonly]="blockModificar">
+            <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-secondary text-center"
+                 role="alert">
+              <div *ngIf="nombre.errors?.required; else elseBlock">
+                El nombre es obligatorio
+              </div>
+              <ng-template #elseBlock>
+                Introduzca un nombre válido
+              </ng-template>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group mb-3">
+            <label for="apellidos" class="form-label">Apellido <span class="obligatorios">*</span></label>
+            <input type="text" name="apellidos" id="apellidos" class="form-control"
+                   formControlName="apellidos" placeholder="Apellidos" [readonly]="blockModificar">
+            <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)"
+                 class="alert alert-secondary text-center"
+                 role="alert">
+              <div *ngIf="apellidos.errors?.required; else elseBlock">
+                El apellido es obligatorio
+              </div>
+              <ng-template #elseBlock>
+                Introduzca un apellido válido
+              </ng-template>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group mb-3">
+            <label for="tipo_relacion" class="form-label">Tipo Relación <span class="obligatorios">*</span></label>
+            <input type="text" name="tipo_relacion" id="tipo_relacion" class="form-control"
+                   formControlName="tipo_relacion" placeholder="Tipo de relación" [readonly]="blockModificar">
+            <div *ngIf="tipo_relacion.invalid && (tipo_relacion.dirty || tipo_relacion.touched)"
+                 class="alert alert-secondary text-center" role="alert">
+              <div *ngIf="tipo_relacion.errors?.required; else elseBlock">
+                El tipo de relacion es obligatoria
+              </div>
+              <ng-template #elseBlock>
+                Introduzca un tipo de relación válida
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group mb-3">
+            <label for="prioridad" class="form-label">Prioridad <span class="obligatorios">*</span></label>
+            <input type="number" name="prioridad" id="prioridad" class="form-control"
+                   formControlName="prioridad" placeholder="Prioridad" [readonly]="blockModificar">
+            <div *ngIf="prioridad.invalid && (prioridad.dirty || prioridad.touched)"
+                 class="alert alert-secondary text-center" role="alert">
+              <div *ngIf="prioridad.errors?.required; else elseBlock">
+                La prioridad de expediente es obligatorio
+              </div>
+              <ng-template #elseBlock>
+                Introduzca una prioridad válida
+
+              </ng-template>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group mb-3">
+            <label for="telefono_fijo" class="form-label">Telefono <span class="obligatorios">*</span></label>
+            <input type="text" name="telefono_fijo" id="telefono_fijo" class="form-control"
+                   formControlName="telefono_fijo" placeholder="Telefono" [readonly]="blockModificar">
+            <div *ngIf="telefono_fijo.invalid && (telefono_fijo.dirty || telefono_fijo.touched)"
+                 class="alert alert-secondary text-center" role="alert">
+              <div *ngIf="telefono_fijo.errors?.required; else elseBlock">
+                El telefono es obligatorio
+              </div>
+              <ng-template #elseBlock>
+                Introduzca un telefono válido
+              </ng-template>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group mb-3">
+            <label for="tiempo_domicilio" class="form-label">Tiempo domicilio(min) <span
+              class="obligatorios">*</span></label>
+            <input type="number" name="tiempo_domicilio" id="tiempo_domicilio" class="form-control"
+                   formControlName="tiempo_domicilio" placeholder="Tiempo domicilio" [readonly]="blockModificar">
+            <div *ngIf="tiempo_domicilio.invalid && (tiempo_domicilio.dirty || tiempo_domicilio.touched)"
+                 class="alert alert-secondary text-center" role="alert">
+              <div *ngIf="tiempo_domicilio.errors?.required; else elseBlock">
+                El tiempo en el domicilio es obligatorio
+              </div>
+              <ng-template #elseBlock>
+                Introduzca un tiempo valido
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-6">
+          <div class="row mb-3 form-group">
+            <span class=" p-0 text-center">¿Llaves de la vivienda? <span class="obligatorios">*</span></span>
+            <div class="row mt-2 form-inline">
+              <div class="col-6 mt-3 form-check text-center">
+                <input class="btn-check" type="radio" id="tiene_llaves_vivienda_true" (click)="elegirOpcion2(true)"
+                       name="tiene_llaves_vivienda" [value]="true" formControlName="tiene_llaves_vivienda"
+                       >
+                <label class="btn btn-success min50w" for="tiene_llaves_vivienda_true"
+                       [ngClass]="opcion2? '':'opacity-50'">Sí</label>
+              </div>
+              <div class="col-6 form-check mt-3 text-center">
+                <input class="btn-check" type="radio" id="tiene_llaves_vivienda_false" (click)="elegirOpcion2(false)"
+                       name="tiene_llaves_vivienda" [value]="false" formControlName="tiene_llaves_vivienda">
+                <label class="btn btn-success min50w" for="tiene_llaves_vivienda_false"
+                       [ngClass]="opcion2? 'opacity-50':''">No</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row mb-3 form-group">
+            <span class="p-0 text-center">¿Es conviviente? <span class="obligatorios">*</span></span>
+            <div class="row mt-2 form-inline">
+              <div class="col-6 form-check mt-3 text-center">
+                <input class="btn-check" type="radio" id="es_conviviente_true"
+                       name="es_conviviente" [value]="true" formControlName="es_conviviente"
+                       (click)="elegirOpcion(true)" [readonly]="blockModificar">
+                <label class="btn btn-success min50w" for="es_conviviente_true"
+                       [ngClass]="opcion? '':'opacity-50'">Sí</label>
+              </div>
+              <div class="col-6 form-check mt-3 text-center">
+                <input class="btn-check" type="radio" id="es_conviviente_false"
+                       name="es_conviviente" [value]="false" formControlName="es_conviviente"
+                       (click)="elegirOpcion(false)" [readonly]="blockModificar">
+                <label class="btn btn-success min50w" for="es_conviviente_false"
+                       [ngClass]="opcion? 'opacity-50':''">No</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group mb-3">
+          <label for="disponibilidad" class="form-label">Disponibilidad <span class="obligatorios">*</span></label>
+          <textarea formControlName="disponibilidad" name="disponibilidad" id="disponibilidad"
+                    class="form-control" [readonly]="blockModificar"></textarea>
+        </div>
+
+
+      </div>
+      <div class="row">
+        <div class="form-group mb-3">
+          <label for="observaciones" class="form-label">Observaciones <span class="obligatorios">*</span></label>
+          <textarea formControlName="observaciones" name="observaciones" id="observaciones"
+                    class="form-control" [readonly]="blockModificar"></textarea>
+        </div>
+      </div>
+
+
+      <ng-container *ngIf="!blockModificar">
+        <div class="text-center">
+          <button type="submit" class="btn btn-outline-success m-1"
+                  [disabled]="formulario.invalid" *ngIf="mostrarGuardar">
+            Guardar contacto
+          </button>
+          <button type="submit" class="btn btn-outline-danger m-1"
+                  (click)="borrarRelacion()" *ngIf="mostrarGuardar">
+            Borrar contacto
+          </button>
+        </div>
+      </ng-container>
+    </form>
+
+
+    <div class="text-center">
+      <button class="btn btn-outline-success m-1 botonOperacion2" (click)="editarRelacion()" *ngIf="mostrarEditar">
+        Guardar contacto
+      </button>
+      <button class="btn btn-outline-danger m-1 botonOperacion2" (click)="borrarRelacion()" *ngIf="mostrarEditar">
+        Borrar contacto
+      </button>
+    </div>
+
+  </div>
+
+</div>

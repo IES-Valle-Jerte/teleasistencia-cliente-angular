@@ -1,5 +1,5 @@
 
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {RelacionPacientePersona} from "../../../clases/relacion-paciente-persona";
 import {IPersona} from '../../../interfaces/i-persona';
@@ -12,7 +12,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CargaPersonaService} from "../../../servicios/carga-persona.service";
 import {CargaDireccionService} from "../../../servicios/carga-direccion.service";
 import {IDireccion} from "../../../interfaces/i-direccion";
-import {CargaPacienteService} from "../../../servicios/paciente/carga-paciente.service";
+import {CargaPacienteService} from "../../../servicios/carga-paciente.service";
 import {IPaciente} from "../../../interfaces/i-paciente";
 import {IRelacionPacientePersona} from "../../../interfaces/i-relacion-paciente-persona";
 
@@ -25,26 +25,32 @@ import {IRelacionPacientePersona} from "../../../interfaces/i-relacion-paciente-
 export class MostrarCrearComponent implements OnInit {
 
   @Output() onBorrarComponente = new EventEmitter();
-  mostrarGuardar = true;
-  mostrarEditar = false;
-
-  idRelacion: number;
-  submitted = false;
+  public mostrarGuardar = true;
+  public mostrarEditar = false;
+  @Input() indice: number;
+  public idPaciente: number;
+  public idRelacion: number;
+  public submitted = false;
   public relacionPacientePersona: IRelacionPacientePersona | any;
   public direccion: IDireccion | any;
   public pacientes: IPaciente[] | any;
   public paciente: IPaciente | any;
   public persona: IPersona | any;
   public formulario: FormGroup | any;
-  public fecha_actual = new Date();
   public relacionBorrar : IRelacionPacientePersona |any;
+  public opcion = true;
+  public opcion2 = true;
+
+  //EXPRESION REGULAR
+  readonly REGEX_NOMBREAPELLIDOS = /^[A-Z][a-zA-Z]*( [A-Z][a-zA-Z]*)*$/;
+
+
   constructor(private route: ActivatedRoute, private router: Router, private  formBuilder: FormBuilder,private cargaPersonas: CargaPersonaService, private cargaDireccion: CargaDireccionService, private cargaPacientes: CargaPacienteService, private cargaRelacion: CargaRelacionPacientePersonaService) {
   }
 
   ngOnInit() {
     this.relacionPacientePersona = new RelacionPacientePersona();
     this.crearFormulario();
-
     this.pacientes = this.cargaPacientes.getPacientes().subscribe(
       paciente => {
         this.pacientes = paciente;
@@ -55,6 +61,26 @@ export class MostrarCrearComponent implements OnInit {
 
   }
 
+  borrarHTML(){
+    this.onBorrarComponente.emit(); //Emito borrarComponente para avisar al padre que borraré el componente
+
+  }
+  elegirOpcion(elegirBoolean){
+    if (elegirBoolean){
+      this.opcion = true;
+    }else{
+      this.opcion = false;
+    }
+  }
+  elegirOpcion2(elegirBoolean){
+    if (elegirBoolean){
+      this.opcion2 = true;
+    }else{
+      this.opcion2 = false;
+    }
+  }
+
+
   borrarRelacion(){
       this.cargaRelacion.getRelacionPacientePersona(this.idRelacion).subscribe(
         relacion => {
@@ -63,19 +89,16 @@ export class MostrarCrearComponent implements OnInit {
         () => {
           this.cargaRelacion.eliminarRelacionPacientePersona(this.relacionBorrar).subscribe(
             () =>{
-              this.alertExito();
+              this.alertBorrarRecurso();
 
             }, error => console.log(error),
             () =>{
-              this.onBorrarComponente.emit();
+              this.onBorrarComponente.emit(); //Emito borrarComponente para avisar al padre que borraré el componente
 
             }
           )
         }
       )
-
-
-
 
   }
 
@@ -90,7 +113,8 @@ export class MostrarCrearComponent implements OnInit {
       'observaciones': this.formulario.get('observaciones').value,
       'prioridad': this.formulario.get('prioridad').value,
       'es_conviviente': this.formulario.get('es_conviviente').value,
-      'id_paciente': this.formulario.get('pacientes').value
+      'tiempo_domicilio' : this.formulario.get('tiempo_domicilio').value,
+      'id_paciente': this.cargaPacientes.idPaciente
 
     }
     this.cargaRelacion.getRelacionPacientePersona(this.idRelacion).subscribe(
@@ -101,7 +125,7 @@ export class MostrarCrearComponent implements OnInit {
         this.cargaRelacion.modificarRelacion(this.relacionBorrar.id,this.relacionPacientePersona).subscribe( //Paso la id usada + el formulario entero para cambiar todo el objeto
           () =>{
 
-            this.alertExito();
+            this.alertEditarRecurso();
 
           }, error => console.log(error),
           () =>{
@@ -116,17 +140,24 @@ export class MostrarCrearComponent implements OnInit {
 
   crearFormulario(){
     this.formulario = this.formBuilder.group({
-      nombre: ['',[Validators.required,Validators.maxLength(200)]],
-      apellidos: ['',[Validators.required,Validators.maxLength(200)]],
-      telefono_fijo: ['',[Validators.required,Validators.maxLength(200),Validators.pattern("^((\\\\+91-?)|0)?[0-9]{9}$")]],
-      pacientes: ['',[Validators.required]],
-      tipo_relacion: ['',[Validators.required]],
-      tiene_llaves_vivienda: ['', [Validators.required]],
-      disponibilidad: ['',[Validators.required]],
-      observaciones: ['',[Validators.required]],
-      prioridad: ['',[Validators.required]],
-      es_conviviente: ['',[Validators.required,Validators.maxLength(200)]]
+      nombre: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_name)]],
+      apellidos: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_name)]],
+      telefono_fijo: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_telefono)]],
+      tipo_relacion: ['', [Validators.required, Validators.pattern(environment.regex_name)]],
+      tiene_llaves_vivienda: [true, [Validators.required]],
+      disponibilidad: ['', [Validators.required]],
+      observaciones: ['', [Validators.required]],
+      prioridad: ['', [Validators.required, Validators.pattern("^[0-9]+$")]],
+      tiempo_domicilio: ['', [Validators.required, Validators.pattern("^[0-9]+$")]],
+      es_conviviente: [true, [Validators.required, Validators.maxLength(200)]]
     })
+
+
+
+    /*
+
+      */
+
   }
 
 
@@ -142,7 +173,8 @@ export class MostrarCrearComponent implements OnInit {
       'observaciones': this.formulario.get('observaciones').value,
       'prioridad': this.formulario.get('prioridad').value,
       'es_conviviente': this.formulario.get('es_conviviente').value,
-      'id_paciente': this.formulario.get('pacientes').value
+      'tiempo_domicilio' : this.formulario.get('tiempo_domicilio').value,
+      'id_paciente': this.cargaPacientes.idPaciente
 
     }
 
@@ -207,6 +239,26 @@ export class MostrarCrearComponent implements OnInit {
       title: environment.fraseErrorCrear
     })
   }
+  //Toast para el Alert indicando que la operación fue borrada de forma exitosa
+  alertEditarRecurso() :void {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      //El tiempo que permanece la alerta, se obtiene mediante una variable global en environment.ts
+      timer: environment.timerToast,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+
+    Toast.fire({
+      icon: 'success',
+      title: environment.fraseModificar,
+    })
+  }
 
   get nombre(){
     return this.formulario.get('nombre') as FormControl;
@@ -225,7 +277,31 @@ export class MostrarCrearComponent implements OnInit {
     return this.formulario.get('tipo_relacion') as FormControl;
   }
 
+  get tiempo_domicilio(){
+    return this.formulario.get('tiempo_domicilio') as FormControl;
+  }
+
   get form() {
     return this.formulario.controls;
+  }
+  //Toast para el Alert indicando que la operación fue borrada de forma exitosa
+  alertBorrarRecurso() :void {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      //El tiempo que permanece la alerta, se obtiene mediante una variable global en environment.ts
+      timer: environment.timerToast,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+
+    Toast.fire({
+      icon: 'success',
+      title: environment.fraseEliminarRecurso,
+    })
   }
 }

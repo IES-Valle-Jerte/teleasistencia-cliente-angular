@@ -25,14 +25,15 @@ export class CargaTipoModalidadPacienteService {
     return this.http.get<ITipoModalidadPaciente>(this.URL_SERVER_TIPOS_MODALIDADES_PACIENTE + '/' + idTipoModalidadPaciente);
   }
 
-  modificarTipoModalidadPaciente(tipoModalidadPaciente: ITipoModalidadPaciente): Observable<ITipoModalidadPaciente> {
-    return this.http.put<ITipoModalidadPaciente>(this.URL_SERVER_TIPOS_MODALIDADES_PACIENTE + '/' + tipoModalidadPaciente.id, tipoModalidadPaciente);
+  modificarTipoModalidadPaciente(tipoModalidadPaciente: ITipoModalidadPaciente | any): Observable<ITipoModalidadPaciente> {
+    return this.http.put<ITipoModalidadPaciente | any>(this.URL_SERVER_TIPOS_MODALIDADES_PACIENTE + '/' + tipoModalidadPaciente.id, tipoModalidadPaciente);
   }
 
   nuevoTipoModalidadPaciente(tipoModalidadPaciente: ITipoModalidadPaciente): Observable<ITipoModalidadPaciente> {
     return this.http.post<ITipoModalidadPaciente>(this.URL_SERVER_TIPOS_MODALIDADES_PACIENTE, tipoModalidadPaciente);
   }
+
   eliminarTipoModalidadPaciente(tipoModalidadPaciente: ITipoModalidadPaciente): Observable<ITipoModalidadPaciente> {
-    return this.http.delete<ITipoModalidadPaciente>(this.URL_SERVER_TIPOS_MODALIDADES_PACIENTE + '/' + tipoModalidadPaciente.id);
+    return this.http.delete<ITipoModalidadPaciente>(this.URL_SERVER_TIPOS_MODALIDADES_PACIENTE + '/' + tipoModalidadPaciente);
   }
 }

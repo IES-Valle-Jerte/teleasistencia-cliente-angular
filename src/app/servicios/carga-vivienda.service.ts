@@ -11,6 +11,7 @@ import {environment} from "../../environments/environment";
 export class CargaViviendaService {
   private urlBase = environment.urlBase;
   private URL_SERVER_VIVIENDAS = this.urlBase + 'tipo_vivienda';
+  public idVivienda;
 
   constructor(private http: HttpClient) {
   }
@@ -23,7 +24,7 @@ export class CargaViviendaService {
     return this.http.get<ITipoVivienda>(this.URL_SERVER_VIVIENDAS + '/' + idVivienda);
   }
 
-  modificarTipoVivienda(tipoVivienda: ITipoVivienda): Observable<ITipoVivienda> {
+  modificarTipoVivienda(tipoVivienda: ITipoVivienda | any): Observable<ITipoVivienda> {
     return this.http.put<ITipoVivienda>(this.URL_SERVER_VIVIENDAS + '/' + tipoVivienda.id, tipoVivienda);
   }
 
@@ -32,6 +33,6 @@ export class CargaViviendaService {
   }
 
   borrarVivienda(vivienda: ITipoVivienda): Observable<ITipoVivienda> {
-    return this.http.delete<ITipoVivienda>(this.URL_SERVER_VIVIENDAS + '/' + vivienda.id);
+    return this.http.delete<ITipoVivienda>(this.URL_SERVER_VIVIENDAS + '/' + vivienda);
   }
 }

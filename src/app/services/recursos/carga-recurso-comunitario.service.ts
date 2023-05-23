@@ -11,7 +11,7 @@ import {environment} from "../../../environments/environment";
 export class CargaRecursoComunitarioService {
   private urlBase = environment.urlBase;
   private URL_SERVER_RECURSOS_COMUNITARIOS = this.urlBase + 'recurso_comunitario';
-
+  idRecursoVer: number;
   constructor(private http: HttpClient) {
   }
 

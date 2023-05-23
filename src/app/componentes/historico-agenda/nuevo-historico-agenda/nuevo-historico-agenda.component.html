@@ -4,10 +4,10 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
         <li class="breadcrumb-item"><a [routerLink]="['/historico_agenda']">Histórico agendas</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Crear histórico de agenda</li>
+        <li class="breadcrumb-item active" aria-current="page">Resolver agenda</li>
       </ol>
     </nav>
-    <h1 class="component-title">Crear histórico de agenda</h1>
+    <h1 class="component-title">Resolver agenda</h1>
     <form [formGroup]="nuevoHistorico" (ngSubmit)="onSubmit()">
 
       <div class="form-group mb-3">
@@ -63,11 +63,7 @@
 
       <div class="form-group mb-3">
         <label for="id_teleoperador" class="form-label">Teleoperador</label>
-        <select name="id_teleoperador" id="id_teleoperador" formControlName="teleoperador" class="form-select" required disabled>
-          <option *ngFor="let teleoperador of teleoperadores; let i = index" [value]="teleoperador.id">
-            {{teleoperador.first_name + ' ' + teleoperador.last_name}}
-          </option>
-        </select>
+        <input type="text" class="form-control ng-valid" name="id_teleoperador" id="id_teleoperador" required disabled [value]="teleoperador.first_name + ' ' + teleoperador.last_name">
         <div *ngIf="form.teleoperador.invalid && (form.teleoperador.dirty || form.teleoperador.touched)" class="alert alert-secondary" role="alert">
           <div *ngIf="form.teleoperador.errors?.required">
             El campo terminal es obligatorio.
@@ -90,14 +86,15 @@
         <label for="observaciones" class="form-label">Observaciones</label>
         <textarea rows="5" cols="50" name="observaciones" id="observaciones" class="form-control"
                   required maxlength="200" formControlName="observaciones_historico"></textarea>
-        <div *ngIf="form.observaciones_historico.invalid && (form.observaciones_historico.dirty || form.observaciones_historico.touched)" class="alert alert-secondary" role="alert">
-          <div *ngIf="form.observaciones_historico.errors?.required">
-            El campo observaciones es obligatorio
-          </div>
+        <div *ngIf="form.observaciones_historico.hasError('required')" class="alert alert-secondary" role="alert">
+          El campo observaciones es obligatorio.
+        </div>
+        <div *ngIf="form.observaciones_historico.hasError('minlength')" class="alert alert-secondary" role="alert">
+          El campo observaciones necesita un mínimo de 10 caracteres.
         </div>
       </div>
 
-      <button type="submit" class="btn btn-outline-success m-1" (click)="nuevoHistoricoAgenda()"
+      <button type="submit" class="btn btn-outline-success m-1"
               [disabled]="!nuevoHistorico.valid">
         Guardar
       </button>

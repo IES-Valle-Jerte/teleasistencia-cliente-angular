@@ -1,0 +1,42 @@
+<ng-container #contenedorEditar></ng-container> <!-- Contenedor usado para el mostrar-creera -->
+<div class="row d-flex justify-content-center mt-2">
+  <div class="col-12 col-xl-6">
+    <div class="row" *ngIf="!blockEditar">
+      <div class="col-md-4 pr-0">
+        <div class="text-center">
+          <button class="btn btn-outline-success botonOperacion2"  data-bs-toggle="collapse"
+                  data-bs-target="#personaContacto,#dispositivosForm" aria-expanded="false"
+                  aria-controls="datosPersonales" (click)="contraer()">
+            Guardar
+          </button>
+        </div>
+
+      </div>
+      <div class="col-md-4">
+        <div class="text-center">
+          <button (click)="crearOtroFormulario() " type="button" class="btn btn-success botonOperacion2">
+            <i class="fa-solid fa-circle-plus"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <div class="col-md-4 pl-0">
+        <div class="text-center">
+          <button class="btn btn-outline-secondary botonOperacion2"
+                  (click)="volver()"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#viviendaForm ,#personaContacto" aria-expanded="false"
+                  aria-controls="datosPersonales">
+            Volver
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+

@@ -3,13 +3,14 @@ import {
   OnInit,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {CargaAgendaService} from "../../../servicios/carga-agenda.service";
 import {ActivatedRoute, ActivatedRouteSnapshot, Router, RouterStateSnapshot} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 import {IAgenda} from "../../../interfaces/i-agenda";
 import {OrdenacionTablasService} from "../../../servicios/ordenacion-tablas.service";
+import {AuthService} from "../../../servicios/auth.service";
 
 @Component({
   selector: 'app-agenda',
@@ -25,7 +26,7 @@ export class AgendaComponent implements OnInit {
   inputBusqueda: any = '';
   inputFechaBusqueda: any = '';
   fechaString = '';
-
+  public isAdmin: boolean
 
 
   constructor(
@@ -34,31 +35,34 @@ export class AgendaComponent implements OnInit {
     private route: ActivatedRoute,
     private titleService: Title,
     private ordTabla: OrdenacionTablasService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private auth: AuthService,
+  ) {
+  }
 
   // Al cargar el componente, se establecen las agendas para el día actual
   ngOnInit() {
     this.agendasDelDia = this.route.snapshot.data['agendasDelDia'];
     this.agendasDelDia = this.agendasDelDia.sort(this.ordenarAgendas);
-    this.fechaString = + this.fechaToday.getDate() + ' de ' + this.getNombreMes(this.fechaToday.getMonth()) + ' de '
+    this.fechaString = +this.fechaToday.getDate() + ' de ' + this.getNombreMes(this.fechaToday.getMonth()) + ' de '
       + this.fechaToday.getFullYear();
+    this.isAdmin = this.auth.isAdmin();
   }
 
-  ordenarAgendas(a:IAgenda, b:IAgenda ): number {
+  ordenarAgendas(a: IAgenda, b: IAgenda): number {
     if (a.id_tipo_agenda == null) {
       return -1;
     }
     if (b.id_tipo_agenda == null) {
       return 1;
     }
-    if((a.fecha_resolucion != null && b.fecha_resolucion === null)) {
+    if ((a.fecha_resolucion != null && b.fecha_resolucion === null)) {
       return 1;
     }
     if (a.fecha_resolucion === null && b.fecha_resolucion != null) {
       return -1;
     }
-    if(a.id_tipo_agenda.importancia > b.id_tipo_agenda.importancia) {
+    if (a.id_tipo_agenda.importancia > b.id_tipo_agenda.importancia) {
       return 1;
     } else {
       if (a.id_tipo_agenda.importancia == b.id_tipo_agenda.importancia) {
@@ -71,7 +75,7 @@ export class AgendaComponent implements OnInit {
   }
 
   // Método que ordena la tabla si hacemos click en las flechas de los th de la tabla
-  ordenacionTabla(indice: number, tipo: string){
+  ordenacionTabla(indice: number, tipo: string) {
     this.ordTabla.ordenacionService(indice, tipo);
   }
 
@@ -90,10 +94,10 @@ export class AgendaComponent implements OnInit {
         if (e) {
           this.agendasDelDia = datos;
           console.log(fechaSeparada[1]);
-          this.fechaString = + fechaSeparada[2] + ' de '
+          this.fechaString = +fechaSeparada[2] + ' de '
             + this.getNombreMesActualizarFecha(fechaSeparada[1]) + ' de '
             + fechaSeparada[0];
-          if(datos && datos.length > 0) {
+          if (datos && datos.length > 0) {
             this.agendasDelDia = this.agendasDelDia.filter(el => {
               return el;
             });
@@ -109,7 +113,7 @@ export class AgendaComponent implements OnInit {
   }
 
   // Método para conseguir el nombre del mes usando el número que nos devuelve la función getMonth()
-  getNombreMes (numMes: number) {
+  getNombreMes(numMes: number) {
     let mes = '';
     switch (numMes) {
       case 0:
@@ -154,7 +158,7 @@ export class AgendaComponent implements OnInit {
 
   // Método para conseguir el nombre del mes usando el número que nos devuelve la función getMonth() pero con 0
   // al principio si es solo 1 digito y en string y empezando por 01 en vez de 0
-  getNombreMesActualizarFecha (numMes: string) {
+  getNombreMesActualizarFecha(numMes: string) {
     let mes = '';
     switch (numMes) {
       case '01':

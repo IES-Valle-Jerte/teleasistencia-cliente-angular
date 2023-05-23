@@ -1,0 +1,54 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Usuarios del Servicio</li>
+      </ol>
+    </nav>
+
+    <h1 class="component-title">Usuarios del servicio</h1>
+    <div class="m-2 row">
+
+      <div class="col-8 d-flex justify-content-end">
+        <div class="col-6">
+          <input id="campoBusqueda" type="text" class="form-control" placeholder="Busqueda..."
+                 [(ngModel)]="inputBusqueda">
+        </div>
+      </div>
+
+      <div class="col-4 d-flex justify-content-end">
+        <button class="btn btn-success" [routerLink]="['/usuarios_del_servicio/crear']">Crear usuario</button>
+      </div>
+    </div>
+
+    <div class="table-responsive m-2">
+      <table id="tableList" class="table table-hover text-center">
+        <thead>
+        <tr class="table-purple">
+          <th (click)="ordenacionTabla(0, 'string')" scope="col">Nombre y Apellidos</th>
+          <th (click)="ordenacionTabla(1, 'string')" scope="col">Tipo modalidad usuario</th>
+          <th (click)="ordenacionTabla(2, 'string')" scope="col">Localidad</th>
+          <th (click)="ordenacionTabla(3, 'string')" scope="col">Historia clínica</th>
+          <th (click)="ordenacionTabla(4, 'string')" scope="col">Dispositivos Periféricos</th>
+          <th (click)="ordenacionTabla(5, 'string')" scope="col">Situacion Terminal</th>
+          <th>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr
+          *ngFor="let paciente of usuarios | filtroBusqueda: inputBusqueda | paginate: { itemsPerPage: 10, currentPage: numPaginacion }"
+          app-item-paciente [paciente]="paciente">
+        </tr>
+        </tbody>
+      </table>
+      <pagination-controls
+        previousLabel="Anterior"
+        nextLabel="Siguiente"
+        responsive="true"
+        (pageChange)="numPaginacion = $event"></pagination-controls>
+    </div>
+  </div>
+</main>

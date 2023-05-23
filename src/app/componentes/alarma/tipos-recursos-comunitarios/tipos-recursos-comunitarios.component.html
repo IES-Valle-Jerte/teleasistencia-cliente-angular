@@ -3,10 +3,17 @@
   <h6>{{clasificacion?.nombre}}</h6>
     <ng-container *ngIf="this.alarma?.estado_alarma =='Abierta'">
         <div class="col-12 col-sm-10 p-0">
-          <ng-select  formControlName="tipo_recurso">
+          <!-- Mostramos en el caso de que estemos en el caso de recursos sanitarios-->
+          <ng-select *ngIf="this.tipo_recurso" formControlName="tipo_recurso">
             <ng-container *ngFor="let recurso of this.tipo_recurso">
-                <ng-option [value]="recurso">{{recurso?.id_recurso_comunitario?.nombre}}</ng-option>
+                <ng-option [value]="recurso?.id_recurso_comunitario">{{recurso?.id_recurso_comunitario?.nombre}}</ng-option>
               </ng-container>
+          </ng-select>
+          <!-- Mostramos en el caso de que estemos en el caso de recursos NO sanitarios-->
+          <ng-select  *ngIf="this.tipo_recurso_no_sanitarios" formControlName="tipo_recurso">
+            <ng-container *ngFor="let recurso of this.tipo_recurso_no_sanitarios">
+              <ng-option [value]="recurso">{{recurso?.nombre}}</ng-option>
+            </ng-container>
           </ng-select>
         </div>
         <div class="col-12 col-sm-2 p-0">

@@ -10,6 +10,8 @@ import {IPaciente} from "../../interfaces/i-paciente";
 export class CargaPacienteService {
   private urlBase = environment.urlBase;
   private URL_SERVER_PACIENTE = this.urlBase + 'paciente';
+  public pacienteId: number;
+
   constructor(private http: HttpClient) { }
 
   getPacientes(): Observable<IPaciente[]> {

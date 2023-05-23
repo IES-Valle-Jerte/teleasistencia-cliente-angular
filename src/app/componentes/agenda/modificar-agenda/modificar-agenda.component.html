@@ -11,23 +11,22 @@
     <form [formGroup]="modAgenda" (ngSubmit)="onSubmit()">
 
       <div class="form-group mb-3 row">
-        <div class="col-6 p-0">
-          <label for="idPaciente" class="form-label">Paciente</label>
-          <ng-select name="idPaciente" id="idPaciente"
-                  formControlName="paciente" (change)="obtenerExpediente()" required>
-            <ng-option class="agenda_option" *ngFor="let paciente of pacientes" [value]="paciente.id">
-              {{paciente.id_persona.nombre + ' ' + paciente.id_persona.apellidos}}
-            </ng-option>
-          </ng-select>
-          <div *ngIf="form.paciente.invalid && (form.paciente.dirty || form.paciente.touched)" class="alert alert-secondary" role="alert">
-            <div *ngIf="form.paciente.errors?.required">
-              El campo paciente es obligatorio.
-            </div>
+        <div class="col-8">
+          <div class="row">
+            <label for="idPaciente" class="form-label col-12 text-start p-0">Paciente</label>
+          </div>
+          <div class="row col-12 p-0 pb-1 pb-lg-0">
+            <ng-select name="idPaciente" id="idPaciente" class="p-0"
+                    formControlName="paciente" (change)="obtenerExpediente()" required>
+              <ng-option *ngFor="let paciente of pacientes" [value]="paciente.id">
+                {{paciente?.id_persona.nombre + ' ' + paciente?.id_persona.apellidos}}
+              </ng-option>
+            </ng-select>
           </div>
         </div>
-        <div class="col-4 ms-auto">
+        <div class="col-4">
           <div class="row">
-            <label for="n_expediente" class="form-label p-0">Nº Expediente</label>
+            <label for="n_expediente" class="form-label col-12 text-start p-0">Nº Expediente</label>
           </div>
           <div class="row">
             <input type="text" class="form-control" id="n_expediente" name="n_expediente"
@@ -84,10 +83,11 @@
         <label for="observaciones" class="form-label">Observaciones</label>
         <textarea rows="5" cols="50" name="observaciones" id="observaciones" class="form-control"
                   required maxlength="200" formControlName="observaciones"></textarea>
-        <div *ngIf="form.observaciones.invalid && (form.observaciones.dirty || form.observaciones.touched)" class="alert alert-secondary" role="alert">
-          <div *ngIf="form.observaciones.errors?.required">
-            La fecha prevista es obligatoria.
-          </div>
+        <div *ngIf="form.observaciones.hasError('required')" class="alert alert-secondary" role="alert">
+          El campo observaciones es obligatorio.
+        </div>
+        <div *ngIf="form.observaciones.hasError('minlength')" class="alert alert-secondary" role="alert">
+          El campo observaciones necesita un mínimo de 10 caracteres.
         </div>
       </div>
 

@@ -7,6 +7,9 @@
       </ol>
     </nav>
     <h1 class="component-title">Usuarios del sistema</h1>
+    <button type="button" class="btn btn-success me-5 float-end" [routerLink]="['/usuarios/nuevo']">
+      Nuevo Usuario
+    </button>
     <div class="form-group mb-3">
       <input id="campoBusqueda" type="text" class="form-control" placeholder="Busqueda..." [(ngModel)]="inputBusqueda">
     </div>

@@ -1,32 +1,27 @@
 <main class="text-center row p-0 m-0 justify-content-center">
   <div class="container">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
-        <li class="breadcrumb-item"><a [routerLink]="['/situaciones']">Tipos de situaciones</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Modificar tipo de situación {{idSituacion}}</li>
-      </ol>
-    </nav>
     <h1 class="component-title">Modificar datos tipo de situación {{idSituacion}}</h1>
-    <form #modificarTipoSituacionForm="ngForm">
-
+    <form [formGroup]="formulario" (submit)="modificarTipoSituacion()">
       <div class="form-group mb-3">
         <label for="nombre" class="form-label">Nombre</label>
         <input type="text" name="nombre" id="nombre" class="form-control"
-               required maxlength="200" [(ngModel)]="tipos_situaciones.nombre" #nombre="ngModel">
-        <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-secondary" role="alert">
-          <div *ngIf="nombre.errors?.required">
+               formControlName="nombre">
+        <div *ngIf="controles.nombre.invalid && (controles.nombre.dirty || controles.nombre.touched)" class="alert alert-secondary" role="alert">
+          <div *ngIf="controles.nombre.errors?.required">
             El nombre es obligatorio
           </div>
         </div>
       </div>
-
-      <button type="submit" class="btn btn-outline-success m-1" (click)="modificarTipoSituacion()"
-              [disabled]="!modificarTipoSituacionForm.form.valid">
+      <button type="button" class="btn btn-outline-success m-1"
+              (click)="modificarTipoSituacion();mostrarModificarTipo()"
+              [disabled]="formulario.invalid" data-bs-toggle="collapse" data-bs-target="#situacion2"
+              aria-expanded="false" aria-controls="situacion2">
         Guardar
       </button>
-      <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/situaciones']">
-        Volver
+      <button type="button" class="btn btn-outline-secondary m-1" (click)="mostrarModificarTipo()"
+              data-bs-toggle="collapse" data-bs-target="#situacion2" aria-expanded="false"
+              aria-controls="situacion2">
+        Cancelar
       </button>
 
     </form>

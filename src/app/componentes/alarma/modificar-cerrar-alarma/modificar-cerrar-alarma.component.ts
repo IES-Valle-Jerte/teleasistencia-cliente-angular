@@ -47,7 +47,7 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
               private cargarAlarmas: CargaAlarmaService) { }
 
   ngOnInit(): void {
-
+    document.querySelector(".breadcrumb").scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
     //PETICIONES
     this.alarma = this.route.snapshot.data['alarma'];
     this.idAlarma = this.route.snapshot.params['id'];
@@ -89,7 +89,7 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
   optionSelected(i: number): void {
     document.getElementsByClassName('form-select')[i].setAttribute('selected', '');
   }
-  modificarAlarma(): void {
+  modificarAlarma(redireccion:boolean): void {
     let datos = {
       estado_alarma:"Cerrada",
       observaciones: this.formInf.value.observaciones,
@@ -99,7 +99,12 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
     this.cargarAlarmas.cerrarAlarma(datos,this.idAlarma).subscribe(
       e => {
         this.alertExito()
-        this.router.navigate(['/alarmas'])
+        if(redireccion){
+          this.router.navigate(['/agenda/nueva',this.obtenerIdPaciente()])
+        }else{
+          this.router.navigate(['/alarmas'])
+        }
+
       },
       error => {
              this.alertError()
@@ -153,6 +158,12 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
     }
     // en otro caso devolvemos el nommbre del titular del terminal
     return  this.alarma.id_terminal.id_titular.id_persona.nombre + ' ' + this.alarma.id_terminal.id_titular.id_persona.apellidos + '(Terminal)'
+  }
+  obtenerIdPaciente() {
+    if (this.paciente_ucr) {
+      return this.paciente_ucr.id
+    }
+    return  this.alarma.id_terminal.id_titular.id
   }
   // funcion que obtiene el telefono fijo
 

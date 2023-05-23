@@ -1,42 +1,61 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ITipoSituacion} from "../../../interfaces/i-tipo-situacion";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 import {CargaTipoSituacionService} from "../../../servicios/carga-tipo-situacion.service";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
+import {ITipoModalidadPaciente} from "../../../interfaces/i-tipo-modalidad-paciente";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+
 @Component({
   selector: 'app-modificar-tipo-situacion',
   templateUrl: './modificar-tipo-situacion.component.html',
   styleUrls: ['./modificar-tipo-situacion.component.scss']
 })
 export class ModificarTipoSituacionComponent implements OnInit {
-  public tipos_situaciones: ITipoSituacion;
+  public tipo_situacion: any;
   public idSituacion: number;
+  @Output() public mostrarModificar = new EventEmitter;
+  @Input() public listaTiposSituaciones: ITipoSituacion[];
+  @Input() public idTipoSituacion: number;
+  public formulario: FormGroup;
 
-  constructor(private route: ActivatedRoute, private titleService: Title, private cargaSituacion: CargaTipoSituacionService, private router: Router) { }
+
+  constructor(private route: ActivatedRoute,
+              private titleService: Title,
+              private cargaSituacion: CargaTipoSituacionService,
+              private router: Router,
+              private formBuilder: FormBuilder) {
+  }
 
   ngOnInit(): void {
-    this.idSituacion = this.route.snapshot.params['id'];
-    console.log(this.idSituacion); //OK
-    this.tipos_situaciones = this.route.snapshot.data['tipos_situaciones'];
-    console.log(this.tipos_situaciones.id); // NO OK - PARECE VACIO...
-    this.titleService.setTitle('Modificar tipo situación ' + this.idSituacion);
+    this.buscarTipoSituacion();
+    this.formulario = this.formBuilder.group({
+      nombre: [this.tipo_situacion.nombre, [Validators.required, Validators.max(200)]]
+    });  //Formularios reactivos
   }
 
   modificarTipoSituacion(): void {
-    this.cargaSituacion.modificarTipoSituacion(this.tipos_situaciones).subscribe(
+
+    let tipo_situacion = {
+      id: this.tipo_situacion.id,
+      nombre: this.formulario.value.nombre
+    }
+
+    this.cargaSituacion.modificarTipoSituacion(tipo_situacion).subscribe(
       e => {
+        this.mostrarModificar.emit(!this.mostrarModificar);
         this.alertExito()
-        this.router.navigate(['/situaciones']);
       },
       error => {
         this.alertError()
       }
     );
   }
+
 //Toast para el Alert indicando que la operación fue exitosa
-  alertExito() :void {
+  alertExito(): void {
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',
@@ -55,8 +74,31 @@ export class ModificarTipoSituacionComponent implements OnInit {
       title: environment.fraseModificar,
     })
   }
+
+  /* Getters del Formulario reactivo para los banners de error */
+  get controles() {
+    return this.formulario.controls;
+  }
+
+  buscarTipoSituacion() {
+    let enc = false;
+    let i = 0;
+    while ((i < this.listaTiposSituaciones.length) && (enc == false)) {
+      if (this.listaTiposSituaciones[i].id == this.idTipoSituacion) {
+        enc = true;
+        this.tipo_situacion = this.listaTiposSituaciones[i];
+      }
+      i++;
+    }
+  }
+
+
+  mostrarModificarTipo() {
+    this.mostrarModificar.emit(!this.mostrarModificar);
+  }
+
   //Toast para el alert indicando que hubo algún error en la operación
-  alertError() :void {
+  alertError(): void {
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',
@@ -74,5 +116,6 @@ export class ModificarTipoSituacionComponent implements OnInit {
       title: environment.fraseErrorModificar
     })
   }
+
 
 }

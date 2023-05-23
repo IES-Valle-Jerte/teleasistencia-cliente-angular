@@ -8,13 +8,17 @@ export const environment = {
   //Numero de entradas permitidas en la paginacion.
   num_paginacion: 10,
   //Tiempo que tarda en irse el mensaje de exito
-  timerToast : 4000,
+  timerToast: 4000,
   //Frase del Toast al Eliminar Con Exito
   fraseEliminar: 'Se ha eliminado correctamente',
   //Frase del Toast al Modificar Con Exito
   fraseModificar: 'Se ha modificado correctamente',
   //Frase del Toast al Crear Con Exito
   fraseCrear: 'Se ha creado Correctamente',
+  //Frase del Toast al no poder crear mas contactos
+  fraseContact: 'No se pueden crear más Contactos',
+  //Frase al eliminar Recurso
+  fraseEliminarRecurso: 'Se ha eliminado correctamente',
   //Frase de error al Eliminar del Toast
   fraseErrorEliminar: 'Se ha producido un error inesperado',
   //Frase de error al Modificar del Toast
@@ -43,15 +47,27 @@ export const environment = {
   urlToken: 'http://localhost:8000/api/token/',
 
   //Control de roles
-  admins:['supervisor','administrador','profesor'],
+  admins: ['supervisor', 'administrador', 'profesor'],
+
+//Expresiones regulares para validaciones:
+  regex_name: /^[A-Za-z][a-zA-ZÀ-ÿ- ]+$/, //nombres y apellidos
+  regex_dni:/^([0-9]{8})([A-Z])$/,
+  regex_movil:/^[6|7]{1}[ ]*([0-9][ ]*){8}$/, //teléfonos moviles
+  regex_fijo:/^[9]{1}[ ]*([0-9][ ]*){8}$/, // teléfonos fijos
+  regex_telefono:/^[6|7|9]{1}[ ]*([0-9][ ]*){8}$/, //fijos + movil
+  regex_cp:/^\d{5}$/, //codigo postal
+  regex_exp:/^\d{4,}$/, // expediente paciente
+  regex_ter:/^\d{4,}$/, //Terminales
+  regex_modelo_ter:/^(?!^\s)[a-zA-Z0-9\s-]+$/,
 
   //subdominio y version de la pagina
   subdominio: {
-    nombre:'CRT',
-    color:'blueviolet'
+    nombre: 'CRT',
+    color: 'blueviolet'
   },
   version: '1.0',
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file
