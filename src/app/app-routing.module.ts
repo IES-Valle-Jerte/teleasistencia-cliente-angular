@@ -355,6 +355,8 @@ import {ListaTeleoperadorResolveService} from "./servicios/lista-teleoperador-re
 import {
   ListaAlarmasResueltasComponent
 } from "./componentes/seguimiento_teleoperador/lista-alarmas-resueltas/lista-alarmas-resueltas.component";
+import {ListaAgendasResueltasResolveService} from "./servicios/lista-agendas-resueltas-resolve.service";
+import {ListaAlarmasResueltasResolveService} from "./servicios/lista-alarmas-resueltas-resolve.service";
 
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
@@ -1569,13 +1571,17 @@ const routes: Routes = [
     path:'lista-seguimiento-teleoperador/:id',
     component:ListaAlarmasResueltasComponent,
     canActivate: [AuthGuard],
-     data:{
+    data:{
        role:null
-     },
-     resolve: {
-       seguimiento_teleoperador: ListaTeleoperadorResolveService
-     }
+    },
+    resolve:{
+      lista_alarma_resuelta:ListaAlarmasResueltasResolveService,
+      lista_agenda_resuelta:ListaAgendasResueltasResolveService
+
+    }
+
   },
+
 {
     path: 'usuarios_del_servicio/crear',
     component: CrearUserServicioComponent,
@@ -1592,7 +1598,7 @@ const routes: Routes = [
       tipos_alarmas: ListaTiposAlarmasResolveService,
       clasificaciones_alarmas: ListaClasificacionesAlarmasResolveService
 
-    },
+    }
   },
   {
     path: 'modificar-user-servicio/editar/:id',

@@ -5,43 +5,36 @@ import {IAlarma} from "../../../interfaces/i-alarma";
 import {AuthService} from "../../../servicios/auth.service";
 import {OrdenacionTablasService} from "../../../servicios/ordenacion-tablas.service";
 import {Alarma} from "../../../clases/alarma";
+import {IAgenda} from "../../../interfaces/i-agenda";
+import {IAgendas} from "../../../interfaces/i-agendas";
 
 @Component({
-  selector: 'app-lista-alarmas-resueltas',
+  selector: 'app-lista-alarmas-resueltas,[app-lista-alarmas-resueltas]',
   templateUrl: './lista-alarmas-resueltas.component.html',
   styleUrls: ['./lista-alarmas-resueltas.component.scss']
 })
 export class ListaAlarmasResueltasComponent implements OnInit {
-  private teleoperadores: any;
+  public agendas:IAgendas;
   private idTeleoperador: any;
   numPaginacion: number = 1;
   inputBusqueda: any = '';
-  isAdmin: boolean;
-  public fecha: string;
-  public fechaToday = new Date();
-  public alarmasDelDia: IAlarma[] = [];
-  public inputFechaBusqueda: any = '';
+  private agendasResueltas: any;
 
   constructor(private route: ActivatedRoute,private auth:AuthService, private ordTabla: OrdenacionTablasService, private titleService: Title) { }
 
   ngOnInit(): void {
-    this.teleoperadores = this.route.snapshot.data['lista-seguimiento-teleoperador'];
+
+    this.agendasResueltas=this.route.snapshot.data['lista_agenda_resuelta'];
     this.idTeleoperador = this.route.snapshot.params['id'];
+
+    console.log(this.agendasResueltas);
     this.titleService.setTitle(' Alarmas Resueltas del teleoperador con Id: ' + this.idTeleoperador);
-    this.fecha = + this.fechaToday.getDate() + ' de ' + this.getNombreMes(this.fechaToday.getMonth()) + ' de '
-      + this.fechaToday.getFullYear();
 
   }
   ordenacionTabla(indice: number, tipo: string){
     this.ordTabla.ordenacionService(indice, tipo);
   }
-  seleccionarFondo(alarma: Alarma): string {
-    if (alarma.estado_alarma == "Cerrada") {
-      return "cerrada"
-    }
-    return "abierta"
 
-  }
 
   getNombreMes (numMes: number) {
     let mes = '';
@@ -88,6 +81,7 @@ export class ListaAlarmasResueltasComponent implements OnInit {
 
   // Método para conseguir el nombre del mes usando el número que nos devuelve la función getMonth() pero con 0
   // al principio si es solo 1 digito y en string y empezando por 01 en vez de 0
+
   getNombreMesActualizarFecha (numMes: string) {
     let mes = '';
     switch (numMes) {

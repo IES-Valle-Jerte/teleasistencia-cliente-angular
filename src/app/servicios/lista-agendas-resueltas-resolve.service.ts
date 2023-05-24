@@ -6,18 +6,17 @@ import {Observable, of} from "rxjs";
 import {CargarAgendasResueltasService} from "./cargar-agendas-resueltas.service";
 import {CargaSeguimientoTeleoperadorService} from "./carga-seguimiento-teleoperador.service";
 import {catchError} from "rxjs/operators";
-import {IAlarma} from "../interfaces/i-alarma";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ListaAlarmasResueltasResolveService implements Resolve<IAlarma>{
+export class ListaAgendasResueltasResolveService implements Resolve<IAgenda>{
 
-  constructor(private cargarAlarmas: CargaSeguimientoTeleoperadorService, private router: Router) { }
+  constructor(private cargarAgendas: CargaSeguimientoTeleoperadorService, private router: Router) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IAlarma> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IAgenda> {
 
-    return this.cargarAlarmas.getAlarmasResueltas(route.params['id']).pipe(
+    return this.cargarAgendas.getAgendasResueltas(route.params['id']).pipe(
 
       catchError(error => {
         this.router.navigate(['/inicio']);

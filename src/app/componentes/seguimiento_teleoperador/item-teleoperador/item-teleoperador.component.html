@@ -1,14 +1,10 @@
-
 <td>{{ teleoperador.first_name }}</td>
 <td>{{ teleoperador.second_name }}</td>
-<td>{{ teleoperador.alarmas_total
-  }}
-  <button type="submit" class="btn btn-outline-secondary btn-modify" [routerLink]="['/lista-seguimiento-teleoperador/'+ teleoperador.id]">
-    <i class="fa-solid fa-eye" style="color: #6b6b6b;"></i>
-  </button>
-</td>
-<td>{{ teleoperador.agendas_total}}
-  <button type="submit" class="btn btn-outline-secondary btn-modify" [routerLink]="['/lista-seguimiento-teleoperador/'+teleoperador.id]">
+<td>{{ teleoperador.alarmas_total}}</td>
+<td>{{ teleoperador.agendas_total}}</td>
+<td>
+  <button type="submit" class="btn btn-outline-secondary btn-modify"
+          [routerLink]="['/lista-seguimiento-teleoperador/'+ teleoperador.id]">
     <i class="fa-solid fa-eye" style="color: #6b6b6b;"></i>
   </button>
 </td>
