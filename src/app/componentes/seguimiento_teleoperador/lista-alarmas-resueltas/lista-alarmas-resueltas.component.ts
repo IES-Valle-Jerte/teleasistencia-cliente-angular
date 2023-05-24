@@ -14,20 +14,26 @@ import {IAgendas} from "../../../interfaces/i-agendas";
   styleUrls: ['./lista-alarmas-resueltas.component.scss']
 })
 export class ListaAlarmasResueltasComponent implements OnInit {
-  public agendas:IAgendas;
+  public agendas:IAgendas[];
   private idTeleoperador: any;
   numPaginacion: number = 1;
   inputBusqueda: any = '';
   private agendasResueltas: any;
+  public alarmas: any;
+  peticion: any;
 
   constructor(private route: ActivatedRoute,private auth:AuthService, private ordTabla: OrdenacionTablasService, private titleService: Title) { }
 
   ngOnInit(): void {
 
     this.agendasResueltas=this.route.snapshot.data['lista_agenda_resuelta'];
+    this.agendas=this.agendasResueltas.agendas;
+    this.alarmas=this.agendasResueltas.alarmas
+    this.peticion=this.agendasResueltas;
     this.idTeleoperador = this.route.snapshot.params['id'];
 
-    console.log(this.agendasResueltas);
+    console.log(this.peticion);
+
     this.titleService.setTitle(' Alarmas Resueltas del teleoperador con Id: ' + this.idTeleoperador);
 
   }

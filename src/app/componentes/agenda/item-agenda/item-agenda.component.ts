@@ -30,6 +30,7 @@ export class ItemAgendaComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    console.log(this.agenda);
     this.n_expediente = this.agenda.id_paciente.numero_expediente;
   }
 

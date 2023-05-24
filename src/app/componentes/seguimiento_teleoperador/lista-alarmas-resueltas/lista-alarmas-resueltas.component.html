@@ -8,10 +8,9 @@
         </li>
       </ol>
     </nav>
-    <h1 class="component-title">
-
-    </h1>
-
+    <h3 class="component-title">
+      Nombre: {{peticion.first_name}} {{peticion.second_name}}
+    </h3>
 
 
     <div style="display: none" id="actualizarPagina"></div>
@@ -30,14 +29,16 @@
           <th (click)="ordenacionTabla(2, 'string')" scope="col">Apellido <i class="fas fa-sort"></i></th>
           <th (click)="ordenacionTabla(3, 'string')" scope="col">Tipo Agenda <i class="fas fa-sort"></i></th>
           <th (click)="ordenacionTabla(4, 'number')" scope="col">Nº Expediente <i class="fas fa-sort"></i></th>
-          <th (click)="ordenacionTabla(5, 'number')" scope="col">Hora prevista <i class="fas fa-sort"></i></th>
+          <th (click)="ordenacionTabla(5, 'number')" scope="col">Fecha <i class="fas fa-sort"></i></th>
+
           <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
         <tr
-
-          app-item-alarmas-resueltas [agendasResuelta]="agendas" >
+          *ngFor="let agenda of agendas | filtroBusqueda: inputBusqueda | paginate: { itemsPerPage: 10, currentPage: numPaginacion }"
+          app-item-alarmas-resueltas [agenda]="agenda.id_agenda"
+          class="{{agenda.fecha_resolucion === null ? 'noResuelta' : 'resuelta'}}">
         </tr>
 
         </tbody>
@@ -48,6 +49,32 @@
         responsive="true"
         (pageChange)="numPaginacion = $event"></pagination-controls>
     </div>
+    <div class="table-responsive m-2">
+      <table id="tableList" class="table table-hover text-center">
+        <thead>
+        <tr class="table-purple">
+          <th (click)="ordenacionTabla(0, 'string')" scope="col">Prioridad <i class="fas fa-sort"></i></th>
+          <th (click)="ordenacionTabla(1, 'string')" scope="col">Nombre <i class="fas fa-sort"></i></th>
+          <th (click)="ordenacionTabla(2, 'string')" scope="col">Apellido <i class="fas fa-sort"></i></th>
+          <th (click)="ordenacionTabla(3, 'string')" scope="col">Tipo Agenda <i class="fas fa-sort"></i></th>
+          <th (click)="ordenacionTabla(4, 'number')" scope="col">Nº Expediente <i class="fas fa-sort"></i></th>
+          <th (click)="ordenacionTabla(5, 'number')" scope="col">Fecha <i class="fas fa-sort"></i></th>
+
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr></tr>
+
+        </tbody>
+      </table>
+      <pagination-controls
+        previousLabel="Anterior"
+        nextLabel="Siguiente"
+        responsive="true"
+        (pageChange)="numPaginacion = $event"></pagination-controls>
+    </div>
+
   </div>
 </main>
 
