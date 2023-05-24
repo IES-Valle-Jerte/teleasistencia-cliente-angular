@@ -174,12 +174,13 @@ import { TiposRecursosComunitariosComponent } from './componentes/alarma/tipos-r
 import { UserAgendasAlarmasResueltasComponent } from './componentes/seguimiento_teleoperador/lista-seguimiento-teleoperador/user-agendas-alarmas-resueltas.component';
 import { ItemTeleoperadorComponent } from './componentes/seguimiento_teleoperador/item-teleoperador/item-teleoperador.component';
 import { ListaAlarmasResueltasComponent } from './componentes/seguimiento_teleoperador/lista-alarmas-resueltas/lista-alarmas-resueltas.component';
-import { ItemAlarmasResueltasComponent } from './componentes/seguimiento_teleoperador/item-alarmas-resueltas/item-alarmas-resueltas.component';
+import { ItemAgendasResueltasComponent } from './componentes/seguimiento_teleoperador/item-agendas-resueltas/item-agendas-resueltas.component';
 
 
 
 import { EditMostrarClasificacionAlarmaComponent } from './componentes/edit-mostrar-clasificacion-alarma/edit-mostrar-clasificacion-alarma.component';
 import {NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
+import { ItemAlarmasResueltasComponent } from './componentes/seguimiento_teleoperador/item-alarmas-resueltas/item-alarmas-resueltas.component';
 
 @NgModule({
   declarations: [
@@ -331,8 +332,9 @@ import {NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
     UserAgendasAlarmasResueltasComponent,
     ItemTeleoperadorComponent,
     ListaAlarmasResueltasComponent,
-    ItemAlarmasResueltasComponent,
+    ItemAgendasResueltasComponent,
     EditMostrarClasificacionAlarmaComponent,
+    ItemAlarmasResueltasComponent,
   ],
     imports: [
         BrowserModule,

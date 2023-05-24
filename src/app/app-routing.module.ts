@@ -1561,7 +1561,7 @@ const routes: Routes = [
     component:UserAgendasAlarmasResueltasComponent,
     canActivate: [AuthGuard],
     data:{
-      role:null
+      role:[environment.admins]
     },
     resolve: {
       seguimiento_teleoperador: ListaTeleoperadorResolveService
@@ -1572,7 +1572,7 @@ const routes: Routes = [
     component:ListaAlarmasResueltasComponent,
     canActivate: [AuthGuard],
     data:{
-       role:null
+       role:[environment.admins]
     },
     resolve:{
       lista_alarma_resuelta:ListaAlarmasResueltasResolveService,
