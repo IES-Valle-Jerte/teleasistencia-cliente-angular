@@ -38,9 +38,10 @@ export class ModificarRecursoComunitarioComponent implements OnInit {
 
 
 
-  constructor(private route: ActivatedRoute, private titleService: Title, private cargaDirecciones: CargaDireccionService, private cargaRecursosComunitarios: CargaRecursoComunitarioService,
+  constructor(private route: ActivatedRoute, private titleService: Title,
+              private cargaDirecciones: CargaDireccionService, private cargaRecursosComunitarios: CargaRecursoComunitarioService,
               private cargaTipoRecurso: CargaTipoRecursoComunitarioService, private router: Router,
-              private formBuilder: FormBuilder, private cargaClasificacioRecurso: CargarClasificacionRecursosService) {
+              private formBuilder: FormBuilder) {
   }
 
 
@@ -53,6 +54,13 @@ export class ModificarRecursoComunitarioComponent implements OnInit {
 
     // Esta id será utilizada para volver a la página principal acorde a la clasificación de recurso comunitario
     this.id = this.recurso_comunitario.id_tipos_recurso_comunitario.id_clasificacion_recurso_comunitario;
+
+    this.cargaTipoRecurso.getTipoRecursoComunitarioClasificacion(this.id).subscribe(
+      tipo =>{
+        this.tipos_recursos_comunitarios = tipo;
+      },
+      error => {}
+    );
 
     /* Creamos los valores del formulario
      * Con la palabra reservada Validators creamos la validación de los valores
@@ -90,6 +98,10 @@ export class ModificarRecursoComunitarioComponent implements OnInit {
       ]]
       }
     )
+  }
+
+  get valorForm(){
+    return this.editarRecurso.controls;
   }
 
   //Toast para el Alert indicando que la operación fue exitosa
@@ -171,7 +183,8 @@ export class ModificarRecursoComunitarioComponent implements OnInit {
     let enc = false;
     let i = 0;
     let id;
-
+    console.log(recurso_comunitario)
+    console.log(this.tipo_recurso)
     while(( i < this.tipo_recurso.length) && (enc == false)){
       if(this.tipo_recurso[i].id === recurso_comunitario.id_tipos_recurso_comunitario){
         enc = true;

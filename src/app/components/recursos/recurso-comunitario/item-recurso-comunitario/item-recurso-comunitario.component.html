@@ -6,14 +6,14 @@
 <td>{{ recurso_comunitario?.id_direccion?.codigo_postal}}</td>
 <td>{{ recurso_comunitario?.id_direccion?.direccion}}</td>
 <td>
+  <!-- Botón para ver el recurso específico -->
+  <button [routerLink]="['/recursos_comunitarios/ver_recursos',recurso_comunitario.id]" class="btn btn-outline-info m-1"><i class="fa fa-eye"></i></button>
   <!-- Botón para modificar el recurso comunitario-->
-  <button type="submit" class="btn btn-outline-secondary btn-modify"
+  <button type="submit" class="btn btn-outline-warning"
           [routerLink]="['/recursos_comunitarios/modificar',recurso_comunitario.id]">
     <i class="fa fa-pen"></i>
   </button>
-  <!-- Botón para ver el recurso específico -->
-  <button [routerLink]="['/recursos_comunitarios/ver_recursos',recurso_comunitario.id]" class="btn btn-outline-secondary m-1"><i class="fa fa-eye" style="color: #727b8b;"></i></button>
   <!-- Botón para borrar el recurso comunitario -->
-  <button (click)="modalConfirmacion()" type="submit" class="btn btn-delete m-1"><i class="fa fa-trash"></i></button>
+  <button (click)="modalConfirmacion()" type="submit" class="btn btn-outline-danger m-1"><i class="fa fa-trash"></i></button>
 </td>
 

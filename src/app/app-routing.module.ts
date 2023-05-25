@@ -360,7 +360,7 @@ import {ListaAlarmasResueltasResolveService} from "./servicios/lista-alarmas-res
 
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
-  {path: 'inicio', canActivate: [AuthGuard], component: HomeComponent},
+  {path: 'inicio', component: HomeComponent},
   {
     path: 'recurso-comunitarios-personales',
     canActivate: [AuthGuard],

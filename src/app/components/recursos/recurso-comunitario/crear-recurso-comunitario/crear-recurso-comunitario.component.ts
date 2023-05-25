@@ -121,10 +121,21 @@ export class CrearRecursoComunitarioComponent implements OnInit {
       }
     );
   }
-
+//Funcion para deshabilitar botones (EDITAR Y BORRAR TIPO ALARMA)
+  botonDes(){
+    if((this.nuevoRecurso.value.tipo_recursos_comunitario == '')||(this.nuevoRecurso.value.tipo_recursos_comunitario == null)){
+      return true;
+    }else{
+      return false;
+    }
+  }
   //Emitimos si es true o false para mostrar el crear recurso comunitario
   mostratCrearTipo(){
     this.mostrar = !this.mostrar;
+  }
+
+  get valorForm(){
+    return this.nuevoRecurso.controls;
   }
 
   //Emitimos si es true o false para mostrar el modificar recurso comunitario
@@ -145,15 +156,16 @@ export class CrearRecursoComunitarioComponent implements OnInit {
   }
 
   // Esta funcion es utilizada para volver a cargar los tipos de recursos (sin recargar la página)
-  actualizarTipoRecurso(){
-   this.route.paramMap.subscribe(params => {
-     this.id = +params.get('id');
-   });
+  actualizarTipoRecurso(id: number = null){
+
+    this.mostrar = false;
+    this.mostrarModificar = false;
+
     //peticion para refrescar los tipos de recursos
     this.cargaTipoRecursosComunitarios.getTipoRecursoComunitarioClasificacion(this.id).subscribe(
       lista => {
         this.tipos_recursos_comunitarios = lista;
-        this.nuevoRecurso.patchValue({tipos_recurso:this.id})
+        this.nuevoRecurso.patchValue({tipo_recursos_comunitario:id})
       },
       error => {}
       );
@@ -161,7 +173,7 @@ export class CrearRecursoComunitarioComponent implements OnInit {
 
   // Al llamar a este método se eliminará el tipo recurso comunitario, poasando por parámetros el valor que haya en el tipo recurso comunitario
   eliminarTipoRecurso(){
-
+    console.log(this.nuevoRecurso.controls['tipo_recursos_comunitario'].value)
     this.cargaTipoRecursosComunitarios.eliminarTipoRecursoComunitario(this.nuevoRecurso.controls['tipo_recursos_comunitario'].value).subscribe(
       e=>{
         //Si el elemento se ha borrado con exito, llama al método que muestra el alert de Exito

@@ -17,7 +17,7 @@ import {FormBuilder, FormGroup,Validators} from "@angular/forms";
 export class ModificarTipoRecursoComunitarioComponent implements OnInit {
   public tipo_recurso_comunitario: ITipoRecursoComunitario;
   public formModificarTipo: FormGroup;
-  @Output() mostrar = new EventEmitter;
+  @Output() actualizarRecurso = new EventEmitter;
   @Input() TipoRecurso: ITipoRecursoComunitario[];
   @Input() public idTipoRecursoComunitario: number;
 
@@ -41,7 +41,7 @@ export class ModificarTipoRecursoComunitarioComponent implements OnInit {
     this.cargaTiposRecursosComunitarios.modificarTipoRecursoComunitario(this.tipo_recurso_comunitario).subscribe(
       e => {
         this.alertExito()
-        this.mostrar.emit(!this.mostrar)
+        this.actualizarRecurso.emit(e.id)
       },
       error => {
         this.alertError()
@@ -55,7 +55,7 @@ export class ModificarTipoRecursoComunitarioComponent implements OnInit {
 
   //Este método se ejecutará al pulsar en volver para hacer desaparecer el formulario para crear un tipo de recurso
   mostrarCrearTipo(){
-    this.mostrar.emit(!this.mostrar);
+    this.actualizarRecurso.emit(null);
   }
 
   buscarTipoRecurso(){

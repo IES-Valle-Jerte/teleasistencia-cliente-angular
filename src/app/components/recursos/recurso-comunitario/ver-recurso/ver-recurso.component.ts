@@ -12,6 +12,8 @@ import {CargaRecursoComunitarioService} from "../../../../services/recursos/carg
 export class VerRecursoComponent implements OnInit {
   public recurso_comunitario: IRecursoComunitario | any;
 
+  public idClasificacion: number;
+
   // Cogemos la id de la ruta para obtener el recurso que queremos ver
   public id = this.route.snapshot.params['id'];
 
@@ -19,17 +21,20 @@ export class VerRecursoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     /*
     * Al cargar la página cargaremos el recurso comunitario que queremos ver
     * mediante la id que extraemos del*/
     this.cargaRecursosComunitarios.getRecursoComunitario(this.id).subscribe(
       recurso =>{
         this.recurso_comunitario = recurso;
+        this.idClasificacion = this.recurso_comunitario.id_tipos_recurso_comunitario.id_clasificacion_recurso_comunitario;
       },
       error => {
         console.log(error)
       }
     )
+
   }
 
 }

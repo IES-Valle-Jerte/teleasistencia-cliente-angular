@@ -12,49 +12,110 @@
     <div class="form-group mb-3">
       <label for="nombre" class="form-label">Nombre</label>
       <input type="text" name="nombre" id="nombre" class="form-control" value="{{recurso_comunitario.nombre}}" formControlName="nombre">
+      <div *ngIf="valorForm.nombre.invalid && (valorForm.nombre.dirty || valorForm.nombre.touched)" class="alert alert-secondary" role="alert">
+        <div *ngIf="valorForm.nombre.errors?.required">
+          El nombre es obligatorio
+        </div>
+        <div *ngIf="valorForm.nombre.errors?.maxLength">
+          El nombre es muy largo
+        </div>
+      </div>
     </div>
 
     <div class="form-group mb-3">
       <label for="telefono" class="form-label">Teléfono</label>
       <input type="tel" name="telefono" id="telefono" class="form-control" value="{{recurso_comunitario.telefono}}" formControlName="telefono">
+      <div *ngIf="valorForm.telefono.invalid && (valorForm.telefono.dirty || valorForm.telefono.touched)" class="alert alert-secondary" role="alert">
+        <div *ngIf="valorForm.telefono.errors?.required">
+          El teléfono es obligatorio
+        </div>
+        <div *ngIf="valorForm.telefono.errors?.maxLength">
+          El teléfono es muy largo
+        </div>
+        <div *ngIf="valorForm.telefono.errors?.pattern">
+          El teléfono no cumple el patrón
+        </div>
+      </div>
     </div>
 
     <div class="form-group mb-3">
       <label for="tipo_recurso_comunitario" class="form-label">Tipo de recurso comunitario</label>
-      <select class="form-select" id="tipo_recurso_comunitario" name="tipo_recurso_comunitario" value="{{recurso_comunitario.telefono}}"
-              formControlName="clasificacion_recursos_comunitario">
-        <option class="tipo_recurso_comunitario_option"
-                *ngFor="let tipo_recurso_comunitario of tipo_recurso"
-                value="{{tipo_recurso_comunitario.id}}">
-          {{tipo_recurso_comunitario.nombre}}
-        </option>
-      </select>
+      <div class="col-12 p-0 pb-1 pb-lg-0">
+        <ng-select id="tipo_recurso_comunitario" name="tipo_recurso_comunitario" formControlName="clasificacion_recursos_comunitario">
+          <ng-option *ngFor="let tipo_recurso_comunitario of tipos_recursos_comunitarios"
+                     [value]=tipo_recurso_comunitario.id>{{tipo_recurso_comunitario.nombre}}</ng-option>
+        </ng-select>
+        <div *ngIf="valorForm.clasificacion_recursos_comunitario.invalid && (valorForm.clasificacion_recursos_comunitario.dirty || valorForm.clasificacion_recursos_comunitario.touched)" class="alert alert-secondary" role="alert">
+          <div *ngIf="valorForm.clasificacion_recursos_comunitario.errors?.required">
+            El tipo de recurso comunitario es obligatorio
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <div class="form-group mb-3">
       <label for="localidad" class="form-label">Localidad</label>
       <input type="text" name="localidad" id="localidad" class="form-control" value="{{direccion.localidad}}" formControlName="localidad">
+      <div *ngIf="valorForm.localidad.invalid && (valorForm.localidad.dirty || valorForm.localidad.touched)" class="alert alert-secondary" role="alert">
+        <div *ngIf="valorForm.localidad.errors?.required">
+          La localidad es obligatoria
+        </div>
+        <div *ngIf="valorForm.localidad.errors?.maxLength">
+          La localidad es muy largo
+        </div>
+      </div>
     </div>
 
     <div class="form-group mb-3">
       <label for="provincia" class="form-label">Provincia</label>
       <input type="text" name="provincia" id="provincia" class="form-control" value="{{direccion.provincia}}" formControlName="provincia">
+      <div *ngIf="valorForm.provincia.invalid && (valorForm.provincia.dirty || valorForm.provincia.touched)" class="alert alert-secondary" role="alert">
+        <div *ngIf="valorForm.provincia.errors?.required">
+          La provincia es obligatoria
+        </div>
+        <div *ngIf="valorForm.provincia.errors?.maxLength">
+          La provincia es muy larga
+        </div>
+      </div>
     </div>
 
     <div class="form-group mb-3">
       <label for="direccion" class="form-label">Dirección</label>
       <input type="text" name="direccion" id="direccion" class="form-control" value="{{direccion.direccion}}" formControlName="direccion">
+      <div *ngIf="valorForm.direccion.invalid && (valorForm.direccion.dirty || valorForm.direccion.touched)" class="alert alert-secondary" role="alert">
+        <div *ngIf="valorForm.direccion.errors?.required">
+          La direccion es obligatoria
+        </div>
+        <div *ngIf="valorForm.direccion.errors?.maxLength">
+          La direccion es muy larga
+        </div>
+      </div>
     </div>
 
     <div class="form-group mb-3">
       <label for="codigo_postal" class="form-label">Código postal</label>
       <input type="text" name="codigo_postal" id="codigo_postal" class="form-control" value="{{direccion.codigo_postal}}" formControlName="cd">
+      <div *ngIf="valorForm.cd.invalid && (valorForm.cd.dirty || valorForm.cd.touched)" class="alert alert-secondary" role="alert">
+        <div *ngIf="valorForm.cd.errors?.required">
+          El código postal es obligatorio
+        </div>
+        <div *ngIf="valorForm.cd.errors?.maxLength">
+          El código postal es muy largo
+        </div>
+        <div *ngIf="valorForm.cd.errors?.minLength">
+          El código postal es muy corto
+        </div>
+        <div *ngIf="valorForm.cd.errors?.pattern">
+          El código postal no cumple los requisitos
+        </div>
+      </div>
     </div>
 
-    <button type="submit" class="btn btn-outline-success m-1" (click)="modificarRecursoComunitario()">
+    <button [disabled]="this.editarRecurso.invalid" type="submit" class="btn btn-outline-success m-1" (click)="modificarRecursoComunitario()">
       Guardar
     </button>
-    <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/recursos_comunitarios']">
+    <button [disabled]="this.editarRecurso.invalid" type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/recursos_comunitarios/listar/',id]">
       Volver
     </button>
   </form>
