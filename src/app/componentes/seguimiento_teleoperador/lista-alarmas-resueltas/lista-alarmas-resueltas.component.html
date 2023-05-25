@@ -3,13 +3,14 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
-        <li class="breadcrumb-item active" aria-current="page">
-          Agendas
-        </li>
+
+        <li class="breadcrumb-item active" aria-current="page"><a [routerLink]="['/lista-seguimiento-teleoperador']">Seguimiento Teleoperadores</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Agenda y Alarmas Resueltas</li>
+
       </ol>
     </nav>
     <h3 class="component-title">
-      Nombre: {{peticion.first_name}} {{peticion.second_name}}
+      Teleoperador: {{peticion.first_name}} {{peticion.second_name}}
     </h3>
 
 
@@ -17,9 +18,9 @@
 
     <div class="form-group mb-3">
       <input id="campoBusqueda" type="text" class="form-control" placeholder="Busqueda..." [(ngModel)]="inputBusqueda">
-      <h5>Agendas: {{peticion.agendas_total}}</h5>
-    </div>
 
+    </div>
+    <h5 class="m-3">Agendas: {{peticion.agendas_total}}</h5>
 
     <div class="table-responsive m-2">
       <table id="tableList" class="table table-hover text-center">
@@ -76,6 +77,11 @@
       <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" responsive="true" (pageChange)="numPaginacion = $event"></pagination-controls>
     </div>
 
+  </div>
+  <div class="boton">
+    <button type="button" class="btn btn-outline-secondary mt-3" [routerLink]="['/lista-seguimiento-teleoperador']">
+      Volver
+    </button>
   </div>
 </main>
 

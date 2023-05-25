@@ -16,17 +16,22 @@
         <tr class="table-purple">
 
 
-          <th class="ordenable" (click)="ordenacionTabla(0, 'string')" scope="col">Nombre <i class="fas fa-sort"></i></th>
-          <th class="ordenable" (click)="ordenacionTabla(1, 'string')" scope="col">Apellidos <i class="fas fa-sort"></i></th>
-          <th class="ordenable" (click)="ordenacionTabla(2, 'number')" scope="col">Alarmas Totales <i class="fas fa-sort"></i></th>
-          <th class="ordenable" (click)="ordenacionTabla(3, 'string')" scope="col">Agendas Totales <i class="fas fa-sort"></i></th>
+          <th class="ordenable" (click)="ordenacionTabla(0, 'string')" scope="col">Nombre <i class="fas fa-sort"></i>
+          </th>
+          <th class="ordenable" (click)="ordenacionTabla(1, 'string')" scope="col">Apellidos <i class="fas fa-sort"></i>
+          </th>
+          <th class="ordenable" (click)="ordenacionTabla(2, 'number')" scope="col">Alarmas Totales <i
+            class="fas fa-sort"></i></th>
+          <th class="ordenable" (click)="ordenacionTabla(3, 'string')" scope="col">Agendas Totales <i
+            class="fas fa-sort"></i></th>
           <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
 
-       <tr *ngFor="let teleoperador of teleoperadores | filtroBusqueda: inputBusqueda | paginate: { itemsPerPage: elementosPaginacion, currentPage: numPaginacion }"
-            app-item-teleoperador [teleoperador]="teleoperador" >
+        <tr
+          *ngFor="let teleoperador of teleoperadores | filtroBusqueda: inputBusqueda | paginate: { itemsPerPage: elementosPaginacion, currentPage: numPaginacion }"
+          app-item-teleoperador [teleoperador]="teleoperador">
         </tr>
         </tbody>
       </table>
@@ -37,4 +42,5 @@
         (pageChange)="numPaginacion = $event"></pagination-controls>
     </div>
   </div>
+
 </main>

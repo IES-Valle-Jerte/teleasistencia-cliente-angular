@@ -9,7 +9,7 @@
     </nav>
     <div class="row d-flex justify-content-center">
     <div class="col-12 col-xl-6">
-    <h1 class="component-title" >Crear Alarma</h1>
+    <h1 class="component-title" >Crear Alarma <a class="btn btn-warning ml-2 boton" target="_blank" [routerLink]="['/boton_info_ayudas','crear_alarmas']">?</a></h1>
     <form [formGroup]="formCrearA" (submit)="nuevaAlarma()" [ngClass]="this.mostrar || this.mostrarModificar ? 'inactiveForm':''">
       <div class="form-group mb-3 row">
         <label for="tipos_alarma" class="form-label text-start p-0">Tipo de alarma</label>
