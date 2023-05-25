@@ -1554,7 +1554,11 @@ const routes: Routes = [
   {
 
     path:'boton_info_ayudas/:clave',
-    component:BotonInfoAyudasComponent
+    component:BotonInfoAyudasComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: null
+    },
   },
   {
     path:'lista-seguimiento-teleoperador',

@@ -62,12 +62,12 @@
           </a>
         </li>
 
-        <li class="nav p-1 mr-1">
+        <li  class="nav p-1 mr-1" *ngIf="isAdmin">
           <a class="nav-link" href="#" [routerLink]="['/lista-seguimiento-teleoperador']">
-            Seguimiento Teleoperadores
+            Seguimiento teleoperadores
           </a>
         </li>
-        <li class="nav p-1 mr-1 ">
+        <li class="nav p-1 mr-1 " *ngIf="isAdmin">
           <a class="nav-link" href="#" [routerLink]="['/']">
             Copia de seguridad
           </a>

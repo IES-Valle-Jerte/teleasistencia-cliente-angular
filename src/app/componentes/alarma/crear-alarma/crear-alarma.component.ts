@@ -77,6 +77,7 @@ export class CrearAlarmaComponent implements OnInit {
       },
       error => {
         this.alertError()
+        Spinner.ocultarSpinner();
       }
     )
   }
