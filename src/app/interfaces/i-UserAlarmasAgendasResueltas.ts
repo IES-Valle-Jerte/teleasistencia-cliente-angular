@@ -1,4 +1,4 @@
-export interface ITeleoperador {
+export interface IUserAlarmasAgendasResueltas {
   alarmas_total: any;
   id:Number,
   first_name:String,

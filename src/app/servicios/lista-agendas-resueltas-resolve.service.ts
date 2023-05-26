@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import {CargaUserService} from "./carga-user.service";
 import {ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot} from "@angular/router";
 import {IAgenda} from "../interfaces/i-agenda";
 import {Observable, of} from "rxjs";
-import {CargarAgendasResueltasService} from "./cargar-agendas-resueltas.service";
 import {CargaSeguimientoTeleoperadorService} from "./carga-seguimiento-teleoperador.service";
 import {catchError} from "rxjs/operators";
 

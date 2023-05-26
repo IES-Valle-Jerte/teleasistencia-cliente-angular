@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 
-import {ITeleoperador} from "../../../interfaces/i-teleoperador";
+import {IUserAlarmasAgendasResueltas} from "../../../interfaces/i-UserAlarmasAgendasResueltas";
 import {CargaSeguimientoTeleoperadorService} from "../../../servicios/carga-seguimiento-teleoperador.service";
 import {Router} from "@angular/router";
 import Swal from "sweetalert2";
@@ -12,7 +12,7 @@ import {environment} from "../../../../environments/environment";
   styleUrls: ['./item-teleoperador.component.scss']
 })
 export class ItemTeleoperadorComponent implements OnInit {
-  @Input() public teleoperador: ITeleoperador;
+  @Input() public teleoperador: IUserAlarmasAgendasResueltas;
 
   constructor( private router: Router) {
   }

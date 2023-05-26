@@ -625,3 +625,17 @@ footer {
 li.active {
   background-color: white;
 }
+
+
+.spinner {
+  position: fixed;
+  left: 1vh;
+  bottom: 1vh;
+  z-index: 100;
+}
+.spinner>img{
+  width: 100px;
+}
+.botonAyuda{
+  cursor: help;
+}

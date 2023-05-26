@@ -4,7 +4,7 @@ import {OrdenacionTablasService} from "../../../servicios/ordenacion-tablas.serv
 import {environment} from "../../../../environments/environment";
 import {ActivatedRoute} from "@angular/router";
 import {Title} from "@angular/platform-browser";
-import {ITeleoperador} from "../../../interfaces/i-teleoperador";
+import {IUserAlarmasAgendasResueltas} from "../../../interfaces/i-UserAlarmasAgendasResueltas";
 
 @Component({
   selector: 'app-lista-seguimiento-teleoperador',
@@ -12,7 +12,7 @@ import {ITeleoperador} from "../../../interfaces/i-teleoperador";
   styleUrls: ['./user-agendas-alarmas-resueltas.component.scss']
 })
 export class UserAgendasAlarmasResueltasComponent implements OnInit {
-  public teleoperadores: ITeleoperador[];
+  public teleoperadores: IUserAlarmasAgendasResueltas[];
   numPaginacion: number = 1;
   inputBusqueda: any = '';
   elementosPaginacion: number = environment.num_paginacion;
@@ -22,7 +22,6 @@ export class UserAgendasAlarmasResueltasComponent implements OnInit {
 
   ngOnInit(): void {
     this.teleoperadores = this.route.snapshot.data['seguimiento_teleoperador'];
-    console.log(this.teleoperadores);
     this.titleService.setTitle('Seguimiento Teleoperadores');
   }
 

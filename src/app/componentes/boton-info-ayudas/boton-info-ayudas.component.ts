@@ -18,7 +18,6 @@ export class BotonInfoAyudasComponent implements OnInit {
 
     this.clave = this.route.snapshot.params['clave'];
     this.contenido=info_ayudas[this.clave];
-    console.log(info_ayudas[this.clave]);
   }
 
 }

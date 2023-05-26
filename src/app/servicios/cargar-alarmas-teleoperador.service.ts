@@ -3,7 +3,7 @@ import {IRelacionUsuarioCentro} from "../interfaces/i-relacion-usuario-centro";
 import {Observable} from "rxjs";
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import {ITeleoperador} from "../interfaces/i-teleoperador";
+import {IUserAlarmasAgendasResueltas} from "../interfaces/i-UserAlarmasAgendasResueltas";
 import {IAlarma} from "../interfaces/i-alarma";
 
 @Injectable({
@@ -17,7 +17,7 @@ export class CargarAlarmasTeleoperadorService {
   constructor(private http: HttpClient) {
   }
 
-  getAlarmasTeleoperador(alarmasTeleoperador:ITeleoperador): Observable<IAlarma[]> {
+  getAlarmasTeleoperador(alarmasTeleoperador:IUserAlarmasAgendasResueltas): Observable<IAlarma[]> {
     return this.http.get<IAlarma[]>(this.URL_SERVER_SEGUIMIENTO+'/'+alarmasTeleoperador.id);
   }
 

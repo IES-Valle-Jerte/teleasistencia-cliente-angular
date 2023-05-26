@@ -356,7 +356,6 @@ import {
   ListaAlarmasResueltasComponent
 } from "./componentes/seguimiento_teleoperador/lista-alarmas-resueltas/lista-alarmas-resueltas.component";
 import {ListaAgendasResueltasResolveService} from "./servicios/lista-agendas-resueltas-resolve.service";
-import {ListaAlarmasResueltasResolveService} from "./servicios/lista-alarmas-resueltas-resolve.service";
 
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
@@ -1579,7 +1578,6 @@ const routes: Routes = [
        role:[environment.admins]
     },
     resolve:{
-      lista_alarma_resuelta:ListaAlarmasResueltasResolveService,
       lista_agenda_resuelta:ListaAgendasResueltasResolveService
 
     }

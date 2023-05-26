@@ -1,7 +1,7 @@
 import {IAgenda} from "./i-agenda";
 import {IAlarma} from "./i-alarma";
 
-export interface IAgendas {
+export interface ISeguimiento_teleoperador {
   agendas: IAgenda[],
   agendas_total: Number,
   alarmas: IAlarma[],

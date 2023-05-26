@@ -3,17 +3,17 @@ import {ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot} from "@ang
 import {Observable, of} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {CargaSeguimientoTeleoperadorService} from "./carga-seguimiento-teleoperador.service";
-import {ITeleoperador} from "../interfaces/i-teleoperador";
+import {IUserAlarmasAgendasResueltas} from "../interfaces/i-UserAlarmasAgendasResueltas";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ListaTeleoperadorResolveService implements Resolve<ITeleoperador>{
+export class ListaTeleoperadorResolveService implements Resolve<IUserAlarmasAgendasResueltas>{
 
   constructor(private cargaTeleoperador: CargaSeguimientoTeleoperadorService, private router: Router) {
   }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ITeleoperador> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IUserAlarmasAgendasResueltas> {
     return this.cargaTeleoperador.getTeleoperadores().pipe(
       catchError(error => {
         this.router.navigate(['/inicio']);

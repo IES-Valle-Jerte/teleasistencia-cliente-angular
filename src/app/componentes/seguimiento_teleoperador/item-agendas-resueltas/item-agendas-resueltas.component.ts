@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthService} from "../../../servicios/auth.service";
 import {IAgenda} from "../../../interfaces/i-agenda";
-import {IAgendas} from "../../../interfaces/i-agendas";
+import {ISeguimiento_teleoperador} from "../../../interfaces/i-seguimiento_teleoperador";
 import {IAlarma} from "../../../interfaces/i-alarma";
 import {createLogErrorHandler} from "@angular/compiler-cli/ngcc/src/execution/tasks/completion";
 

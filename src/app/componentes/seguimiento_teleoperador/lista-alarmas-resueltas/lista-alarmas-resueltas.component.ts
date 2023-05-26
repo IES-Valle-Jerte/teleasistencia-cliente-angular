@@ -4,7 +4,7 @@ import {Title} from "@angular/platform-browser";
 import {AuthService} from "../../../servicios/auth.service";
 import {OrdenacionTablasService} from "../../../servicios/ordenacion-tablas.service";
 import {Alarma} from "../../../clases/alarma";
-import {IAgendas} from "../../../interfaces/i-agendas";
+import {ISeguimiento_teleoperador} from "../../../interfaces/i-seguimiento_teleoperador";
 import {CargaAlarmaService} from "../../../servicios/alarmas/carga-alarma.service";
 import {IAlarma} from "../../../interfaces/i-alarma";
 
@@ -14,7 +14,7 @@ import {IAlarma} from "../../../interfaces/i-alarma";
   styleUrls: ['./lista-alarmas-resueltas.component.scss']
 })
 export class ListaAlarmasResueltasComponent implements OnInit {
-  public agendas:IAgendas[];
+  public agendas:ISeguimiento_teleoperador[];
   private idTeleoperador: any;
   numPaginacion: number = 1;
   inputBusqueda: any = '';
@@ -31,11 +31,11 @@ export class ListaAlarmasResueltasComponent implements OnInit {
 
     this.agendasResueltas=this.route.snapshot.data['lista_agenda_resuelta'];
     this.agendas=this.agendasResueltas.agendas;
-    this.alarmas=this.agendasResueltas.alarmas
+    this.alarmas=this.agendasResueltas.alarmas;
     this.peticion=this.agendasResueltas;
     this.idTeleoperador = this.route.snapshot.params['id'];
 
-    console.log(this.peticion);
+
 
     this.titleService.setTitle(' Alarmas Resueltas del teleoperador con Id: ' + this.idTeleoperador);
 

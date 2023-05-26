@@ -3,5 +3,5 @@
 <td class="reducirCaja" [title]="alarma.observaciones">{{ alarma.observaciones }}</td>
 <td class="reducirCaja" [title]="alarma.resumen">{{ alarma.resumen }}</td>
 <td>{{ alarma.id_tipo_alarma?.nombre }} - {{ alarma.id_tipo_alarma?.id_clasificacion_alarma?.nombre }}</td>
-<td>{{ obtenerUcr()}}</td>
-<td>{{ obtenerTerminal()}}</td>
+<td>{{ alarma.id_paciente_ucr?.id_persona?.nombre}}</td>
+<td>{{ alarma.id_terminal?.numero_terminal}}</td>

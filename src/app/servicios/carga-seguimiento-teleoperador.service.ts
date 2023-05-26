@@ -3,7 +3,7 @@ import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {IUsers} from "../interfaces/i-users";
-import {ITeleoperador} from "../interfaces/i-teleoperador";
+import {IUserAlarmasAgendasResueltas} from "../interfaces/i-UserAlarmasAgendasResueltas";
 import {IAlarma} from "../interfaces/i-alarma";
 import {IAgenda} from "../interfaces/i-agenda";
 
@@ -18,8 +18,8 @@ export class CargaSeguimientoTeleoperadorService {
   constructor(private http: HttpClient) {
   }
 
-  getTeleoperadores(): Observable<ITeleoperador[]> {
-    return this.http.get<ITeleoperador[]>(this.URL_SERVER_SEGUIMIENTO);
+  getTeleoperadores(): Observable<IUserAlarmasAgendasResueltas[]> {
+    return this.http.get<IUserAlarmasAgendasResueltas[]>(this.URL_SERVER_SEGUIMIENTO);
   }
 
   getAgendasResueltas(idUser:number):Observable<IAgenda>{
