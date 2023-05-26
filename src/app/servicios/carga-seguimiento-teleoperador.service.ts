@@ -18,15 +18,11 @@ export class CargaSeguimientoTeleoperadorService {
   constructor(private http: HttpClient) {
   }
 
-  getTeleoperadores(): Observable<IUserAlarmasAgendasResueltas[]> {
+  getAgendasyAlarmasResueltasTotales(): Observable<IUserAlarmasAgendasResueltas[]> {
     return this.http.get<IUserAlarmasAgendasResueltas[]>(this.URL_SERVER_SEGUIMIENTO);
   }
 
-  getAgendasResueltas(idUser:number):Observable<IAgenda>{
+  getAgendasyAlarmasResueltas(idUser:number):Observable<IAgenda>{
     return this.http.get<IAgenda>(this.URL_SERVER_SEGUIMIENTO+'/'+idUser);
-  }
-
-  getAlarmasResueltas(idUser:number):Observable<IAlarma>{
-    return this.http.get<IAlarma>(this.URL_SERVER_SEGUIMIENTO+'/'+idUser);
   }
 }

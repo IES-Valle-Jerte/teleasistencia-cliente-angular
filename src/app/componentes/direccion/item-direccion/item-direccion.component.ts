@@ -87,7 +87,6 @@ export class ItemDireccionComponent implements OnInit {
           this.router.navigate([ruta]);
         });
 
-        Spinner.ocultarSpinner();
         //Si el elemento se ha borrado con exito, llama al método que muestra el alert de Exito
         this.alertExito()
 

@@ -7,6 +7,7 @@ import {Alarma} from "../../../clases/alarma";
 import {ISeguimiento_teleoperador} from "../../../interfaces/i-seguimiento_teleoperador";
 import {CargaAlarmaService} from "../../../servicios/alarmas/carga-alarma.service";
 import {IAlarma} from "../../../interfaces/i-alarma";
+import {IAgenda} from "../../../interfaces/i-agenda";
 
 @Component({
   selector: 'app-lista-alarmas-resueltas,[app-lista-alarmas-resueltas]',
@@ -14,7 +15,7 @@ import {IAlarma} from "../../../interfaces/i-alarma";
   styleUrls: ['./lista-alarmas-resueltas.component.scss']
 })
 export class ListaAlarmasResueltasComponent implements OnInit {
-  public agendas:ISeguimiento_teleoperador[];
+  public agendas:IAgenda[];
   private idTeleoperador: any;
   numPaginacion: number = 1;
   inputBusqueda: any = '';
@@ -29,7 +30,7 @@ export class ListaAlarmasResueltasComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.agendasResueltas=this.route.snapshot.data['lista_agenda_resuelta'];
+    this.agendasResueltas=this.route.snapshot.data['lista_agendas_y_alarmas_resuelta'];
     this.agendas=this.agendasResueltas.agendas;
     this.alarmas=this.agendasResueltas.alarmas;
     this.peticion=this.agendasResueltas;

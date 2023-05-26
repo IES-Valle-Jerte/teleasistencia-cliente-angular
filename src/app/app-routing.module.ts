@@ -351,11 +351,11 @@ import {PersonasEnAlarmaResolveService} from "./servicios/persona-contacto-alarm
 import {
   UserAgendasAlarmasResueltasComponent
 } from "./componentes/seguimiento_teleoperador/lista-seguimiento-teleoperador/user-agendas-alarmas-resueltas.component";
-import {ListaTeleoperadorResolveService} from "./servicios/lista-teleoperador-resolve.service";
+import {ListaAgendasyAlarmasResueltasTotales} from "./servicios/lista-teleoperador-resolve.service";
 import {
   ListaAlarmasResueltasComponent
 } from "./componentes/seguimiento_teleoperador/lista-alarmas-resueltas/lista-alarmas-resueltas.component";
-import {ListaAgendasResueltasResolveService} from "./servicios/lista-agendas-resueltas-resolve.service";
+import {ListaAgendasyAlarmasResueltasResolveService} from "./servicios/lista-agendas-resueltas-resolve.service";
 
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
@@ -1567,7 +1567,7 @@ const routes: Routes = [
       role:[environment.admins]
     },
     resolve: {
-      seguimiento_teleoperador: ListaTeleoperadorResolveService
+      agendasyAlarmasResueltasTotales: ListaAgendasyAlarmasResueltasTotales
     }
   },
   {
@@ -1578,7 +1578,7 @@ const routes: Routes = [
        role:[environment.admins]
     },
     resolve:{
-      lista_agenda_resuelta:ListaAgendasResueltasResolveService
+      lista_agendas_y_alarmas_resuelta:ListaAgendasyAlarmasResueltasResolveService
 
     }
 

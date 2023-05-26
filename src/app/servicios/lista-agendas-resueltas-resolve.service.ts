@@ -8,13 +8,13 @@ import {catchError} from "rxjs/operators";
 @Injectable({
   providedIn: 'root'
 })
-export class ListaAgendasResueltasResolveService implements Resolve<IAgenda>{
+export class ListaAgendasyAlarmasResueltasResolveService implements Resolve<IAgenda>{
 
   constructor(private cargarAgendas: CargaSeguimientoTeleoperadorService, private router: Router) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IAgenda> {
 
-    return this.cargarAgendas.getAgendasResueltas(route.params['id']).pipe(
+    return this.cargarAgendas.getAgendasyAlarmasResueltas(route.params['id']).pipe(
 
       catchError(error => {
         this.router.navigate(['/inicio']);

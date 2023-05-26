@@ -8,13 +8,13 @@ import {IUserAlarmasAgendasResueltas} from "../interfaces/i-UserAlarmasAgendasRe
 @Injectable({
   providedIn: 'root'
 })
-export class ListaTeleoperadorResolveService implements Resolve<IUserAlarmasAgendasResueltas>{
+export class ListaAgendasyAlarmasResueltasTotales implements Resolve<IUserAlarmasAgendasResueltas>{
 
   constructor(private cargaTeleoperador: CargaSeguimientoTeleoperadorService, private router: Router) {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IUserAlarmasAgendasResueltas> {
-    return this.cargaTeleoperador.getTeleoperadores().pipe(
+    return this.cargaTeleoperador.getAgendasyAlarmasResueltasTotales().pipe(
       catchError(error => {
         this.router.navigate(['/inicio']);
         return of(null);

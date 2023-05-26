@@ -7,8 +7,6 @@ import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
 import {Spinner} from "../../../clases/spinner";
 
-
-
 @Component({
   selector: 'app-modificar-direccion',
   templateUrl: './modificar-direccion.component.html',
@@ -35,7 +33,6 @@ export class ModificarDireccionComponent implements OnInit {
     this.cargaDirecciones.modificarDireccion(this.dire).subscribe(
       e => {
         setTimeout(() => {
-          Spinner.ocultarSpinner();
         }, 200);
         this.router.navigate(['/direcciones']);
         this.alertExito()
@@ -64,6 +61,7 @@ export class ModificarDireccionComponent implements OnInit {
       icon: 'success',
       title: environment.fraseModificar,
     })
+    Spinner.ocultarSpinner();
   }
   //Toast para el alert indicando que hubo algún error en la operación
   alertError() :void {
@@ -83,7 +81,6 @@ export class ModificarDireccionComponent implements OnInit {
       icon: 'error',
       title: environment.fraseErrorModificar
     })
+    Spinner.ocultarSpinner();
   }
-
-
 }

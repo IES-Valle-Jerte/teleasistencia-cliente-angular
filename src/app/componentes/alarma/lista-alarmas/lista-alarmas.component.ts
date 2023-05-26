@@ -6,6 +6,7 @@ import {OrdenacionTablasService} from "../../../servicios/ordenacion-tablas.serv
 import {AuthService} from "../../../servicios/auth.service";
 import {CargaAlarmaService} from "../../../servicios/alarmas/carga-alarma.service";
 import {IAlarma} from "../../../interfaces/i-alarma";
+import {Spinner} from "../../../clases/spinner";
 
 
 @Component({
@@ -64,6 +65,7 @@ export class ListaAlarmasComponent implements OnInit {
   buscarPorFecha(event) {
     let fechaSeparada = event.split('-');
 
+    Spinner.mostrarSpiner();
     this.cargarAlarmas.getAlarmasPorFecha(event).subscribe(
       e => {
         const datos: any = e;
@@ -80,6 +82,7 @@ export class ListaAlarmasComponent implements OnInit {
           }
         }
         document.getElementById("campoBusqueda").focus();
+        Spinner.ocultarSpinner();
       });
   }
   // Método para conseguir el nombre del mes usando el número que nos devuelve la función getMonth()

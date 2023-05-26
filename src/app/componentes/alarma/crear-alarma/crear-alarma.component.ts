@@ -73,11 +73,9 @@ export class CrearAlarmaComponent implements OnInit {
 
         this.alertExito()
         this.router.navigate(['/alarmas'])
-        Spinner.ocultarSpinner();
       },
       error => {
         this.alertError()
-        Spinner.ocultarSpinner();
       }
     )
   }

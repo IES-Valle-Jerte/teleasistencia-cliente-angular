@@ -33,10 +33,9 @@ export class CrearDireccionComponent implements OnInit {
       e => {
         this.alertExito()
         this.router.navigate(['/direcciones']);
-        Spinner.ocultarSpinner();
       },
       error => {
-        this.alertError()
+        this.alertError();
       }
     );
   }

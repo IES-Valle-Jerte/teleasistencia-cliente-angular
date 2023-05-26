@@ -21,7 +21,7 @@ export class UserAgendasAlarmasResueltasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.teleoperadores = this.route.snapshot.data['seguimiento_teleoperador'];
+    this.teleoperadores = this.route.snapshot.data['agendasyAlarmasResueltasTotales'];
     this.titleService.setTitle('Seguimiento Teleoperadores');
   }
 

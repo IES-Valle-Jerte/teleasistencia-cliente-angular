@@ -98,6 +98,4 @@ export class PantallaLoginComponent implements OnInit {
 
   //variable necesaria para ocultar/mostrar la contraseña
   hide = false;
-
-
 }

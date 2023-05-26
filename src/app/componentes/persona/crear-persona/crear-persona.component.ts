@@ -169,11 +169,6 @@ export class CrearPersonaComponent implements OnInit {
 
     this.crearTerminal.nuevoTerminal(this.terminal).subscribe(
       e => {
-        // this.nuevaDireccion();
-        this.alertExito()
-        this.router.navigate(['/personas']);
-
-
         this.terminal = e;
         this.crearTerminal.idTerminal = e.id;
         this.nuevoPaciente();
