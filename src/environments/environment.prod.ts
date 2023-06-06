@@ -37,9 +37,9 @@ export const environment = {
   //Frase de Confirmación para Eliminar
   fraseEliminarModal: '¿Desea Eliminar este Elemento?',
   // Ruta que utilizaremos comun para todas las peticiones de api-rest
-  urlWebsocket: 'ws://localhost:8000/ws/socket-server/',
-  urlBase: 'http://localhost:8000/api-rest/',
-  urlToken: 'http://localhost:8000/api/token/',
+  urlWebsocket: 'wss://api-rest-teleasistencia.iesvjp.es/ws/socket-server/',
+  urlBase: 'https://api-rest-teleasistencia.iesvjp.es/api-rest/',
+  urlToken: 'https://api-rest-teleasistencia.iesvjp.es/api/token/',
 
   //Control de roles
   admins:['supervisor','administrador','profesor'],
@@ -58,7 +58,7 @@ export const environment = {
 
   //sobrenombre y version de la pagina
   subdominio: {
-    nombre:'CRT',
+    nombre: '',
     color:'blueviolet'
   },
   version: '1.0',

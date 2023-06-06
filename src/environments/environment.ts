@@ -62,8 +62,8 @@ export const environment = {
 
   //subdominio y version de la pagina
   subdominio: {
-    nombre: 'CRT',
-    color: 'blueviolet'
+    nombre: 'DEV',
+    color: 'darkgreen'
   },
   version: '1.0',
 };

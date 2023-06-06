@@ -119,21 +119,11 @@ export class ModificarHistoricoAgendaComponent implements OnInit {
   }
 
   private crearForm() {
-    this.cargaPersona.getPersona(this.paciente.id_persona).subscribe(
-      pers => {
-        this.paciente = pers;
-        this.datosAgenda.get('paciente').setValue(this.paciente.nombre + ' ' + this.paciente.apellidos + " " + this.paciente.dni);
-        this.datosAgenda.get("movil_paciente").setValue(this.paciente.telefono_movil);
-      },
-      error => {
-        this.alertError();
-      }
-    );
     this.datosAgenda = this.formBuilder.group({
-      paciente: [ '',[
+      paciente: [ this.paciente.id_persona.nombre + ' ' + this.paciente.id_persona.apellidos + " " + this.paciente.id_persona.dni,[
         Validators.required
       ]],
-      movil_paciente: [ '', [
+      movil_paciente: [ this.paciente.id_persona.telefono_movil, [
         Validators.required
       ]],
       tipo_agenda: [this.historico_agenda.id_agenda.id_tipo_agenda.nombre, [
