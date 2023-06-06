@@ -11,13 +11,41 @@
     <div class="col-12 col-xl-6">
     <h1 class="component-title">Crear nuevo recurso comunitario</h1>
     <form [formGroup]="nuevoRecurso" (ngSubmit)="nuevoRecursoComunitario()" [ngClass]="this.mostrar || this.mostrarModificar ? 'inactiveForm':''">
+      <div class="form-group mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" name="nombre" id="nombre" class="form-control" formControlName="nombre">
+        <div *ngIf="valorForm.nombre.invalid && (valorForm.nombre.dirty || valorForm.nombre.touched)" class="alert alert-secondary" role="alert">
+          <div *ngIf="valorForm.nombre.errors?.required">
+            El nombre es obligatorio
+          </div>
+          <div *ngIf="valorForm.nombre.errors?.minlength">
+            El nombre es muy largo
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="telefono" class="form-label">Teléfono</label>
+        <input type="tel" name="telefono" id="telefono" class="form-control" formControlName="telefono">
+        <div *ngIf="valorForm.telefono.invalid && (valorForm.telefono.dirty || valorForm.telefono.touched)" class="alert alert-secondary" role="alert">
+          <div *ngIf="valorForm.telefono.errors?.required">
+            El teléfono es obligatorio
+          </div>
+          <div *ngIf="valorForm.telefono.errors?.maxLength">
+            El teléfono es muy largo
+          </div>
+          <div *ngIf="valorForm.telefono.errors?.pattern">
+            El teléfono no cumple el patrón
+          </div>
+        </div>
+      </div>
       <div class="form-group mb-3 row">
         <label for="tipo_recursos_comunitario" class="form-label text-start p-0">Tipo de recurso comunitario</label>
         <div class="col-12 col-lg-9  p-0 pb-1 pb-lg-0">
           <ng-select id="tipo_recursos_comunitario" name="tipo_recurso_comunitario" formControlName="tipo_recursos_comunitario">
             <!-- La variable tipo_recurso_comunitario será iterada y se mostrarán todos los tipos de recursos comunitarios -->
             <ng-option *ngFor="let tipo_recurso_comunitario of tipos_recursos_comunitarios"
-                    [value]=tipo_recurso_comunitario.id>
+                       [value]=tipo_recurso_comunitario.id>
               {{ tipo_recurso_comunitario.nombre }}
             </ng-option>
           </ng-select>
@@ -48,36 +76,6 @@
           </button>
         </div>
       </div>
-
-      <div class="form-group mb-3">
-        <label for="nombre" class="form-label">Nombre</label>
-        <input type="text" name="nombre" id="nombre" class="form-control" formControlName="nombre">
-        <div *ngIf="valorForm.nombre.invalid && (valorForm.nombre.dirty || valorForm.nombre.touched)" class="alert alert-secondary" role="alert">
-          <div *ngIf="valorForm.nombre.errors?.required">
-            El nombre es obligatorio
-          </div>
-          <div *ngIf="valorForm.nombre.errors?.minlength">
-            El nombre es muy largo
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group mb-3">
-        <label for="telefono" class="form-label">Teléfono</label>
-        <input type="tel" name="telefono" id="telefono" class="form-control" formControlName="telefono">
-        <div *ngIf="valorForm.telefono.invalid && (valorForm.telefono.dirty || valorForm.telefono.touched)" class="alert alert-secondary" role="alert">
-          <div *ngIf="valorForm.telefono.errors?.required">
-            El teléfono es obligatorio
-          </div>
-          <div *ngIf="valorForm.telefono.errors?.maxLength">
-            El teléfono es muy largo
-          </div>
-          <div *ngIf="valorForm.telefono.errors?.pattern">
-            El teléfono no cumple el patrón
-          </div>
-        </div>
-      </div>
-
       <div class="form-group mb-3">
         <label for="localidad" class="form-label">Localidad</label>
         <input type="text" name="localidad" id="localidad" class="form-control" formControlName="localidad">
