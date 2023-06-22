@@ -1,9 +1,9 @@
-<td> <img class="imagenUsuario" alt="mdo" width="40" height="40" class="rounded-circle" *ngIf="user.imagen" src="{{ user.imagen['imagen']}}"> </td>
+<td> <img class="imagenUsuario" alt="mdo" width="40" height="40" class="rounded-circle" *ngIf="user.imagen" src="{{ user?.imagen['imagen']}}"> </td>
 <td>{{ user.username }}</td>
 <td>{{ user.first_name }}</td>
 <td>{{ user.last_name }}</td>
 <td>{{ user.email }}</td>
-<td>{{  user.groups[0] != null? user.groups[0]?.name : "" }}</td>
+<td>{{  user?.groups[0] != null? user?.groups[0]?.name : "" }}</td>
 <td>
   <button type="submit" class="btn btn-outline-success m-1" [routerLink]="['/usuarios/modificarPassword', user.id]">
     <i class="fa fa-key"></i>

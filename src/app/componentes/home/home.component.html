@@ -124,9 +124,8 @@
         </h2>
         <p class="lead">El software ha sido desarrollado bajo la licencia <abbr
           title="GNU General Public License, versión 3">GPL3</abbr> por el departamento de Informática del
-          IES <em>“Valle del Jerte”</em> de Plasencia, con la colaboración principal de Fréderic Sánchez, Angel Enrique
-          Pineda y Jesús Redondo.</p>
-        <p class="lead">Especial mención al departamento de Atención Sociosanitaria del IES “San Martín” de Talayuela. Partícipes e impulsores de la plataforma de prácticas de teleasistencia
+          IES <em>“Valle del Jerte”</em> de Plasencia, siendo los analistas del software y coordinadores principales los profesores <b>Fréderic Sánchez, Enrique Pineda y Jesús Redondo</b>.</p>
+        <p class="lead">Especial mención al departamento de Servicios Socioculturales y a la Comunidad del IES “San Martín” de Talayuela. Partícipes e impulsores de la plataforma de prácticas de teleasistencia.
         </p>
         <p class="lead">Los alumnos que han contribuido en el desarrollo de este proyecto son:</p>
       </div>
@@ -148,8 +147,8 @@
             <div class="tabcontent" id="{{desarrollador.nombre}}">
               <div class="container">
                 <div class="divTitulosDesarrollador row">
-                  <div class="col-3 col-md-5 col-sm-8 ps-5 pb-2"><img class="imagenDesarrollador" [src]="desarrollador.imagen" [title]="desarrollador.nombre" /></div>
-                  <div class="divImagenesDesarrollador col-6 pt-4 text-center">
+                  <div class="col-5  col-sm-5 col-lg-3 ps-5"><img class="imagenDesarrollador mb-2" [src]="desarrollador.imagen" [title]="desarrollador.nombre" /></div>
+                  <div class="divImagenesDesarrollador col-7 col-sm-6 col-lg-7 pt-4 text-center">
                     <span class="style">{{desarrollador.nombre}}</span>
                   </div>
                 </div>
@@ -175,8 +174,8 @@
             <div *ngIf="convocatoria.desarrolladores.indexOf(desarrollador) >= 0" class="tabcontent" id="{{desarrollador.nombre}}">
               <div class="container">
                 <div class="divTitulosDesarrollador row">
-                  <div class="col-6 col-md-5 col-sm-6 ps-5 pb-2"><img class="imagenDesarrollador" [src]="desarrollador.imagen" [title]="desarrollador.nombre" /></div>
-                  <div class="divImagenesDesarrollador col-6 col-md-4 col-sm-4 pt-4 text-center">
+                  <div class="col-5  col-sm-5 col-lg-3 ps-5"><img class="imagenDesarrollador mb-2" [src]="desarrollador.imagen" [title]="desarrollador.nombre" /></div>
+                  <div class="divImagenesDesarrollador col-7 col-sm-6 col-lg-7 pt-4 text-center">
                       <span class="style">{{desarrollador.nombre}}</span>
                       <div class="divTecnologias row justify-content-md-center">
                         <ng-container *ngFor="let tecnologia of desarrollador.desarrollador_tecnologias">
