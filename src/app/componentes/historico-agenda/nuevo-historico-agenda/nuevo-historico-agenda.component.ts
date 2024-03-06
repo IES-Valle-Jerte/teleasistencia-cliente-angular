@@ -6,7 +6,6 @@ import {CargaHistoricoAgendaService} from "../../../servicios/carga-historico-ag
 import {IHistoricoAgenda} from "../../../interfaces/i-historico-agenda";
 import {HistoricoAgenda} from "../../../clases/historico-agenda";
 import {IAgenda} from "../../../interfaces/i-agenda";
-import {toInteger} from "@ng-bootstrap/ng-bootstrap/util/util";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
