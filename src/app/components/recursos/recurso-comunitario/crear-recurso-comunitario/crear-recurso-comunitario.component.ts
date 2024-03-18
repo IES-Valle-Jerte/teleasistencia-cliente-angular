@@ -12,6 +12,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {CargaTipoRecursoComunitarioService} from "../../../../services/recursos/carga-tipo-recurso-comunitario.service";
 import Swal from "sweetalert2";
 import {environment} from "../../../../../environments/environment";
+import { AuthService } from 'src/app/servicios/auth.service';
 
 
 @Component({
@@ -30,15 +31,22 @@ export class CrearRecursoComunitarioComponent implements OnInit {
   public mostrarModificar: boolean = false;
   public formCrearTipo: FormGroup;
   nuevoRecurso: FormGroup;
+  public isAdmin: boolean;
 
+  /**
+   * Constructor
+   * @param auth
+   */
   constructor(private titleService: Title, private route: ActivatedRoute, private cargaDirecciones: CargaDireccionService,
               private cargaRecursosComunitarios: CargaRecursoComunitarioService, private router: Router,private formBuilder: FormBuilder,
-              private cargaTipoRecursosComunitarios: CargaTipoRecursoComunitarioService) {
+              private cargaTipoRecursosComunitarios: CargaTipoRecursoComunitarioService,
+              private auth: AuthService) {
   }
 
   ngOnInit(): void {
     this.recurso_comunitario = this.route.snapshot.data['recurso_comunitario'];
     this.tipo_recurso = this.route.snapshot.data['tipos_recursos_comunitarios'];
+    this.isAdmin = this.auth.isAdmin();
 
     this.route.paramMap.subscribe(params => { // Con el paramMap obtenemos todos los elementos de la URL, dentro del suscribe obtenemos el id que
       //es la variable que necesitamos
