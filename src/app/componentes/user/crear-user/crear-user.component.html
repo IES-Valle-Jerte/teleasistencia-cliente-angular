@@ -117,7 +117,7 @@
       </ng-select>
     </div>
 
-    <button type="submit" class="btn btn-outline-success m-1" (click)="nuevoUser()"
+    <button type="submit" class="btn btn-outline-success m-1" 
             [disabled]="!formCrearU.valid || this.formCrearU.controls.confirmpassword.value!=this.formCrearU.controls.password.value">
       Guardar
     </button>
