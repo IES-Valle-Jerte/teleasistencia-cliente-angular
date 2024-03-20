@@ -13,6 +13,8 @@ import {CargaTipoRecursoComunitarioService} from "../../../../services/recursos/
 import Swal from "sweetalert2";
 import {environment} from "../../../../../environments/environment";
 import { AuthService } from 'src/app/servicios/auth.service';
+import { IClasificacioRecurso } from 'src/app/interfaces/i-clasificacio-recurso';
+import { CargarClasificacionRecursosService } from 'src/app/services/recursos/cargar-clasificacion-recursos.service';
 
 
 @Component({
@@ -24,7 +26,7 @@ import { AuthService } from 'src/app/servicios/auth.service';
 export class CrearRecursoComunitarioComponent implements OnInit {
   public recurso_comunitario: IRecursoComunitario | any;
   public tipos_recursos_comunitarios: ITipoRecursoComunitario[];
-  public tipo_recurso: ITipoRecursoComunitario | any;
+  public clasificacion: IClasificacioRecurso | any;
   public dire: IDireccion;
   public id: number;
   public mostrar: boolean = false;
@@ -40,12 +42,13 @@ export class CrearRecursoComunitarioComponent implements OnInit {
   constructor(private titleService: Title, private route: ActivatedRoute, private cargaDirecciones: CargaDireccionService,
               private cargaRecursosComunitarios: CargaRecursoComunitarioService, private router: Router,private formBuilder: FormBuilder,
               private cargaTipoRecursosComunitarios: CargaTipoRecursoComunitarioService,
-              private auth: AuthService) {
+              private auth: AuthService,
+              private cargaClasificacion: CargarClasificacionRecursosService) {
   }
 
   ngOnInit(): void {
     this.recurso_comunitario = this.route.snapshot.data['recurso_comunitario'];
-    this.tipo_recurso = this.route.snapshot.data['tipos_recursos_comunitarios'];
+    this.tipos_recursos_comunitarios = this.route.snapshot.data['tipos_recursos_comunitarios'];
     this.isAdmin = this.auth.isAdmin();
 
     this.route.paramMap.subscribe(params => { // Con el paramMap obtenemos todos los elementos de la URL, dentro del suscribe obtenemos el id que
@@ -53,13 +56,12 @@ export class CrearRecursoComunitarioComponent implements OnInit {
       this.id = +params.get('id');
     });
 
-    this.cargaTipoRecursosComunitarios.getTipoRecursoComunitarioClasificacion(this.id).subscribe(
-        tipos =>{
-          this.tipos_recursos_comunitarios = tipos
-        },
-        error => {
-          console.log(error);
-        }
+    this.cargaClasificacion.getClasificacionRecursoComunitario(this.id).subscribe(
+      clasificacion =>{
+        this.clasificacion = clasificacion;
+      },error => {
+        console.log(error)
+      }
     )
 
     // Creamos el formulario para crear un recurso comunitario nuevo, con sus respectivas validaciones

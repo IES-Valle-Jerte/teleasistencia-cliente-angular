@@ -9,7 +9,7 @@
     </nav>
     <div class="row d-flex justify-content-center">
     <div class="col-12 col-xl-6">
-    <h1 class="component-title">Crear nuevo recurso comunitario</h1>
+    <h1 class="component-title">Crear nuevo recurso {{clasificacion?.nombre}}</h1>
     <form [formGroup]="nuevoRecurso" (ngSubmit)="nuevoRecursoComunitario()" [ngClass]="this.mostrar || this.mostrarModificar ? 'inactiveForm':''">
       <div class="form-group mb-3">
         <label for="nombre" class="form-label">Nombre</label>

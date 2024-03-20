@@ -36,12 +36,15 @@ export class ModificarRecursoComunitarioComponent implements OnInit {
 
   editarRecurso: FormGroup | any;
 
+  //  Muestra la clasificación del recurso
+  public clasificacion: IClasificacioRecurso | any;
 
 
   constructor(private route: ActivatedRoute, private titleService: Title,
               private cargaDirecciones: CargaDireccionService, private cargaRecursosComunitarios: CargaRecursoComunitarioService,
               private cargaTipoRecurso: CargaTipoRecursoComunitarioService, private router: Router,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private cargaClasificacion: CargarClasificacionRecursosService) {
   }
 
 
@@ -61,6 +64,14 @@ export class ModificarRecursoComunitarioComponent implements OnInit {
       },
       error => {}
     );
+    
+    this.cargaClasificacion.getClasificacionRecursoComunitario(this.id).subscribe(
+      clasificacion =>{
+        this.clasificacion = clasificacion;
+      },error => {
+        console.log(error)
+      }
+    )
 
     /* Creamos los valores del formulario
      * Con la palabra reservada Validators creamos la validación de los valores

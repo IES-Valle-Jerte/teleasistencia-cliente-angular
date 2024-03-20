@@ -356,6 +356,7 @@ import {
   ListaAlarmasResueltasComponent
 } from "./componentes/seguimiento_teleoperador/lista-alarmas-resueltas/lista-alarmas-resueltas.component";
 import {ListaAgendasyAlarmasResueltasResolveService} from "./servicios/lista-agendas-resueltas-resolve.service";
+import { ListaTiposRecursosComunitariosResolvePorCategoriaService } from './servicios/lista-tipos-recursos-comunitarios-por-categoria-resolve.service';
 
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
@@ -653,7 +654,7 @@ const routes: Routes = [
       role: null
     },
     resolve: {
-      tipos_recursos_comunitarios: ListaTiposRecursosComunitariosResolveService
+      tipos_recursos_comunitarios: ListaTiposRecursosComunitariosResolvePorCategoriaService
     }
   },
   {
