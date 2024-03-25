@@ -199,21 +199,32 @@ export class EditarDatosSanitarioComponent implements OnInit {
   //Mando la ID del Recurso en específico junto con la posición y elimino el recurso en cuestión
   //Me traigo primero la terminal para posteriormente borrarlo de mi array de arrayRelaciones y eliminar la relación.
   borrarRecurso(id: number, i: number) {
-    this.cargaRelacionTerminalRecursosComunitarios.getRelacionTerminalRecursoComunitario(id).subscribe(
-      terminal => {
-        this.recursoBorrad = terminal
-      },
-      error => console.log(error),
-      () =>{
-        this.arrayRelaciones.splice(i,1);
-        this.cargaRelacionTerminalRecursosComunitarios.eliminarRelacionRecurso(this.recursoBorrad).subscribe(
+    
+    Swal.fire({
+      title: '¿Está seguro que desea eliminar este recurso?',
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.cargaRelacionTerminalRecursosComunitarios.getRelacionTerminalRecursoComunitario(id).subscribe(
+          terminal => {
+            this.recursoBorrad = terminal
+          },
+          error => console.log(error),
           () =>{
-            this.alertBorrarRecurso();
+            this.arrayRelaciones.splice(i,1);
+            this.cargaRelacionTerminalRecursosComunitarios.eliminarRelacionRecurso(this.recursoBorrad).subscribe(
+              () =>{
+                this.alertBorrarRecurso();
+              }
+            )
+    
           }
         )
-
       }
-    )
+    })
+    
 
   }
 
