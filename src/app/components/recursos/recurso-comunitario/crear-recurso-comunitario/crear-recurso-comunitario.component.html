@@ -3,8 +3,8 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
-        <li class="breadcrumb-item"><a [routerLink]="['/recursos_comunitarios/listar/',id]">Recursos comunitarios</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Crear recurso comunitario</li>
+        <li class="breadcrumb-item"><a [routerLink]="['/recursos_comunitarios/listar/',id]">Recursos {{clasificacion?.nombre}}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Crear nuevo recurso {{clasificacion?.nombre}}</li>
       </ol>
     </nav>
     <div class="row d-flex justify-content-center">
