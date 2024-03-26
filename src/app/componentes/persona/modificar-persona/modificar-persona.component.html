@@ -152,9 +152,10 @@
           <div class="col-4">
             <div class="form-group">
               <label for="provincia" class="form-label text-start">Provincia <span class="obligatorios">*</span></label>
-              <input type="text" name="provincia" id="provincia" class="form-control "
-                     required maxlength="200" placeholder="Provincia" formControlName="provincia"
-                     [readonly]="blockEditar">
+              <ng-select id="tipoTeleasistencia" formControlName="provincia" id="provincia"  title="{{formulario.value.provincia}}">
+                <ng-option *ngFor="let provincia of listaProvincias; let i = index"
+                           [value]="provincia" [title]="provincia" [readonly]="blockEditar">{{provincia}}</ng-option>
+              </ng-select>
             </div>
             <div *ngIf="controles.provincia.invalid && (controles.provincia.dirty || controles.provincia.touched)"
                  class="alert alert-secondary"
@@ -224,7 +225,7 @@
           </div>
         </div>
 
-        <div class="text-center" *ngIf="!blockEditar">
+        <div class="text-center mt-2" *ngIf="!blockEditar">
           <button [disabled]="formulario.invalid" type="submit" class="btn btn-outline-success m-1 "
                   (click)="contraer()"
                   data-bs-toggle="collapse"

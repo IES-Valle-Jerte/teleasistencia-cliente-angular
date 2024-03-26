@@ -29,10 +29,10 @@
             <div class="form-group">
               <label for="recurso" class="form-label">Recurso <span class="obligatorios">*</span></label>
               <ng-select id="recurso" name="recurso"
-                         formControlName="recurso" (change)="seleccionarId($event)" [readonly]="blockEditar">
+                         formControlName="recurso" (change)="seleccionarId($event)" [readonly]="blockEditar" title="{{this?.recursoMostrar?.nombre}} - {{this?.recursoMostrar?.id_tipos_recurso_comunitario?.nombre}} - {{this?.recursoMostrar?.id_direccion?.localidad}}">
                 <ng-option class="form-select" *ngFor="let recurso of recursosMostrados,let i = index"
-                           [value]="recurso.id">{{ recurso.nombre}} - {{recurso.id_tipos_recurso_comunitario.nombre}}
-                  - {{recurso.id_direccion.localidad}}</ng-option>
+                           [value]="recurso.id">{{ recurso?.nombre}} - {{recurso?.id_tipos_recurso_comunitario?.nombre}}
+                  - {{recurso?.id_direccion?.localidad}}</ng-option>
               </ng-select>
             </div>
           </div>
