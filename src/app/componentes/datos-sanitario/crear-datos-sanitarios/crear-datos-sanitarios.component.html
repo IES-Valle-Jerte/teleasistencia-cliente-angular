@@ -105,9 +105,9 @@
 
           </tr>
           <tr *ngFor="let relacion of arrayRelaciones, let i = index">
-            <td>{{relacion?.id_recurso_comunitario.nombre}}</td>
-            <td>{{relacion?.id_recurso_comunitario.id_tipos_recurso_comunitario.nombre}}</td>
-            <td>{{relacion?.id_recurso_comunitario.id_direccion.localidad}}</td>
+            <td>{{relacion?.id_recurso_comunitario?.nombre}}</td>
+            <td>{{relacion?.id_recurso_comunitario?.id_tipos_recurso_comunitario?.nombre}}</td>
+            <td>{{relacion?.id_recurso_comunitario?.id_direccion?.localidad}}</td>
             <td>{{relacion?.tiempo_estimado}}</td>
 
             <td>

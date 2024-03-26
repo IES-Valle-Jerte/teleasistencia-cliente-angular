@@ -8,10 +8,15 @@
         <label for="nombre" class="form-label text-start">Tipo de Vivienda <span
           class="obligatorios">*</span></label>
         <div class="col-12 col-lg pb-1 pb-lg-0">
-          <ng-select id="nombre" formControlName="nombre">
-            <ng-option *ngFor="let tipoVivienda of listaViviendas; let i = index"
-                       [value]="tipoVivienda.id">{{tipoVivienda.nombre}}</ng-option>
-          </ng-select>
+          
+          <div class="col-12 col-lg pb-1 pb-lg-0">
+            <div class="form-group w-100">
+              <ng-select id="nombre" formControlName="nombre">
+                <ng-option *ngFor="let tipoVivienda of listaViviendas; let i = index"
+                          [value]="tipoVivienda.id">{{tipoVivienda.nombre}}</ng-option>
+              </ng-select>
+            </div>
+          </div>
         </div>
         <ng-container *ngIf="this.isAdmin">
           <div class="col-4 col-lg-1  p-0">
@@ -40,14 +45,18 @@
 
       <div class="row mb-3">
         <div class="col-12">
-          <label for="text_area" class="form-label text-start">Acceso a la vivienda</label>
-          <textarea formControlName="text_area" name="text_area" id="text_area" class="form-control"></textarea>
+          <div class="form-group w-100">
+            <label for="text_area" class="form-label text-start">Acceso a la vivienda</label>
+            <textarea formControlName="text_area" name="text_area" id="text_area" class="form-control"></textarea>
+          </div>
         </div>
       </div>
       <div class="row mb-3">
         <div class="col-12">
-          <label for="text_area" class="form-label text-start">Otros datos de la vivienda</label>
-          <textarea formControlName="text_area2" name="text_area" id="text_area2" class="form-control"></textarea>
+          <div class="form-group w-100">
+            <label for="text_area" class="form-label text-start">Otros datos de la vivienda</label>
+            <textarea formControlName="text_area2" name="text_area" id="text_area2" class="form-control"></textarea>
+          </div>
         </div>
       </div>
       <div class="text-center">

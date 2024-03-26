@@ -152,7 +152,7 @@
           <div class="col-4">
             <div class="form-group">
               <label for="provincia" class="form-label text-start">Provincia <span class="obligatorios">*</span></label>
-              <ng-select id="tipoTeleasistencia" formControlName="provincia" id="provincia"  title="{{formulario.value.provincia}}">
+              <ng-select id="tipoTeleasistencia" formControlName="provincia" id="provincia"  title="{{formulario.value.provincia}}"  [readonly]="blockEditar">
                 <ng-option *ngFor="let provincia of listaProvincias; let i = index"
                            [value]="provincia" [title]="provincia" [readonly]="blockEditar">{{provincia}}</ng-option>
               </ng-select>
