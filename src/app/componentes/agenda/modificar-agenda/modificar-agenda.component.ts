@@ -189,4 +189,8 @@ export class ModificarAgendaComponent implements OnInit {
     this.agenda.id_tipo_agenda = this.tipos_agenda.find(tipo => tipo.id == this.modAgenda.get('tipo_agenda').value);
     this.modAgenda.get('importancia').setValue(this.agenda.id_tipo_agenda.importancia);
   }
+  
+  getToday() {
+    return new Date().toISOString().split(".")[0].replace("T"," ").slice(0,-3);
+  }
 }

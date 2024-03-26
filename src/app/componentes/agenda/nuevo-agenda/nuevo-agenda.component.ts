@@ -244,4 +244,8 @@ export class NuevoAgendaComponent implements OnInit {
       return false;
     }
   }
+  
+  getToday() {
+    return new Date().toISOString().split(".")[0].replace("T"," ").slice(0,-3);
+  }
 }

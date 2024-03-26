@@ -82,8 +82,9 @@
 
             <div class="form-group mb-3 row">
               <label for="fecha_prevista" class="form-label col-12 text-start p-0">Fecha prevista</label>
-              <input type="datetime-local" name="fecha_prevista" id="fecha_prevista" class="form-control"
-                     required maxlength="200" formControlName="fecha_prevista">
+              <input type="datetime-local" name="fecha_prevista" id="fecha_prevista" class="form-control" 
+                    min='{{getToday()}}' 
+                    required maxlength="200" formControlName="fecha_prevista">
               <div *ngIf="form.fecha_prevista.invalid && (form.fecha_prevista.dirty || form.fecha_prevista.touched)" class="alert alert-secondary" role="alert">
                 <div *ngIf="form.fecha_prevista.errors?.required">
                   El campo fecha prevista es obligatorio.
