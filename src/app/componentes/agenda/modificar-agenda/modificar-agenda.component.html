@@ -93,7 +93,12 @@
 
       <button type="submit" class="btn btn-outline-success m-1"
               [disabled]="!modAgenda.valid">
-        Guardar
+        Guardar y salir
+      </button>
+      
+      <button type="submit" class="btn btn-outline-success m-1"
+            [disabled]="modAgenda.invalid" (click)="cambiarNavigate()">
+            Guardar y crear agenda
       </button>
       <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/agenda']">
         Volver

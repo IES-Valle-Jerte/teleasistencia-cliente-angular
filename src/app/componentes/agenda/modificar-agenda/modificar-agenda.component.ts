@@ -25,6 +25,7 @@ export class ModificarAgendaComponent implements OnInit {
   public pacientes: IPaciente[];
   public modAgenda: FormGroup;
   submitted = false;
+  guardarCrear = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -85,12 +86,17 @@ export class ModificarAgendaComponent implements OnInit {
     this.cargaAgendaService.modificarAgenda(this.agenda).subscribe(
       e => {
         this.alertExito();
-        this.router.navigate(['/agenda']);
+        if (this.guardarCrear) {
+          this.router.navigate(['/agenda/nueva' , this.agenda.id_paciente]);
+        } else {
+          this.router.navigate(['/agenda']);
+        }
       },
       error => {
         this.alertError();
       }
     );
+    
   }
 
   // Método para marcar como 'selected' el option que coincide con el valor de la agenda seleccionada.
@@ -166,6 +172,10 @@ export class ModificarAgendaComponent implements OnInit {
       'observaciones': this.modAgenda.get('observaciones').value
     }
     this.modificarEventoAgenda();
+  }
+  
+  cambiarNavigate() {
+    this.guardarCrear = true;
   }
 
   //Método para obtener el número de expediente del paciente seleccionado en el formulario
