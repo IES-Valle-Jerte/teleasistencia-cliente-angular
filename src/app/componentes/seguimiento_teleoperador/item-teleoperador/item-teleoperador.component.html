@@ -1,7 +1,7 @@
-<td>{{ teleoperador.first_name }}</td>
-<td>{{ teleoperador.second_name }}</td>
-<td>{{ teleoperador.alarmas_total}}</td>
-<td>{{ teleoperador.agendas_total}}</td>
+<td>{{ teleoperador?.first_name }}</td>
+<td>{{ teleoperador?.second_name }}</td>
+<td>{{ teleoperador?.alarmas_total}}</td>
+<td>{{ teleoperador?.agendas_total}}</td>
 <td>
   <button type="submit" class="btn btn-outline-primary m-1"
           [routerLink]="['/lista-seguimiento-teleoperador/'+ teleoperador.id]">
