@@ -43,7 +43,7 @@ export class CrearUserComponent implements OnInit {
       username:  ['',[Validators.required,Validators.min(4),Validators.pattern('^[a-zA-Z0-9](_(?!(\\.|_))|\\.(?!(_|\\.))|[a-zA-Z0-9]){2,18}[a-zA-Z0-9]$')]],
       first_name: ['',[Validators.required,Validators.max(200),Validators.pattern('^[\\w\'\\-,.][^0-9_!¡?÷?¿(\\)\\\\+=@#$%ˆ&*(){}|~<>;:[\\]]{2,}$')]],
       last_name: ['',[Validators.required,Validators.max(200),Validators.pattern('^[\\w\'\\-,.][^0-9_!¡?÷?¿(\\)\\\\+=@#$%ˆ&*(){}|~<>;:[\\]]{2,}$')]],
-      email: ['',[Validators.required,Validators.email,Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      email: ['', Validators.email], // Quitamos Validators.required de aquí
       groups: ['',Validators.required],
       imagen: ['']
     });

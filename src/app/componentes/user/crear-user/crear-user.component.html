@@ -91,16 +91,10 @@
 
     <div class="form-group mb-3">
       <label for="email" class="form-label">Email</label>
-      <input type="email" id="email" formControlName="email" class="form-control" required
-              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+      <input type="email" id="email" formControlName="email" class="form-control">
       <div *ngIf="this.formCrearU.controls.email.invalid && (this.formCrearU.controls.email.dirty || this.formCrearU.controls.email.touched)"
            class="alert alert-secondary" role="alert">
-        <div *ngIf="this.formCrearU.controls.email.errors?.required; else elseBlock">
-          El email es obligatorio
-        </div>
-        <ng-template #elseBlock>
-          Introduzca un email válido
-        </ng-template>
+          El email es invalido
       </div>
     </div>
 

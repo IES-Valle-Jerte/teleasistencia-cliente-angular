@@ -23,8 +23,11 @@ export class ListaUsersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.users = this.route.snapshot.data['users'];
-
+    // quitamos la url para que no afecte al filtardo
+    this.users = this.route.snapshot.data['users'].map(user => {
+      const { url, ...rest } = user; // Usamos destructuring para omitir la propiedad 'url' y obtener el resto de las propiedades
+      return rest; // Devolvemos un nuevo objeto sin la propiedad 'url'
+    }); 
     this.titleService.setTitle('Usuarios del sistema');
   }
 

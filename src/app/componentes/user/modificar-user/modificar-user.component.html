@@ -56,21 +56,15 @@
       </ng-template>
     </div>
 
+
     <div class="form-group mb-3">
       <label for="email" class="form-label">Email</label>
-      <input type="email" id="email" formControlName="email" class="form-control" required
-             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+      <input type="email" id="email" formControlName="email" class="form-control">
       <div *ngIf="this.formModificarU.controls.email.invalid && (this.formModificarU.controls.email.dirty || this.formModificarU.controls.email.touched)"
            class="alert alert-secondary" role="alert">
-        <div *ngIf="this.formModificarU.controls.email.errors?.required; else elseBlock">
-          El email es obligatorio
-        </div>
-        <ng-template #elseBlock>
-          Introduzca un email válido
-        </ng-template>
-      </div>
+           Introduzca un email válido
+          </div>
     </div>
-
     <div class="form-group mb-3">
       <label for="imagen" class="form-label">Imagen</label>
       <input type="file" class="file-input" id="imagen" class="form-control" formControlName="imagen" (change)="onFileChanged($event)">
