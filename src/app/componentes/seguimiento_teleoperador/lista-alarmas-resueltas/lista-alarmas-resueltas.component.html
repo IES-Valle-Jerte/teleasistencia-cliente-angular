@@ -26,12 +26,12 @@
       <table id="tableList" class="table table-hover text-center">
         <thead>
         <tr class="table-purple">
-          <th (click)="ordenacionTabla(0, 'string')" scope="col">Prioridad <i class="fas fa-sort"></i></th>
-          <th (click)="ordenacionTabla(1, 'string')" scope="col">Nombre <i class="fas fa-sort"></i></th>
-          <th (click)="ordenacionTabla(2, 'string')" scope="col">Apellido <i class="fas fa-sort"></i></th>
-          <th (click)="ordenacionTabla(3, 'string')" scope="col">Tipo Agenda <i class="fas fa-sort"></i></th>
-          <th (click)="ordenacionTabla(4, 'number')" scope="col">Nº Expediente <i class="fas fa-sort"></i></th>
-          <th (click)="ordenacionTabla(5, 'numbre')" scope="col">Hora y Fecha <i class="fas fa-sort"></i></th>
+          <th class="ordenable" (click)="ordenacionTabla(0, 'id_tipo_agenda.importancia')" scope="col">Prioridad <i class="fas fa-sort"></i></th>
+          <th class="ordenable" (click)="ordenacionTabla(1, 'id_paciente.id_persona.nombre ')" scope="col">Nombre <i class="fas fa-sort"></i></th>
+          <th class="ordenable" (click)="ordenacionTabla(2, 'id_paciente.id_persona.apellidos')" scope="col">Apellido <i class="fas fa-sort"></i></th>
+          <th class="ordenable" (click)="ordenacionTabla(3, 'id_tipo_agenda.nombre ')" scope="col">Tipo Agenda <i class="fas fa-sort"></i></th>
+          <th class="ordenable" (click)="ordenacionTabla(4, 'id_paciente.numero_expediente')" scope="col">Nº Expediente <i class="fas fa-sort"></i></th>
+          <th class="ordenable" (click)="ordenacionTabla(5, 'fecha_prevista')" scope="col">Hora y Fecha <i class="fas fa-sort"></i></th>
 
           <th scope="col"></th>
         </tr>
@@ -57,14 +57,13 @@
       <table id="tableLista" class="table table-hover text-center">
         <thead>
         <tr class="table-purple">
-          <th (click)="ordenacionTablas(0, 'string')" scope="col">Estado <i class="fas fa-sort"></i></th>
-          <th (click)="ordenacionTablas(1, 'string')" scope="col">Hora y Fecha Registro <i class="fas fa-sort"></i></th>
-          <th (click)="ordenacionTablas(2, 'string')" scope="col">Observaciones <i class="fas fa-sort"></i></th>
-          <th (click)="ordenacionTablas(3, 'string')" scope="col">Resumen <i class="fas fa-sort"></i></th>
-          <th (click)="ordenacionTablas(4, 'string')" scope="col">Tipo alarma <i class="fas fa-sort"></i></th>
-          <th (click)="ordenacionTablas(5, 'string')" scope="col">Paciente UCR <i class="fas fa-sort"></i></th>
-          <th (click)="ordenacionTablas(6, 'number')" scope="col">Número Terminal <i class="fas fa-sort"></i></th>
-
+          <th class="ordenable" (click)="ordenacionTabla2(6, 'estado_alarma')" scope="col">Estado <i class="fas fa-sort"></i></th>
+          <th class="ordenable" (click)="ordenacionTabla2(7, 'fecha_registro')" scope="col">Hora y Fecha Registro <i class="fas fa-sort"></i></th>
+          <th class="ordenable" (click)="ordenacionTabla2(8, 'observaciones')" scope="col">Observaciones <i class="fas fa-sort"></i></th>
+          <th class="ordenable" (click)="ordenacionTabla2(9, 'resumen')" scope="col">Resumen <i class="fas fa-sort"></i></th>
+          <th class="ordenable" (click)="ordenacionTabla2(10, 'id_tipo_alarma.nombre','id_tipo_alarma.id_clasificacion_alarma.nombre')" scope="col">Tipo alarma <i class="fas fa-sort"></i></th>
+          <th class="ordenable" (click)="ordenacionTabla2(11, 'id_paciente_ucr.id_persona.nombre')" scope="col">Paciente UCR <i class="fas fa-sort"></i></th>
+          <th class="ordenable" (click)="ordenacionTabla2(12, 'id_terminal.numero_terminal')" scope="col">Número Terminal <i class="fas fa-sort"></i></th>
         </tr>
         </thead>
         <tbody>

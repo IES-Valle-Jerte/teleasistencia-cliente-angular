@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Alarma } from "../../../clases/alarma";
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import {OrdenacionTablasService} from "../../../servicios/ordenacion-tablas.service";
 import {AuthService} from "../../../servicios/auth.service";
 import {CargaAlarmaService} from "../../../servicios/alarmas/carga-alarma.service";
 import {IAlarma} from "../../../interfaces/i-alarma";
 import {Spinner} from "../../../clases/spinner";
+import { OrdenacionTablasV2Service } from 'src/app/servicios/ordenacion-tablas.v2.service';
 
 
 @Component({
@@ -23,7 +23,9 @@ export class ListaAlarmasComponent implements OnInit {
   public alarmasDelDia: IAlarma[] = [];
   public inputFechaBusqueda: any = '';
 
-  constructor(private route: ActivatedRoute,private auth:AuthService, private titleService: Title, private ordTabla: OrdenacionTablasService,private cargarAlarmas:CargaAlarmaService) { }
+  constructor(private route: ActivatedRoute,private auth:AuthService, private titleService: Title,private cargarAlarmas:CargaAlarmaService,
+    private cdr: ChangeDetectorRef,
+    private ordTabla: OrdenacionTablasV2Service) { }
 
 
   ngOnInit(): void {
@@ -50,9 +52,18 @@ export class ListaAlarmasComponent implements OnInit {
     }
   }
 
-  ordenacionTabla(indice: number, tipo: string){
-    this.ordTabla.ordenacionService(indice, tipo);
+  
+  // Método que ordena la tabla si hacemos click en las flechas de los th de la tabla
+  
+  ordenacionTabla(indice: number,campo1:string = "", campo2:string = "" , tipo: string ="string"){
+    var alarmasDelDia2 = this.ordTabla.ordenacionTabla(this.alarmasDelDia,indice,campo1,campo2, tipo);
+    this.alarmasDelDia = [];
+    this.cdr.detectChanges();
+    this.alarmasDelDia = alarmasDelDia2;
+    this.cdr.detectChanges();
+
   }
+
   seleccionarFondo(alarma: Alarma): string {
     if (alarma.estado_alarma == "Cerrada") {
       return "cerrada"

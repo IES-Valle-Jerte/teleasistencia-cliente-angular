@@ -2,15 +2,13 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-
 import {CargaAgendaService} from "../../../servicios/carga-agenda.service";
-import {ActivatedRoute, ActivatedRouteSnapshot, Router, RouterStateSnapshot} from "@angular/router";
-import {Title} from "@angular/platform-browser";
 import {IAgenda} from "../../../interfaces/i-agenda";
-import {OrdenacionTablasService} from "../../../servicios/ordenacion-tablas.service";
 import {AuthService} from "../../../servicios/auth.service";
+import { ActivatedRoute } from '@angular/router';
+import { OrdenacionTablasV2Service } from 'src/app/servicios/ordenacion-tablas.v2.service';
 
 @Component({
   selector: 'app-agenda',
@@ -30,13 +28,11 @@ export class AgendaComponent implements OnInit {
 
 
   constructor(
-    private modal: NgbModal,
     private cargaAgendaService: CargaAgendaService,
     private route: ActivatedRoute,
-    private titleService: Title,
-    private ordTabla: OrdenacionTablasService,
-    private router: Router,
     private auth: AuthService,
+    private ordTabla: OrdenacionTablasV2Service,
+    private cdr: ChangeDetectorRef
   ) {
   }
 
@@ -75,9 +71,15 @@ export class AgendaComponent implements OnInit {
   }
 
   // Método que ordena la tabla si hacemos click en las flechas de los th de la tabla
-  ordenacionTabla(indice: number, tipo: string) {
-    this.ordTabla.ordenacionService(indice, tipo);
+  ordenacionTabla(indice: number,campo1:string = "", campo2:string = "" , tipo: string ="string"){
+    var agendasDelDia2 = this.ordTabla.ordenacionTabla(this.agendasDelDia,indice,campo1,campo2, tipo);
+    this.agendasDelDia = [];
+    this.cdr.detectChanges();
+    this.agendasDelDia = agendasDelDia2;
+    this.cdr.detectChanges();
+
   }
+  
 
   // Método para buscar las agendas según un día seleccionado
   // El funcionamiento del mismo es el siguiente:

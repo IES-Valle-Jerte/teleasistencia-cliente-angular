@@ -1,6 +1,6 @@
-<td>{{paciente?.id_persona?.nombre}} {{paciente?.id_persona?.apellidos}}</td>
-<td>{{paciente?.id_tipo_modalidad_paciente?.nombre}}</td>
-<td>{{paciente?.id_persona?.id_direccion.localidad}}</td>
+<td class="reducirCaja"  title="{{paciente?.id_persona?.nombre}} {{paciente?.id_persona?.apellidos}}">{{paciente?.id_persona?.nombre}} {{paciente?.id_persona?.apellidos}}</td>
+<td class="reducirCaja" title="{{paciente?.id_tipo_modalidad_paciente?.nombre}}">{{paciente?.id_tipo_modalidad_paciente?.nombre}}</td>
+<td class="reducirCaja" title="{{paciente?.id_persona?.id_direccion?.localidad}}">{{paciente?.id_persona?.id_direccion?.localidad}}</td>
 <td class="reducirCaja" title="{{paciente?.observaciones_medicas}}">{{paciente?.observaciones_medicas}}</td>
 <td *ngIf="!hayDispositivos">No tiene dispositivos asociados</td>
 <td *ngIf="hayDispositivos">

@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 import {AuthService} from "../../../servicios/auth.service";
-import {OrdenacionTablasService} from "../../../servicios/ordenacion-tablas.service";
 import {Alarma} from "../../../clases/alarma";
-import {ISeguimiento_teleoperador} from "../../../interfaces/i-seguimiento_teleoperador";
 import {CargaAlarmaService} from "../../../servicios/alarmas/carga-alarma.service";
 import {IAlarma} from "../../../interfaces/i-alarma";
 import {IAgenda} from "../../../interfaces/i-agenda";
+import { OrdenacionTablasV2Service } from 'src/app/servicios/ordenacion-tablas.v2.service';
 
 @Component({
   selector: 'app-lista-alarmas-resueltas,[app-lista-alarmas-resueltas]',
@@ -26,7 +25,8 @@ export class ListaAlarmasResueltasComponent implements OnInit {
   public alarmasDelDia: IAlarma[] = [];
   public fecha: string;
 
-  constructor(private cargarAlarmas:CargaAlarmaService,private route: ActivatedRoute,private auth:AuthService, private ordTabla: OrdenacionTablasService, private titleService: Title) { }
+  constructor(private cargarAlarmas:CargaAlarmaService,private route: ActivatedRoute,private auth:AuthService, private ordTabla: OrdenacionTablasV2Service, private titleService: Title,
+    private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
 
@@ -41,11 +41,23 @@ export class ListaAlarmasResueltasComponent implements OnInit {
     this.titleService.setTitle(' Alarmas Resueltas del teleoperador con Id: ' + this.idTeleoperador);
 
   }
-  ordenacionTablas(indice: number, tipo: string){
-    this.ordTabla.ordenacionService(indice, tipo);
+  
+  ordenacionTabla(indice: number,campo1:string = "", campo2:string = "" , tipo: string ="string"){
+    var agendas2 = this.ordTabla.ordenacionTabla(this.agendas,indice,campo1,campo2, tipo);
+    this.agendas = [];
+    this.cdr.detectChanges();
+    this.agendas = agendas2;
+    this.cdr.detectChanges();
+
   }
-  ordenacionTabla(indice: number, tipo: string){
-    this.ordTabla.ordenacionService(indice, tipo);
+  
+  ordenacionTabla2(indice: number,campo1:string = "", campo2:string = "" , tipo: string ="string"){
+    var alarmas2 = this.ordTabla.ordenacionTabla(this.alarmas,indice,campo1,campo2, tipo);
+    this.alarmas = [];
+    this.cdr.detectChanges();
+    this.alarmas = alarmas2;
+    this.cdr.detectChanges();
+
   }
 
   seleccionarFondo(alarma: Alarma): string {

@@ -26,12 +26,12 @@
       <table id="tableList" class="table table-hover text-center">
         <thead>
         <tr class="table-purple">
-          <th (click)="ordenacionTabla(0, 'string')" scope="col">Nombre y Apellidos</th>
-          <th (click)="ordenacionTabla(1, 'string')" scope="col">Tipo modalidad usuario</th>
-          <th (click)="ordenacionTabla(2, 'string')" scope="col">Localidad</th>
-          <th (click)="ordenacionTabla(3, 'string')" scope="col">Observaciones</th>
-          <th (click)="ordenacionTabla(4, 'string')" scope="col">Dispositivos Periféricos</th>
-          <th (click)="ordenacionTabla(5, 'string')" scope="col">Situacion Terminal</th>
+          <th (click)="ordenacionTabla(0, 'id_persona.nombre', 'id_persona.apellidos')" scope="col" role="button">Nombre y Apellidos <i class="fas fa-sort"></i></th>
+          <th (click)="ordenacionTabla(1, 'id_tipo_modalidad_paciente.nombre')" scope="col" role="button">Tipo modalidad usuario <i class="fas fa-sort"></i></th>
+          <th (click)="ordenacionTabla(2, 'id_persona.id_direccion.localidad')" scope="col" role="button">Localidad <i class="fas fa-sort"></i></th>
+          <th scope="col">Observaciones</th>
+          <th  scope="col">Dispositivos Periféricos</th>
+          <th (click)="ordenacionTabla(5, 'id_terminal.id_tipo_situacion.nombre')" scope="col" role="button">Situacion Terminal <i class="fas fa-sort"></i></th>
           <th>
           </th>
         </tr>

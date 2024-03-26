@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {OrdenacionTablasService} from "../../../servicios/ordenacion-tablas.service";
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 
 import {environment} from "../../../../environments/environment";
 import {ActivatedRoute} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 import {IUserAlarmasAgendasResueltas} from "../../../interfaces/i-UserAlarmasAgendasResueltas";
+import { OrdenacionTablasV2Service } from 'src/app/servicios/ordenacion-tablas.v2.service';
 
 @Component({
   selector: 'app-lista-seguimiento-teleoperador',
@@ -17,7 +17,8 @@ export class UserAgendasAlarmasResueltasComponent implements OnInit {
   inputBusqueda: any = '';
   elementosPaginacion: number = environment.num_paginacion;
 
-  constructor(private route: ActivatedRoute, private titleService: Title, private ordTabla: OrdenacionTablasService) {
+  constructor(private route: ActivatedRoute, private titleService: Title, private ordTabla: OrdenacionTablasV2Service,
+    private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
@@ -25,7 +26,12 @@ export class UserAgendasAlarmasResueltasComponent implements OnInit {
     this.titleService.setTitle('Seguimiento Teleoperadores');
   }
 
-  ordenacionTabla(indice: number, tipo: string){
-    this.ordTabla.ordenacionService(indice, tipo);
+  ordenacionTabla(indice: number,campo1:string = "", campo2:string = "" , tipo: string ="string"){
+    var teleoperadores2 = this.ordTabla.ordenacionTabla(this.teleoperadores,indice,campo1,campo2, tipo);
+    this.teleoperadores = [];
+    this.cdr.detectChanges();
+    this.teleoperadores = teleoperadores2;
+    this.cdr.detectChanges();
+
   }
 }
