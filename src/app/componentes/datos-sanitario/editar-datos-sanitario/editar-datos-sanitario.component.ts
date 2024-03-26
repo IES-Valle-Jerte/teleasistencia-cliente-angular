@@ -41,6 +41,7 @@ export class EditarDatosSanitarioComponent implements OnInit {
   public relaciones_terminales: ITerminal[] | any;
   public relacion_terminal_recurso : IRelacionTerminalRecursoComunitarios | any;
   public formularioDatos: FormGroup | any;
+  public formularioRecurso: FormGroup | any;
   public recurso: IRecursoComunitario | any ;
   public recursoBorrad: IRelacionTerminalRecursoComunitarios | any;
   public recursosMostrados: IRecursoComunitario[];
@@ -124,7 +125,7 @@ export class EditarDatosSanitarioComponent implements OnInit {
 
 //Función que determina si se pulsa o no en el selector de Recursos. Si no se pulsa aparece con cierta opacidad.
   desactivado() {
-    return (this.formularioDatos.value.recurso == '') || (this.formularioDatos.value.recurso == null);
+    return (this.formularioRecurso.value.recurso == '') || (this.formularioRecurso.value.recurso == null);
 
   }
 
@@ -134,7 +135,12 @@ export class EditarDatosSanitarioComponent implements OnInit {
     this.formularioDatos = this.formBuilder.group(
 
       {
-        nuss: ['',[Validators.required,Validators.pattern("^\\d*\\.?\\d+$")]],
+        nuss: ['',[Validators.required,Validators.pattern("^\\d*\\.?\\d+$")]]
+
+      }
+    )
+    this.formularioRecurso = this.formBuilder.group(
+      {
         recurso: ['',[Validators.required]],
         tiempo: ['', [Validators.required,Validators.pattern("^[0-9]+$")]]
 
@@ -165,7 +171,7 @@ export class EditarDatosSanitarioComponent implements OnInit {
   //Metodo que crea la relación Terminal-Recurso. Esta hace un GET de la ID del Recurso y lo guarda, creando luego la relacion y haciendo un POST con la nueva
   //relacion. Trae como resultado un POST de Relacion Terminal. Este metodo tiene un booleano que hace que se muestre una tabla con todos las relaciones
   crearRelacion(){
-    this.cargaRecurso.getRecursoComunitario(this.formularioDatos.get('recurso').value).subscribe(
+    this.cargaRecurso.getRecursoComunitario(this.formularioRecurso.get('recurso').value).subscribe(
       recurso => {
         this.recurso = recurso;
       }, error => console.log(error),
@@ -174,7 +180,7 @@ export class EditarDatosSanitarioComponent implements OnInit {
         this.relacion_terminal_recurso = {
           'id_terminal': this.pacienteEditar.id_terminal.id,
           'id_recurso_comunitario': this.recurso.id,
-          'tiempo_estimado': this.formularioDatos.get('tiempo').value
+          'tiempo_estimado': this.formularioRecurso.get('tiempo').value
         }
         this.cargaRelacionTerminalRecursosComunitarios.nuevaRelacionRecurso(this.relacion_terminal_recurso).subscribe(
           relacion =>{
@@ -246,7 +252,7 @@ export class EditarDatosSanitarioComponent implements OnInit {
 
 //Estos GET sirven para así poder tomar el valor de los mismos del formulario en cuestión
   get nombre(){
-    return this.formularioDatos.get('nombre') as FormControl;
+    return this.formularioRecurso.get('nombre') as FormControl;
   }
 
   get nuss(){
@@ -254,29 +260,29 @@ export class EditarDatosSanitarioComponent implements OnInit {
   }
 
   get telefono(){
-    return this.formularioDatos.get('telefono') as FormControl;
+    return this.formularioRecurso.get('telefono') as FormControl;
 
   }
 
   get localidad(){
-    return this.formularioDatos.get('localidad') as FormControl;
+    return this.formularioRecurso.get('localidad') as FormControl;
   }
 
   get provincia(){
-    return this.formularioDatos.get('provincia') as FormControl;
+    return this.formularioRecurso.get('provincia') as FormControl;
   }
 
 
   get direccion(){
-    return this.formularioDatos.get('direccion') as FormControl;
+    return this.formularioRecurso.get('direccion') as FormControl;
   }
 
   get codigo_postal(){
-    return this.formularioDatos.get('codigo_postal') as FormControl;
+    return this.formularioRecurso.get('codigo_postal') as FormControl;
   }
 
   get tiempo(){
-    return this.formularioDatos.get('tiempo') as FormControl;
+    return this.formularioRecurso.get('tiempo') as FormControl;
   }
 
   contraer() {
