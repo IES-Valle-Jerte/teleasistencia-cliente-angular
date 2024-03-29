@@ -43,7 +43,7 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private cargaPersonaAlarma: CargaPersonaContactoAlarmaService,private cargarPersona:CargaRelacionPacientePersonaService,
-              private titleService: Title,private formBuilder: FormBuilder, private router: Router,
+              private formBuilder: FormBuilder, private router: Router,
               private cargarAlarmas: CargaAlarmaService) { }
 
   ngOnInit(): void {

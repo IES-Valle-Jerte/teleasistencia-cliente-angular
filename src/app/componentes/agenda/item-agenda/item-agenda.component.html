@@ -1,9 +1,9 @@
 <td>{{ agenda.id_tipo_agenda?.importancia }}</td>
+<td>{{ agenda.fecha_prevista | date:'dd/MM/YYYY HH:mm' }}</td>
 <td>{{ agenda.id_paciente?.id_persona?.nombre }}</td>
 <td>{{ agenda.id_paciente?.id_persona?.apellidos }}</td>
 <td>{{ agenda.id_tipo_agenda?.nombre }}</td>
 <td>{{ n_expediente }}</td>
-<td>{{ agenda.fecha_prevista | date:'HH:mm' }}</td>
 <td>
   <button *ngIf="agenda.fecha_resolucion !== null" type="submit" class="btn btn-outline-primary m-1" (click)="redirigirAhistorico()">
     <i class="fa fa-eye"></i>

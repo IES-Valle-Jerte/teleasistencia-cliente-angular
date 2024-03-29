@@ -12,7 +12,7 @@
 
 
       <h1 class="component-title">
-        {{ fecha }} <a class="btn btn-warning ml-2 botonAyuda" target="_blank"
+        {{ tituloAlarma }} <a class="btn btn-warning ml-2 botonAyuda" target="_blank"
                        [routerLink]="['/boton_info_ayudas','listado_alarmas']">?</a>
       </h1>
 
@@ -20,14 +20,23 @@
       <div class="form-group mb-3">
         <input id="campoBusqueda" type="text" class="form-control" placeholder="Busqueda..." [(ngModel)]="inputBusqueda">
       </div>
-      <div class="form-group">
-        <label for="busquedaPorFecha">Búsqueda por fecha</label>
-      </div>
-      <button class="btn btn-success float-end mar mb-3" [routerLink]="['/alarmas/nueva']" *ngIf="isAdmin">
+      <button class="btn btn-success float-end mar mb-3 mt-4" [routerLink]="['/alarmas/nueva']" *ngIf="isAdmin">
         Crear Alarma
       </button>
-      <div class="form-group mb-3">
-        <input id="busquedaPorFecha" name="busquedaPorFecha" type="date" class="form-control" (ngModelChange)="buscarPorFecha($event)" [(ngModel)]="inputFechaBusqueda">
+      <div class="form-group">
+        <div class="row mb-3">
+          <div class="col-6">
+              <label for="busquedaPorFecha">Búsqueda por fecha</label>
+              <input id="busquedaPorFecha" name="busquedaPorFecha" type="date" class="form-control" (ngModelChange)="buscarPorFecha($event)" [(ngModel)]="inputFechaBusqueda">
+            </div>
+            <div class="col-6">
+              <label for="busquedaPorFecha">Búsqueda por fecha</label>
+              <ng-select name="busquedaUsuarioServicio" id="busquedaUsuarioServicio" class="ng-valid" [(ngModel)]="busquedaUsuarioServicioId" (change)="buscarPorUsuarioServicio()">
+                <ng-option class="agenda_option" *ngFor="let usuarioServicio of usuariosServicio; let i = index" [value]="usuarioServicio.id">
+                  {{usuarioServicio?.id_persona?.nombre}} {{usuarioServicio?.id_persona?.apellidos}} -  {{usuarioServicio?.id_persona?.dni}} -  {{usuarioServicio?.numero_expediente}}
+                </ng-option>
+              </ng-select>            </div>
+          </div>
       </div>
 
       <div class="table-responsive m-2">
@@ -35,7 +44,7 @@
           <thead>
           <tr class="table-purple">
             <th class="ordenable" (click)="ordenacionTabla(0, 'estado_alarma')" scope="col">Estado <i class="fas fa-sort"></i></th>
-            <th class="ordenable" (click)="ordenacionTabla(1, 'fecha_registro')" scope="col">Hora Registro <i class="fas fa-sort"></i></th>
+            <th class="ordenable" (click)="ordenacionTabla(1, 'fecha_registro')" scope="col" title="Fecha y hora del registro">Fecha y hora <i class="fas fa-sort"></i></th>
             <th class="ordenable" (click)="ordenacionTabla(2, 'observaciones')" scope="col">Observaciones <i class="fas fa-sort"></i></th>
             <th class="ordenable" (click)="ordenacionTabla(3, 'resumen')" scope="col">Resumen <i class="fas fa-sort"></i></th>
             <th class="ordenable" (click)="ordenacionTabla(4, 'id_tipo_alarma.nombre','id_tipo_alarma.id_clasificacion_alarma.nombre')" scope="col">Tipo alarma <i class="fas fa-sort"></i></th>

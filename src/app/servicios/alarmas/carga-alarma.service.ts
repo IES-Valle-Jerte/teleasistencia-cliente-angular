@@ -24,9 +24,9 @@ export class CargaAlarmaService {
       return this.http.get<IAlarma>(this.URL_SERVER_ALARMA+ '?fecha_registro=' + fecha_registro);
     }
 
-  getAlarmaPorPaciente(idPaciente: IPaciente |any): Observable<IAlarma> {
-    return this.http.get<IAlarma>(this.URL_SERVER_ALARMA+ '/?id_paciente_ucr=' + idPaciente);
-  }
+    getAlarmaPorPaciente(idPaciente: number |any): Observable<IAlarma> {
+      return this.http.get<IAlarma>(this.URL_SERVER_ALARMA+ '?id_paciente_ucr=' + idPaciente);
+    }
 
     modificarAlarma(alarma: IAlarma): Observable<IAlarma> {
       return this.http.put<IAlarma>(this.URL_SERVER_ALARMA+ '/' + alarma.id, alarma);
