@@ -2,13 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {IDireccion} from '../../../../interfaces/i-direccion';
 import {IRecursoComunitario} from '../../../../interfaces/i-recurso-comunitario';
 import {ITipoRecursoComunitario} from '../../../../interfaces/i-tipo-recurso-comunitario';
-import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CargaDireccionService} from '../../../../servicios/carga-direccion.service';
 import {CargaRecursoComunitarioService} from '../../../../services/recursos/carga-recurso-comunitario.service';
-import {Direccion} from '../../../../clases/direccion';
-import {RecursoComunitario} from '../../../../clases/recurso-comunitario';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CargaTipoRecursoComunitarioService} from "../../../../services/recursos/carga-tipo-recurso-comunitario.service";
 import Swal from "sweetalert2";
 import {environment} from "../../../../../environments/environment";
@@ -34,12 +31,17 @@ export class CrearRecursoComunitarioComponent implements OnInit {
   public formCrearTipo: FormGroup;
   nuevoRecurso: FormGroup;
   public isAdmin: boolean;
+  public listaProvincias: String[] = ['Álava','Albacete','Alicante','Almería','Asturias','Avila','Badajoz','Barcelona','Burgos','Cáceres',
+  'Cádiz','Cantabria','Castellón','Ciudad Real','Córdoba','La Coruña','Cuenca','Gerona','Granada','Guadalajara',
+  'Guipúzcoa','Huelva','Huesca','Islas Baleares','Jaén','León','Lérida','Lugo','Madrid','Málaga','Murcia','Navarra',
+  'Orense','Palencia','Las Palmas','Pontevedra','La Rioja','Salamanca','Segovia','Sevilla','Soria','Tarragona',
+  'Santa Cruz de Tenerife','Teruel','Toledo','Valencia','Valladolid','Vizcaya','Zamora','Zaragoza']
 
   /**
    * Constructor
    * @param auth
    */
-  constructor(private titleService: Title, private route: ActivatedRoute, private cargaDirecciones: CargaDireccionService,
+  constructor(private route: ActivatedRoute, private cargaDirecciones: CargaDireccionService,
               private cargaRecursosComunitarios: CargaRecursoComunitarioService, private router: Router,private formBuilder: FormBuilder,
               private cargaTipoRecursosComunitarios: CargaTipoRecursoComunitarioService,
               private auth: AuthService,
@@ -66,7 +68,7 @@ export class CrearRecursoComunitarioComponent implements OnInit {
 
     // Creamos el formulario para crear un recurso comunitario nuevo, con sus respectivas validaciones
     this.nuevoRecurso = this.formBuilder.group({
-        id: [null, Validators.required],
+        id: [null],
         nombre: ['',[
           Validators.required,
           Validators.maxLength(500)

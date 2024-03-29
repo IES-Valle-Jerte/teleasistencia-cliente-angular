@@ -68,14 +68,15 @@
     </div>
 
     <div class="form-group mb-3">
-      <label for="provincia" class="form-label">Provincia</label>
-      <input type="text" name="provincia" id="provincia" class="form-control" value="{{direccion.provincia}}" formControlName="provincia">
+      
+      <label for="provincia" class="form-label text-start">Provincia <span class="obligatorios">*</span></label>
+      <ng-select id="tipoTeleasistencia" formControlName="provincia" id="provincia" title="{{editarRecurso.value.provincia}}">
+        <ng-option *ngFor="let provincia of listaProvincias; let i = index"
+                   [value]="provincia" [title]="provincia">{{provincia}}</ng-option>
+      </ng-select>
       <div *ngIf="valorForm.provincia.invalid && (valorForm.provincia.dirty || valorForm.provincia.touched)" class="alert alert-secondary" role="alert">
         <div *ngIf="valorForm.provincia.errors?.required">
           La provincia es obligatoria
-        </div>
-        <div *ngIf="valorForm.provincia.errors?.maxLength">
-          La provincia es muy larga
         </div>
       </div>
     </div>
@@ -100,10 +101,10 @@
         <div *ngIf="valorForm.cd.errors?.required">
           El código postal es obligatorio
         </div>
-        <div *ngIf="valorForm.cd.errors?.maxLength">
+        <div *ngIf="valorForm.cd.errors?.maxlength">
           El código postal es muy largo
         </div>
-        <div *ngIf="valorForm.cd.errors?.minLength">
+        <div *ngIf="valorForm.cd.errors?.minlength">
           El código postal es muy corto
         </div>
         <div *ngIf="valorForm.cd.errors?.pattern">
