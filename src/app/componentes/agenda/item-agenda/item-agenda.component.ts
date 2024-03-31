@@ -17,6 +17,7 @@ import {IPaciente} from "../../../interfaces/i-paciente";
 export class ItemAgendaComponent implements OnInit {
 
   @Input() public agenda: IAgenda; // Input que servirá para coger una agenda en concreto de la lista
+  @Input() public borrar: Boolean = true; // Input que servirá para saber si se muestra el botón de borrar
   @Input() public fechaToday: Date = null;
   public prioridad : any;
   public n_expediente : any;

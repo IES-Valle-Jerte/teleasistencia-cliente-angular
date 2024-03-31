@@ -124,6 +124,7 @@ export class NuevoAgendaComponent implements OnInit {
         } else {
           this.router.navigate(['/agenda']);
         }
+        this.guardarCrear = false;
       },
       error => {
         this.alertError();

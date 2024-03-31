@@ -4,7 +4,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 import {ITipoAgenda} from "../../../interfaces/i-tipo-agenda";
 import {IPaciente} from "../../../interfaces/i-paciente";
-import {IPersona} from "../../../interfaces/i-persona";
 import {CargaAgendaService} from "../../../servicios/carga-agenda.service";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
@@ -91,6 +90,7 @@ export class ModificarAgendaComponent implements OnInit {
         } else {
           this.router.navigate(['/agenda']);
         }
+        this.guardarCrear = false;
       },
       error => {
         this.alertError();

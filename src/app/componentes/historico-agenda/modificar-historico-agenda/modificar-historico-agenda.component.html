@@ -19,7 +19,7 @@
       <div class="form-group mb-3">
         <label for="telefonoPaciente" class="form-label">Teléfono del paciente</label>
         <input type="text" name="telefonoPaciente" id="telefonoPaciente" class="form-control"
-               required maxlength="200" formControlName="movil_paciente" disabled>
+               maxlength="200" formControlName="movil_paciente" disabled>
       </div>
 
       <div class="form-group mb-3">
@@ -63,7 +63,7 @@
                   required maxlength="200" formControlName="observaciones_historico" disabled></textarea>
       </div>
 
-      <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/agenda']">
+      <button type="button" class="btn btn-outline-secondary m-1" (click)="back()">
         Volver
       </button>
 

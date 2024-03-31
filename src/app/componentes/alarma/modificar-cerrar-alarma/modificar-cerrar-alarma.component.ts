@@ -1,6 +1,5 @@
 import {Component,OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Title } from '@angular/platform-browser';
 import { CargaAlarmaService } from "../../../servicios/alarmas/carga-alarma.service";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
@@ -15,8 +14,8 @@ import {
   CargaPersonaContactoAlarmaService
 } from "../../../servicios/persona-contacto-alarma/carga-persona-contacto-alarma.service";
 import {IClasificacioRecurso} from "../../../interfaces/i-clasificacio-recurso";
-import {IRelacionTerminalRecursoComunitarios} from "../../../interfaces/i-relacion-terminal-recurso-comunitarios";
 import {IPersonaContactoAlarma} from "../../../interfaces/i-persona-contacto-alarma";
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -44,7 +43,8 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private cargaPersonaAlarma: CargaPersonaContactoAlarmaService,private cargarPersona:CargaRelacionPacientePersonaService,
               private formBuilder: FormBuilder, private router: Router,
-              private cargarAlarmas: CargaAlarmaService) { }
+              private cargarAlarmas: CargaAlarmaService,
+              private location: Location) { }
 
   ngOnInit(): void {
     document.querySelector(".breadcrumb").scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
@@ -242,6 +242,9 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
     let hora =fecha.getHours();
     let minutos =fecha.getMinutes();
     return`${anio}-${mes.toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')} ${hora.toString().padStart(2,'0')}:${minutos.toString().padStart(2, '0')}`;
+  }
+  back(){
+    this.location.back();
   }
 
 }

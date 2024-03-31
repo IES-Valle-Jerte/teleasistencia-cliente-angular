@@ -30,7 +30,7 @@
               <input id="busquedaPorFecha" name="busquedaPorFecha" type="date" class="form-control" (ngModelChange)="buscarPorFecha($event)" [(ngModel)]="inputFechaBusqueda">
             </div>
             <div class="col-6">
-              <label for="busquedaPorFecha">Búsqueda por fecha</label>
+              <label for="busquedaPorFecha">Usuario del servicio</label>
               <ng-select name="busquedaUsuarioServicio" id="busquedaUsuarioServicio" class="ng-valid" [(ngModel)]="busquedaUsuarioServicioId" (change)="buscarPorUsuarioServicio()">
                 <ng-option class="agenda_option" *ngFor="let usuarioServicio of usuariosServicio; let i = index" [value]="usuarioServicio.id">
                   {{usuarioServicio?.id_persona?.nombre}} {{usuarioServicio?.id_persona?.apellidos}} -  {{usuarioServicio?.id_persona?.dni}} -  {{usuarioServicio?.numero_expediente}}

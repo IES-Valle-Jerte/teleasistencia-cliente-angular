@@ -177,7 +177,6 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
           Validators.required
         ]],
         movil_paciente: [this.agenda.id_paciente.id_persona.telefono_movil, [
-          Validators.required
         ]],
         tipo_agenda: [this.agenda.id_tipo_agenda.nombre, [
           Validators.required

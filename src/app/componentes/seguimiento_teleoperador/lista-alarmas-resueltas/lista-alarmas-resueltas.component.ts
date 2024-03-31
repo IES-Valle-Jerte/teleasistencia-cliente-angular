@@ -17,6 +17,7 @@ export class ListaAlarmasResueltasComponent implements OnInit {
   public agendas:IAgenda[];
   private idTeleoperador: any;
   numPaginacion: number = 1;
+  numPaginacion2: number = 1;
   inputBusqueda: any = '';
   private agendasResueltas: any;
   public alarmas: any;

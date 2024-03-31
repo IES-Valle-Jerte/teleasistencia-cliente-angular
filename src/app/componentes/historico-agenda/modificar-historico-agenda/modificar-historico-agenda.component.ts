@@ -9,10 +9,9 @@ import {environment} from "../../../../environments/environment";
 import {CargaAgendaService} from "../../../servicios/carga-agenda.service";
 import {ProfileService} from "../../../servicios/profile.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {IProfileUser} from "../../../interfaces/i-profile-user";
 import {IPaciente} from "../../../interfaces/i-paciente";
-import {CargaPacienteService} from "../../../servicios/carga-paciente.service";
 import {CargaPersonaService} from "../../../servicios/carga-persona.service";
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -31,14 +30,11 @@ export class ModificarHistoricoAgendaComponent implements OnInit {
   public teleoperador: any;
 
   constructor(
-    private titleService: Title,
     private route: ActivatedRoute,
     private cargaHistoricoAgenda: CargaHistoricoAgendaService,
-    private cargaAgendaService: CargaAgendaService,
-    private cargaPersona: CargaPersonaService,
-    private cargaUserLogued: ProfileService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder, 
+    private location: Location
   ) {}
 
   // Carga de los datos necesarios al cargar el componente.
@@ -124,7 +120,6 @@ export class ModificarHistoricoAgendaComponent implements OnInit {
         Validators.required
       ]],
       movil_paciente: [ this.paciente.id_persona.telefono_movil, [
-        Validators.required
       ]],
       tipo_agenda: [this.historico_agenda.id_agenda.id_tipo_agenda.nombre, [
         Validators.required
@@ -150,5 +145,9 @@ export class ModificarHistoricoAgendaComponent implements OnInit {
         Validators.minLength(10)
       ]]
     })
+  }
+
+  back(){
+    this.location.back();
   }
 }
