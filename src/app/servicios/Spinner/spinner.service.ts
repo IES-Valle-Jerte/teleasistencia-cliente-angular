@@ -9,18 +9,23 @@ export class Spinner {
   }
   mostrarSpiner(){
     let spinner = document.querySelector(".spinner");
-    // @ts-ignore
-    spinner.classList.add("d-block");
-    // @ts-ignore
-    spinner.classList.remove("d-none");
+
+    if ( spinner ){
+      // @ts-ignore
+      spinner.classList.add("d-block");
+      // @ts-ignore
+      spinner.classList.remove("d-none");
+    }
   }
   ocultarSpinner(){
 
     let spinner = document.querySelector(".spinner");
-    // @ts-ignore
-    spinner.classList.add("d-none");
-    // @ts-ignore
-    spinner.classList.remove("d-block");
+    if ( spinner ){
+      // @ts-ignore
+      spinner.classList.add("d-none");
+      // @ts-ignore
+      spinner.classList.remove("d-block");
+    }
 
   }
   
