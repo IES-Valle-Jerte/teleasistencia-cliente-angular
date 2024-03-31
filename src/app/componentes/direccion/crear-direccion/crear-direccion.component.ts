@@ -6,7 +6,6 @@ import {CargaDireccionService} from '../../../servicios/carga-direccion.service'
 import {Direccion} from '../../../clases/direccion';
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
-import {Spinner} from "../../../clases/spinner";
 
 
 
@@ -28,7 +27,6 @@ export class CrearDireccionComponent implements OnInit {
   }
 
   nuevaDireccion(): void {
-    Spinner.mostrarSpiner();
     this.cargaDirecciones.nuevaDireccion(this.dire).subscribe(
       e => {
         this.alertExito()

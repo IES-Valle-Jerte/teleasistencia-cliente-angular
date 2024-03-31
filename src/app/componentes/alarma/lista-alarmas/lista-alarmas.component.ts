@@ -5,7 +5,6 @@ import { Title } from '@angular/platform-browser';
 import {AuthService} from "../../../servicios/auth.service";
 import {CargaAlarmaService} from "../../../servicios/alarmas/carga-alarma.service";
 import {IAlarma} from "../../../interfaces/i-alarma";
-import {Spinner} from "../../../clases/spinner";
 import { OrdenacionTablasV2Service } from 'src/app/servicios/ordenacion-tablas.v2.service';
 import { IPaciente } from 'src/app/interfaces/i-paciente';
 
@@ -87,7 +86,6 @@ export class ListaAlarmasComponent implements OnInit {
     let fechaSeparada = event.split('-');
 
     if (event != undefined && event != ""){
-      Spinner.mostrarSpiner();
       this.cargarAlarmas.getAlarmasPorFecha(event).subscribe(
         e => {
           const datos: any = e;
@@ -104,13 +102,6 @@ export class ListaAlarmasComponent implements OnInit {
             }
           }
           document.getElementById("campoBusqueda").focus();
-          Spinner.ocultarSpinner();
-        },
-        ()=>{
-          Spinner.ocultarSpinner();
-        },
-        () => {
-          Spinner.ocultarSpinner();
         }
         );
     }
