@@ -9,15 +9,16 @@ import {
 } from "@angular/common/http";
 import {Observable, of, throwError} from 'rxjs';
 import {Router} from "@angular/router";
-import {catchError} from "rxjs/operators";
+import {catchError, finalize} from "rxjs/operators";
 import Swal from "sweetalert2";
+import { Spinner } from '../servicios/Spinner/spinner.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InterceptorService implements HttpInterceptor{
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private spinner: Spinner) { }
   //metodo para el manejo de errores en las peticiones
   private handleAuthError(err: HttpErrorResponse): Observable<any> {
     //Si las peticiones arrojan errores 401 unauthorized o 403 Prohibido muestro esa alerta
@@ -54,6 +55,7 @@ export class InterceptorService implements HttpInterceptor{
   }
   //Interceptor obtiene la request de todas las peticiones http
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    this.spinner.mostrarSpiner();
     //obtengo el token del localstorage
     const token:string=localStorage.getItem('token')
     //Si el token existe clono la request y le añado la cabecera de authorizacion Bearer
@@ -65,6 +67,11 @@ export class InterceptorService implements HttpInterceptor{
       })
     }
     //retorno la peticion con el token en la cabecera y si hay un error muestro el metodo anterior
-    return next.handle(req).pipe(catchError(x=> this.handleAuthError(x)));
+    return next.handle(req).pipe(
+      catchError(x=> this.handleAuthError(x)),
+      finalize(() => {
+        this.spinner.ocultarSpinner();
+      })
+    );
   }
 }

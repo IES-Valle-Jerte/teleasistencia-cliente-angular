@@ -1,13 +1,13 @@
-<td>{{ alarma.estado_alarma }}</td>
-<td>{{ alarma.fecha_registro | date : 'dd/MM/YY HH:mm:ss' }}</td>
-<td class="reducirCaja" [title]="alarma.observaciones">{{ alarma.observaciones }}</td>
-<td class="reducirCaja" [title]="alarma.resumen">{{ alarma.resumen }}</td>
-<td>{{ alarma.id_tipo_alarma?.nombre }} - {{ alarma.id_tipo_alarma?.id_clasificacion_alarma?.nombre }}</td>
+<td>{{ alarma?.estado_alarma }}</td>
+<td>{{ alarma?.fecha_registro | date : 'dd/MM/YY HH:mm:ss' }}</td>
+<td class="reducirCaja" [title]="alarma.observaciones">{{ alarma?.observaciones }}</td>
+<td class="reducirCaja" [title]="alarma.resumen">{{ alarma?.resumen }}</td>
+<td>{{ alarma?.id_tipo_alarma?.nombre }} - {{ alarma?.id_tipo_alarma?.id_clasificacion_alarma?.nombre }}</td>
 <td>{{ obtenerUcr()}}</td>
 <td>{{ obtenerTerminal()}}</td>
 <td *ngIf="mostrarTeleoperador">{{ obtenerNombre()  }}</td>
 <td>
-    <ng-container *ngIf="alarma.estado_alarma == 'Cerrada'; else bloqueB">
+    <ng-container *ngIf="alarma?.estado_alarma == 'Cerrada'; else bloqueB">
       <button type="submit" class="btn btn-outline-primary m-1" [routerLink]="['/alarmas/modificar', alarma.id]">
         <i class="fa fa-eye"></i>
       </button>

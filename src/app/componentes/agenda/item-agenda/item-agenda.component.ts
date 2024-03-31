@@ -31,7 +31,7 @@ export class ItemAgendaComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.n_expediente = this.agenda.id_paciente.numero_expediente;
+    this.n_expediente = this?.agenda?.id_paciente?.numero_expediente;
   }
 
   //Toast para el Alert indicando que la operación fue exitosa
