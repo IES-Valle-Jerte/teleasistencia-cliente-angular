@@ -5,7 +5,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 import Swal from 'sweetalert2';
 import {environment} from "../../../../environments/environment";
-import {Spinner} from "../../../clases/spinner";
 
 @Component({
   selector: 'app-item-direccion, [app-item-direccion]',
@@ -80,7 +79,6 @@ export class ItemDireccionComponent implements OnInit {
 
   //Metodo que llama al servicio delete, que elimina el elemento
   eliminarDireccion(ruta: string): void {
-    Spinner.mostrarSpiner();
     this.cargaDirecciones.eliminarDireccion(this.direccion).subscribe(
       e => {
         this.router.navigateByUrl(ruta + '/borrado/' + this.direccion.id, {skipLocationChange: true}).then(() => {

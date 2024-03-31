@@ -44,28 +44,30 @@
 
             <div class="form-group mb-3 row ">
               <label for="tipo_agenda" class="form-label col-12 text-start p-0">Tipo de agenda</label>
-              <div class="col-12 col-lg-9 p-0 pb-1 pb-lg-0">
+              <div class="col-12 col-lg p-0 pb-1 pb-lg-0">
                 <ng-select id="tipo_agenda" name="tipo_agenda" formControlName="tipo_agenda" required (change)="obtenerImportancia()">
                   <ng-option *ngFor="let tipo_agenda of tipos_agenda"
                           [value]="tipo_agenda.id">{{ tipo_agenda.nombre }}</ng-option>
                 </ng-select>
               </div>
-              <div class="col-4 col-lg-1 p-0 ms-lg-auto">
-                <button class="btn btn-success botonOperacion" (click)="mostrarCrear()"
-                        data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-                  <i class="fa fa-solid fa-plus"></i></button>
-              </div>
-              <div class="col-4 col-lg-1 p-0">
-                <button class="btn btn-warning botonOperacion"
-                        (click)="mostrarModificar()" [disabled]="botonDes()"
-                        data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false" aria-controls="collapseWidthExample2">
-                  <i class="fa fa-sharp fa-solid fa-pen"></i></button>
-              </div>
-              <div class="col-4 col-lg-1 p-0">
-                <button class="btn btn-danger botonOperacion"
-                        (click)="eliminarTipo()" [disabled]="botonDes()">
-                  <i class="fa fa-solid fa-trash"></i></button>
-              </div>
+              <ng-container *ngIf="this.isAdmin">
+                <div class="col-4 col-lg-1 p-0 ms-lg-auto">
+                  <button class="btn btn-success botonOperacion" (click)="mostrarCrear()"
+                          data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+                    <i class="fa fa-solid fa-plus"></i></button>
+                </div>
+                <div class="col-4 col-lg-1 p-0">
+                  <button class="btn btn-warning botonOperacion"
+                          (click)="mostrarModificar()" [disabled]="botonDes()"
+                          data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false" aria-controls="collapseWidthExample2">
+                    <i class="fa fa-sharp fa-solid fa-pen"></i></button>
+                </div>
+                <div class="col-4 col-lg-1 p-0">
+                  <button class="btn btn-danger botonOperacion"
+                          (click)="eliminarTipo()" [disabled]="botonDes()">
+                    <i class="fa fa-solid fa-trash"></i></button>
+                </div>
+              </ng-container>
             </div>
 
             <div class="form-group mb-3 row">
@@ -80,8 +82,9 @@
 
             <div class="form-group mb-3 row">
               <label for="fecha_prevista" class="form-label col-12 text-start p-0">Fecha prevista</label>
-              <input type="datetime-local" name="fecha_prevista" id="fecha_prevista" class="form-control"
-                     required maxlength="200" formControlName="fecha_prevista">
+              <input type="datetime-local" name="fecha_prevista" id="fecha_prevista" class="form-control" 
+                    min='{{getToday()}}' 
+                    required maxlength="200" formControlName="fecha_prevista">
               <div *ngIf="form.fecha_prevista.invalid && (form.fecha_prevista.dirty || form.fecha_prevista.touched)" class="alert alert-secondary" role="alert">
                 <div *ngIf="form.fecha_prevista.errors?.required">
                   El campo fecha prevista es obligatorio.
@@ -103,14 +106,14 @@
 
             <button type="submit" class="btn btn-outline-success m-1"
                     [disabled]="nuevaAgenda.invalid">
-              Guardar
-            </button>
-            <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/agenda']">
-              Volver
+              Guardar y salir
             </button>
             <button type="submit" class="btn btn-outline-success m-1"
                     [disabled]="nuevaAgenda.invalid" (click)="cambiarNavigate()">
               Guardar y crear agenda
+            </button>
+            <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/agenda']">
+              Volver
             </button>
 
           </form>

@@ -4,8 +4,6 @@ import {CargaRecursoComunitarioService} from "../../../../services/recursos/carg
 import {ActivatedRoute, Router} from "@angular/router";
 import Swal from "sweetalert2";
 import {environment} from "../../../../../environments/environment";
-import {ITipoRecursoComunitario} from "../../../../interfaces/i-tipo-recurso-comunitario";
-import {CargaTipoRecursoComunitarioService} from "../../../../services/recursos/carga-tipo-recurso-comunitario.service";
 
 
 @Component({

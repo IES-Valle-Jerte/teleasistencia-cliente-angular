@@ -48,10 +48,14 @@ export class ModificarPersonaComponent implements OnInit {
   public plegado: boolean = false;
   public isAdmin: boolean;
   public id_tipo: number;
-
+  public listaProvincias: String[] = ['Álava','Albacete','Alicante','Almería','Asturias','Avila','Badajoz','Barcelona','Burgos','Cáceres',
+  'Cádiz','Cantabria','Castellón','Ciudad Real','Córdoba','La Coruña','Cuenca','Gerona','Granada','Guadalajara',
+  'Guipúzcoa','Huelva','Huesca','Islas Baleares','Jaén','León','Lérida','Lugo','Madrid','Málaga','Murcia','Navarra',
+  'Orense','Palencia','Las Palmas','Pontevedra','La Rioja','Salamanca','Segovia','Sevilla','Soria','Tarragona',
+  'Santa Cruz de Tenerife','Teruel','Toledo','Valencia','Valladolid','Vizcaya','Zamora','Zaragoza']
 
   /* Constantes */
-  readonly PLANTILLA_OBS = 'Otros Servicios: ,Datos de ocio: ,Servicio de Comidas: ';
+  readonly PLANTILLA_OBS = '';
 
 
 
@@ -88,6 +92,7 @@ export class ModificarPersonaComponent implements OnInit {
     this.crearPaciente.getPaciente(this.crearPaciente.idPacienteEditar).subscribe(
       paciente =>{
         this.pacienteEditar = paciente;
+        
         this.cargaPersonas.getPersona(this.pacienteEditar.id_persona.id).subscribe(
           persona => {
             this.personaEditar = persona;
@@ -105,7 +110,8 @@ export class ModificarPersonaComponent implements OnInit {
               direccion: this.personaEditar.id_direccion.direccion,
               codigo_postal: this.personaEditar.id_direccion.codigo_postal,
               tipos_personas: this.pacienteEditar.id_tipo_modalidad_paciente.nombre,
-              id_tipo: this.pacienteEditar.id_tipo_modalidad_paciente.id
+              id_tipo: this.pacienteEditar.id_tipo_modalidad_paciente.id,
+              text_area: this.pacienteEditar.observaciones_medicas
             })
           }
         )

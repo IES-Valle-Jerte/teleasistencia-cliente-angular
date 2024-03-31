@@ -6,7 +6,6 @@ import {CargaHistoricoAgendaService} from "../../../servicios/carga-historico-ag
 import {IHistoricoAgenda} from "../../../interfaces/i-historico-agenda";
 import {HistoricoAgenda} from "../../../clases/historico-agenda";
 import {IAgenda} from "../../../interfaces/i-agenda";
-import {toInteger} from "@ng-bootstrap/ng-bootstrap/util/util";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
@@ -178,7 +177,6 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
           Validators.required
         ]],
         movil_paciente: [this.agenda.id_paciente.id_persona.telefono_movil, [
-          Validators.required
         ]],
         tipo_agenda: [this.agenda.id_tipo_agenda.nombre, [
           Validators.required

@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {CargaTipoAgendaService} from "../../../servicios/carga-tipo-agenda.service";
+import { AuthService } from 'src/app/servicios/auth.service';
 
 @Component({
   selector: 'app-nuevo-agenda',
@@ -23,6 +24,7 @@ export class NuevoAgendaComponent implements OnInit {
   public pacientes: IPaciente[];
   public paciente: IPaciente;
   public nuevaAgenda: FormGroup;
+  public isAdmin: boolean;
   submitted = false;
   mostrarNuevoTipo = false;
   mostrarEditarTipo = false;
@@ -34,7 +36,8 @@ export class NuevoAgendaComponent implements OnInit {
     private cargaAgendas: CargaAgendaService,
     private cargaTiposAgendas: CargaTipoAgendaService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private auth: AuthService
   ) { }
 
   // Carga de los datos para poder rellenar el formulario de creación.
@@ -42,6 +45,7 @@ export class NuevoAgendaComponent implements OnInit {
     this.tipos_agenda = this.route.snapshot.data['tipos_agenda'];
     this.titleService.setTitle('Nuevo agenda');
     this.pacientes = this.route.snapshot.data['pacientes'];
+    this.isAdmin = this.auth.isAdmin();
     this.crearForm();
   }
 
@@ -120,6 +124,7 @@ export class NuevoAgendaComponent implements OnInit {
         } else {
           this.router.navigate(['/agenda']);
         }
+        this.guardarCrear = false;
       },
       error => {
         this.alertError();
@@ -239,5 +244,9 @@ export class NuevoAgendaComponent implements OnInit {
     }else{
       return false;
     }
+  }
+  
+  getToday() {
+    return new Date().toISOString().split(".")[0].replace("T"," ").slice(0,-3);
   }
 }

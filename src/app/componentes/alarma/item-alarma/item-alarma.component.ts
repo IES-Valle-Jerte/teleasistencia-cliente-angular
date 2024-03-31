@@ -14,6 +14,8 @@ import {AuthService} from "../../../servicios/auth.service";
 })
 export class ItemAlarmaComponent implements OnInit {
   @Input() public alarma: Alarma;
+  @Input() public mostrarBorrar: Boolean = true; // Input que servirá para saber si se muestra el botón de borrar
+  @Input() public mostrarTeleoperador: Boolean = true; // Muestra la columna teleoperador
   isAdmin: boolean;
   constructor( private router:Router,private auth:AuthService, private cargarAlarmas: CargaAlarmaService) { }
 

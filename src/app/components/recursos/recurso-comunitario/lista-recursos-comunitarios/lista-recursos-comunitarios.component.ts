@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {IRecursoComunitario} from '../../../../interfaces/i-recurso-comunitario';
 import {ActivatedRoute} from '@angular/router';
 import { Router } from '@angular/router';
-import {OrdenacionTablasService} from "../../../../servicios/ordenacion-tablas.service";
 import {CargaRecursoComunitarioService} from "../../../../services/recursos/carga-recurso-comunitario.service";
 import {CargarClasificacionRecursosService} from "../../../../services/recursos/cargar-clasificacion-recursos.service";
 import {IClasificacioRecurso} from "../../../../interfaces/i-clasificacio-recurso";
+import { OrdenacionTablasV2Service } from 'src/app/servicios/ordenacion-tablas.v2.service';
 
 @Component( {
   selector: 'app-lista-recursos-comunitarios',
@@ -16,12 +16,15 @@ export class ListaRecursosComunitariosComponent implements OnInit {
   public recursos_comunitarios: IRecursoComunitario[] | any;
   public clasificacion: IClasificacioRecurso | any;
   public id;
-
+  numPaginacion: number = 1;
   inputBusqueda: any = '';
 
 
-  constructor(private route: ActivatedRoute, private ordTabla: OrdenacionTablasService, private cargarRecursos: CargaRecursoComunitarioService,private router: Router
-  ,private cargaClasificacion: CargarClasificacionRecursosService) {
+  constructor(private route: ActivatedRoute,
+              private cargarRecursos: CargaRecursoComunitarioService,private router: Router,
+              private cargaClasificacion: CargarClasificacionRecursosService,
+              private ordTabla: OrdenacionTablasV2Service,
+              private cdr: ChangeDetectorRef) {
   }
 
   /*
@@ -67,8 +70,13 @@ export class ListaRecursosComunitariosComponent implements OnInit {
     )
   }
 
-  // Este método es el utilizado para ordenar la tabla
-  ordenacionTabla(indice: number, tipo: string){
-    this.ordTabla.ordenacionService(indice, tipo);
+
+  ordenacionTabla(indice: number,campo1:string = "", campo2:string = "" , tipo: string ="string"){
+    var recursos_comunitarios2 = this.ordTabla.ordenacionTabla(this.recursos_comunitarios,indice,campo1,campo2, tipo);
+    this.recursos_comunitarios = [];
+    this.cdr.detectChanges();
+    this.recursos_comunitarios = recursos_comunitarios2;
+    this.cdr.detectChanges();
+
   }
 }

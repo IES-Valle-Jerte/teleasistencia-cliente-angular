@@ -2,16 +2,16 @@ import {Component, OnInit} from '@angular/core';
 import {IDireccion} from '../../../../interfaces/i-direccion';
 import {IRecursoComunitario} from '../../../../interfaces/i-recurso-comunitario';
 import {ITipoRecursoComunitario} from '../../../../interfaces/i-tipo-recurso-comunitario';
-import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CargaDireccionService} from '../../../../servicios/carga-direccion.service';
 import {CargaRecursoComunitarioService} from '../../../../services/recursos/carga-recurso-comunitario.service';
-import {Direccion} from '../../../../clases/direccion';
-import {RecursoComunitario} from '../../../../clases/recurso-comunitario';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CargaTipoRecursoComunitarioService} from "../../../../services/recursos/carga-tipo-recurso-comunitario.service";
 import Swal from "sweetalert2";
 import {environment} from "../../../../../environments/environment";
+import { AuthService } from 'src/app/servicios/auth.service';
+import { IClasificacioRecurso } from 'src/app/interfaces/i-clasificacio-recurso';
+import { CargarClasificacionRecursosService } from 'src/app/services/recursos/cargar-clasificacion-recursos.service';
 
 
 @Component({
@@ -23,40 +23,52 @@ import {environment} from "../../../../../environments/environment";
 export class CrearRecursoComunitarioComponent implements OnInit {
   public recurso_comunitario: IRecursoComunitario | any;
   public tipos_recursos_comunitarios: ITipoRecursoComunitario[];
-  public tipo_recurso: ITipoRecursoComunitario | any;
+  public clasificacion: IClasificacioRecurso | any;
   public dire: IDireccion;
   public id: number;
   public mostrar: boolean = false;
   public mostrarModificar: boolean = false;
   public formCrearTipo: FormGroup;
   nuevoRecurso: FormGroup;
+  public isAdmin: boolean;
+  public listaProvincias: String[] = ['Álava','Albacete','Alicante','Almería','Asturias','Avila','Badajoz','Barcelona','Burgos','Cáceres',
+  'Cádiz','Cantabria','Castellón','Ciudad Real','Córdoba','La Coruña','Cuenca','Gerona','Granada','Guadalajara',
+  'Guipúzcoa','Huelva','Huesca','Islas Baleares','Jaén','León','Lérida','Lugo','Madrid','Málaga','Murcia','Navarra',
+  'Orense','Palencia','Las Palmas','Pontevedra','La Rioja','Salamanca','Segovia','Sevilla','Soria','Tarragona',
+  'Santa Cruz de Tenerife','Teruel','Toledo','Valencia','Valladolid','Vizcaya','Zamora','Zaragoza']
 
-  constructor(private titleService: Title, private route: ActivatedRoute, private cargaDirecciones: CargaDireccionService,
+  /**
+   * Constructor
+   * @param auth
+   */
+  constructor(private route: ActivatedRoute, private cargaDirecciones: CargaDireccionService,
               private cargaRecursosComunitarios: CargaRecursoComunitarioService, private router: Router,private formBuilder: FormBuilder,
-              private cargaTipoRecursosComunitarios: CargaTipoRecursoComunitarioService) {
+              private cargaTipoRecursosComunitarios: CargaTipoRecursoComunitarioService,
+              private auth: AuthService,
+              private cargaClasificacion: CargarClasificacionRecursosService) {
   }
 
   ngOnInit(): void {
     this.recurso_comunitario = this.route.snapshot.data['recurso_comunitario'];
-    this.tipo_recurso = this.route.snapshot.data['tipos_recursos_comunitarios'];
+    this.tipos_recursos_comunitarios = this.route.snapshot.data['tipos_recursos_comunitarios'];
+    this.isAdmin = this.auth.isAdmin();
 
     this.route.paramMap.subscribe(params => { // Con el paramMap obtenemos todos los elementos de la URL, dentro del suscribe obtenemos el id que
       //es la variable que necesitamos
       this.id = +params.get('id');
     });
 
-    this.cargaTipoRecursosComunitarios.getTipoRecursoComunitarioClasificacion(this.id).subscribe(
-        tipos =>{
-          this.tipos_recursos_comunitarios = tipos
-        },
-        error => {
-          console.log(error);
-        }
+    this.cargaClasificacion.getClasificacionRecursoComunitario(this.id).subscribe(
+      clasificacion =>{
+        this.clasificacion = clasificacion;
+      },error => {
+        console.log(error)
+      }
     )
 
     // Creamos el formulario para crear un recurso comunitario nuevo, con sus respectivas validaciones
     this.nuevoRecurso = this.formBuilder.group({
-        id: [null, Validators.required],
+        id: [null],
         nombre: ['',[
           Validators.required,
           Validators.maxLength(500)

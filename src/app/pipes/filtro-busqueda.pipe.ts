@@ -10,7 +10,13 @@ export class FiltroBusquedaPipe implements PipeTransform {
   transform(valorIntroducido: any[], filtro?: any): any {
     if(valorIntroducido !== undefined){
         return valorIntroducido.filter(function (contenido){
-        return JSON.stringify(contenido).toLowerCase().includes(filtro.toLowerCase());
+        //return JSON.stringify(contenido).toLowerCase().includes(filtro.toLowerCase());
+        
+        const normalizedContenido = JSON.stringify(contenido).toLowerCase().normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");// Elimina los acentos del contenido
+        const normalizedFiltro = filtro.toLowerCase().normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, ""); // Elimina los acentos del filtro
+        return normalizedContenido.includes(normalizedFiltro);
       })
     }
   }

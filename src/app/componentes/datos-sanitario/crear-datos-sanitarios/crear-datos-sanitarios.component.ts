@@ -35,6 +35,7 @@ export class CrearDatosSanitariosComponent implements OnInit {
   public tipos_recursos_comunitarios: ITipoRecursoComunitario[] | any;
   public relacion_terminal_recurso: IRelacionTerminalRecursoComunitarios | any;
   public formulario: FormGroup | any;
+  public formularioRecurso: FormGroup | any;
   public recurso: IRecursoComunitario | any;
   public recursoBorrad: IRelacionTerminalRecursoComunitarios | any;
   public recursosMostrados: IRecursoComunitario[];
@@ -75,7 +76,7 @@ export class CrearDatosSanitariosComponent implements OnInit {
 
 //Función que determina si se pulsa o no en el selector de Recursos. Si no se pulsa aparece con cierta opacidad.
   desactivado() {
-    return (this.formulario.value.recurso == '') || (this.formulario.value.recurso == null);
+    return (this.formularioRecurso.value.recurso == '') || (this.formularioRecurso.value.recurso == null);
 
   }
 
@@ -83,7 +84,11 @@ export class CrearDatosSanitariosComponent implements OnInit {
   crearFormulario() {
     this.formulario = this.formBuilder.group(
       {
-        nuss: ['', [Validators.required, Validators.pattern("^\\d*\\.?\\d+$")]],
+        nuss: ['', [Validators.required, Validators.pattern("^\\d*\\.?\\d+$")]]
+      }
+    )
+    this.formularioRecurso = this.formBuilder.group(
+      {
         recurso: ['', [Validators.required]],
         tiempo: ['', [Validators.required, Validators.pattern("^[0-9]+$")]]
 
@@ -113,7 +118,7 @@ export class CrearDatosSanitariosComponent implements OnInit {
   //Metodo que crea la relación Terminal-Recurso. Esta hace un GET de la ID del Recurso y lo guarda, creando luego la relacion y haciendo un POST con la nueva
   //relacion. Trae como resultado un POST de Relacion Terminal. Este metodo tiene un booleano que hace que se muestre una tabla con todos las relaciones
   crearRelacion() {
-    this.cargaRecurso.getRecursoComunitario(this.formulario.get('recurso').value).subscribe(
+    this.cargaRecurso.getRecursoComunitario(this.formularioRecurso.get('recurso').value).subscribe(
       recurso => {
         this.recurso = recurso;
       }, error => console.log(error),
@@ -122,7 +127,7 @@ export class CrearDatosSanitariosComponent implements OnInit {
         this.relacion_terminal_recurso = {
           'id_terminal': this.cargaRelacionTerminal.idTerminal,
           'id_recurso_comunitario': this.recurso.id,
-          'tiempo_estimado': this.formulario.get('tiempo').value
+          'tiempo_estimado': this.formularioRecurso.get('tiempo').value
         }
         this.cargaRelacionTerminalRecursosComunitarios.nuevaRelacionRecurso(this.relacion_terminal_recurso).subscribe(
           relacion => {
@@ -147,21 +152,31 @@ export class CrearDatosSanitariosComponent implements OnInit {
   //Mando la ID del Recurso en específico junto con la posición y elimino el recurso en cuestión
   //Me traigo primero la terminal para posteriormente borrarlo de mi array de arrayRelaciones y eliminar la relación.
   borrarRecurso(id: number, i: number) {
-    this.cargaRelacionTerminalRecursosComunitarios.getRelacionTerminalRecursoComunitario(id).subscribe(
-      terminal => {
-        this.recursoBorrad = terminal
-      },
-      error => console.log(error),
-      () => {
-        this.arrayRelaciones.splice(i, 1);
-        this.cargaRelacionTerminalRecursosComunitarios.eliminarRelacionRecurso(this.recursoBorrad).subscribe(
+    
+    Swal.fire({
+      title: '¿Está seguro que desea eliminar este recurso?',
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.cargaRelacionTerminalRecursosComunitarios.getRelacionTerminalRecursoComunitario(id).subscribe(
+          terminal => {
+            this.recursoBorrad = terminal
+          },
+          error => console.log(error),
           () => {
-            this.alertBorrarRecurso();
+            this.arrayRelaciones.splice(i, 1);
+            this.cargaRelacionTerminalRecursosComunitarios.eliminarRelacionRecurso(this.recursoBorrad).subscribe(
+              () => {
+                this.alertBorrarRecurso();
+              }
+            )
+    
           }
         )
-
       }
-    )
+    })
 
   }
 
@@ -181,7 +196,7 @@ export class CrearDatosSanitariosComponent implements OnInit {
 
 //Estos GET sirven para así poder tomar el valor de los mismos del formulario en cuestión
   get nombre() {
-    return this.formulario.get('nombre') as FormControl;
+    return this.formularioRecurso.get('nombre') as FormControl;
   }
 
   get nuss() {
@@ -189,29 +204,29 @@ export class CrearDatosSanitariosComponent implements OnInit {
   }
 
   get telefono() {
-    return this.formulario.get('telefono') as FormControl;
+    return this.formularioRecurso.get('telefono') as FormControl;
 
   }
 
   get localidad() {
-    return this.formulario.get('localidad') as FormControl;
+    return this.formularioRecurso.get('localidad') as FormControl;
   }
 
   get provincia() {
-    return this.formulario.get('provincia') as FormControl;
+    return this.formularioRecurso.get('provincia') as FormControl;
   }
 
 
   get direccion() {
-    return this.formulario.get('direccion') as FormControl;
+    return this.formularioRecurso.get('direccion') as FormControl;
   }
 
   get codigo_postal() {
-    return this.formulario.get('codigo_postal') as FormControl;
+    return this.formularioRecurso.get('codigo_postal') as FormControl;
   }
 
   get tiempo() {
-    return this.formulario.get('tiempo') as FormControl;
+    return this.formularioRecurso.get('tiempo') as FormControl;
   }
 
 //-------------------------------------------------------

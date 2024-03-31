@@ -11,15 +11,15 @@
     <form [formGroup]="nuevoHistorico" (ngSubmit)="onSubmit()">
 
       <div class="form-group mb-3">
-        <label for="paciente" class="form-label">Persona a cargo</label>
+        <label for="paciente" class="form-label">Usuario del servicio</label>
         <input type="text" name="paciente" id="paciente" class="form-control"
                required maxlength="200" formControlName="paciente" disabled>
       </div>
 
       <div class="form-group mb-3">
-        <label for="telefonoPaciente" class="form-label">Teléfono del paciente</label>
+        <label for="telefonoPaciente" class="form-label">Teléfono del usuario</label>
         <input type="text" name="telefonoPaciente" id="telefonoPaciente" class="form-control"
-               required maxlength="200" formControlName="movil_paciente" disabled>
+               maxlength="200" formControlName="movil_paciente" disabled>
       </div>
 
       <div class="form-group mb-3">

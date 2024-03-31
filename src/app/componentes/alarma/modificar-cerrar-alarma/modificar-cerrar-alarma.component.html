@@ -70,6 +70,9 @@
           <button [disabled]="this.formInf.invalid" (click)="modificarAlarma(true)"  type="submit" class="btn btn-outline-success m-1" [ngClass]="this.alarma.estado_alarma == 'Cerrada'?'inactiveForm':''">
             Guardar y crear agenda
           </button>
+          <button (click)="back()"  type="submit" class="btn btn-outline-secondary m-1" >
+            Volver
+          </button>
         </form>
       </div>
 <!-- PARTE DERECHA DE LA PAGINA -->

@@ -2,15 +2,14 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-
 import {CargaAgendaService} from "../../../servicios/carga-agenda.service";
-import {ActivatedRoute, ActivatedRouteSnapshot, Router, RouterStateSnapshot} from "@angular/router";
-import {Title} from "@angular/platform-browser";
 import {IAgenda} from "../../../interfaces/i-agenda";
-import {OrdenacionTablasService} from "../../../servicios/ordenacion-tablas.service";
 import {AuthService} from "../../../servicios/auth.service";
+import { ActivatedRoute, Router } from '@angular/router';
+import { OrdenacionTablasV2Service } from 'src/app/servicios/ordenacion-tablas.v2.service';
+import { IPaciente } from 'src/app/interfaces/i-paciente';
 
 @Component({
   selector: 'app-agenda',
@@ -21,31 +20,40 @@ import {AuthService} from "../../../servicios/auth.service";
 export class AgendaComponent implements OnInit {
 
   public agendasDelDia: IAgenda[] = [];
+  public usuariosServicio: IPaciente[] = [];
+  public busquedaUsuarioServicioId: Number = null;
   public fechaToday = new Date();
   numPaginacion: number = 1;
   inputBusqueda: any = '';
   inputFechaBusqueda: any = '';
-  fechaString = '';
+  public tituloAgenda = '';
   public isAdmin: boolean
 
 
   constructor(
-    private modal: NgbModal,
     private cargaAgendaService: CargaAgendaService,
     private route: ActivatedRoute,
-    private titleService: Title,
-    private ordTabla: OrdenacionTablasService,
-    private router: Router,
     private auth: AuthService,
+    private ordTabla: OrdenacionTablasV2Service,
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {
   }
 
   // Al cargar el componente, se establecen las agendas para el día actual
   ngOnInit() {
     this.agendasDelDia = this.route.snapshot.data['agendasDelDia'];
+    this.usuariosServicio = this.route.snapshot.data['usuariosServicio'];
+    var  busquedaUsuarioServicio = this.route.snapshot.data['busquedaUsuarioServicio'];
+    if (busquedaUsuarioServicio){
+      this.busquedaUsuarioServicioId = busquedaUsuarioServicio.id;
+      this.tituloAgenda = "Agenda de "+busquedaUsuarioServicio.id_persona.nombre + " "+ busquedaUsuarioServicio.id_persona.apellidos 
+    }
+    else{
+      this.tituloAgenda = +this.fechaToday.getDate() + ' de ' + this.getNombreMes(this.fechaToday.getMonth()) + ' de '
+        + this.fechaToday.getFullYear();
+    }
     this.agendasDelDia = this.agendasDelDia.sort(this.ordenarAgendas);
-    this.fechaString = +this.fechaToday.getDate() + ' de ' + this.getNombreMes(this.fechaToday.getMonth()) + ' de '
-      + this.fechaToday.getFullYear();
     this.isAdmin = this.auth.isAdmin();
   }
 
@@ -75,9 +83,15 @@ export class AgendaComponent implements OnInit {
   }
 
   // Método que ordena la tabla si hacemos click en las flechas de los th de la tabla
-  ordenacionTabla(indice: number, tipo: string) {
-    this.ordTabla.ordenacionService(indice, tipo);
+  ordenacionTabla(indice: number,campo1:string = "", campo2:string = "" , tipo: string ="string"){
+    var agendasDelDia2 = this.ordTabla.ordenacionTabla(this.agendasDelDia,indice,campo1,campo2, tipo);
+    this.agendasDelDia = [];
+    this.cdr.detectChanges();
+    this.agendasDelDia = agendasDelDia2;
+    this.cdr.detectChanges();
+
   }
+  
 
   // Método para buscar las agendas según un día seleccionado
   // El funcionamiento del mismo es el siguiente:
@@ -93,7 +107,7 @@ export class AgendaComponent implements OnInit {
         this.inputFechaBusqueda = event;
         if (e) {
           this.agendasDelDia = datos;
-          this.fechaString = +fechaSeparada[2] + ' de '
+          this.tituloAgenda = +fechaSeparada[2] + ' de '
             + this.getNombreMesActualizarFecha(fechaSeparada[1]) + ' de '
             + fechaSeparada[0];
           if (datos && datos.length > 0) {
@@ -109,6 +123,22 @@ export class AgendaComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  // Permite filtrar el contenido por usuario del servicio
+  buscarPorUsuarioServicio(){
+    //this.busquedaUsuarioServicio = event.value;
+    if ( this.busquedaUsuarioServicioId){
+      this.router.navigateByUrl('/agenda/usuarios/actualizar/'+this.busquedaUsuarioServicioId, { skipLocationChange: true }).then(() => {
+        this.router.navigate(['/agenda/usuarios/'+this.busquedaUsuarioServicioId],{ replaceUrl: true });
+      });
+    }
+    else {
+      this.router.navigateByUrl('/agenda/actualizar', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['/agenda']);
+      });
+    }
+
   }
 
   // Método para conseguir el nombre del mes usando el número que nos devuelve la función getMonth()

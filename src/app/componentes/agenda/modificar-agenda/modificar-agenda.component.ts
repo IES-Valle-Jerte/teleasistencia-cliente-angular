@@ -4,7 +4,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 import {ITipoAgenda} from "../../../interfaces/i-tipo-agenda";
 import {IPaciente} from "../../../interfaces/i-paciente";
-import {IPersona} from "../../../interfaces/i-persona";
 import {CargaAgendaService} from "../../../servicios/carga-agenda.service";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
@@ -25,6 +24,7 @@ export class ModificarAgendaComponent implements OnInit {
   public pacientes: IPaciente[];
   public modAgenda: FormGroup;
   submitted = false;
+  guardarCrear = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -85,12 +85,18 @@ export class ModificarAgendaComponent implements OnInit {
     this.cargaAgendaService.modificarAgenda(this.agenda).subscribe(
       e => {
         this.alertExito();
-        this.router.navigate(['/agenda']);
+        if (this.guardarCrear) {
+          this.router.navigate(['/agenda/nueva' , this.agenda.id_paciente]);
+        } else {
+          this.router.navigate(['/agenda']);
+        }
+        this.guardarCrear = false;
       },
       error => {
         this.alertError();
       }
     );
+    
   }
 
   // Método para marcar como 'selected' el option que coincide con el valor de la agenda seleccionada.
@@ -167,6 +173,10 @@ export class ModificarAgendaComponent implements OnInit {
     }
     this.modificarEventoAgenda();
   }
+  
+  cambiarNavigate() {
+    this.guardarCrear = true;
+  }
 
   //Método para obtener el número de expediente del paciente seleccionado en el formulario
   obtenerExpediente() {
@@ -178,5 +188,9 @@ export class ModificarAgendaComponent implements OnInit {
   obtenerImportancia() {
     this.agenda.id_tipo_agenda = this.tipos_agenda.find(tipo => tipo.id == this.modAgenda.get('tipo_agenda').value);
     this.modAgenda.get('importancia').setValue(this.agenda.id_tipo_agenda.importancia);
+  }
+  
+  getToday() {
+    return new Date().toISOString().split(".")[0].replace("T"," ").slice(0,-3);
   }
 }

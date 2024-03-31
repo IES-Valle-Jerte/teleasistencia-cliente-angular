@@ -38,11 +38,16 @@ export class CrearPersonaComponent implements OnInit {
   public idPersona: number;
   public listaSexo: String[] = ['Hombre', 'Mujer'];
   public isAdmin: boolean;
+  public listaProvincias: String[] = ['Álava','Albacete','Alicante','Almería','Asturias','Avila','Badajoz','Barcelona','Burgos','Cáceres',
+  'Cádiz','Cantabria','Castellón','Ciudad Real','Córdoba','La Coruña','Cuenca','Gerona','Granada','Guadalajara',
+  'Guipúzcoa','Huelva','Huesca','Islas Baleares','Jaén','León','Lérida','Lugo','Madrid','Málaga','Murcia','Navarra',
+  'Orense','Palencia','Las Palmas','Pontevedra','La Rioja','Salamanca','Segovia','Sevilla','Soria','Tarragona',
+  'Santa Cruz de Tenerife','Teruel','Toledo','Valencia','Valladolid','Vizcaya','Zamora','Zaragoza']
 
 
   /* Constantes */
 
-  readonly PLANTILLA_OBS = "- Otros Servicios:\n\n- Datos de ocio:\n\n- Servicio de Comidas:";
+  readonly PLANTILLA_OBS = "- Otros Servicios:\n\n- Datos de ocio:\n\n- Servicio de Comidas:\n\n- Datos unidad de convivencia:\n\n- Datos económicos:\n\n";
 
 
   /**
@@ -107,8 +112,7 @@ export class CrearPersonaComponent implements OnInit {
         Validators.pattern(environment.regex_movil)]],
       localidad: ['', [Validators.required,
         Validators.maxLength(200)]],
-      provincia: ['', [Validators.required,
-        Validators.maxLength(200)]],
+      provincia: ['', [Validators.required]],
       direccion: ['', [Validators.required,
         Validators.maxLength(200),]],
       codigo_postal: ['', [Validators.required,

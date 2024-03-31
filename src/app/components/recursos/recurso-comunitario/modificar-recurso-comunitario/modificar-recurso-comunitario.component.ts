@@ -36,12 +36,21 @@ export class ModificarRecursoComunitarioComponent implements OnInit {
 
   editarRecurso: FormGroup | any;
 
+  //  Muestra la clasificación del recurso
+  public clasificacion: IClasificacioRecurso | any;
+  
+  public listaProvincias: String[] = ['Álava','Albacete','Alicante','Almería','Asturias','Avila','Badajoz','Barcelona','Burgos','Cáceres',
+  'Cádiz','Cantabria','Castellón','Ciudad Real','Córdoba','La Coruña','Cuenca','Gerona','Granada','Guadalajara',
+  'Guipúzcoa','Huelva','Huesca','Islas Baleares','Jaén','León','Lérida','Lugo','Madrid','Málaga','Murcia','Navarra',
+  'Orense','Palencia','Las Palmas','Pontevedra','La Rioja','Salamanca','Segovia','Sevilla','Soria','Tarragona',
+  'Santa Cruz de Tenerife','Teruel','Toledo','Valencia','Valladolid','Vizcaya','Zamora','Zaragoza']
 
 
   constructor(private route: ActivatedRoute, private titleService: Title,
               private cargaDirecciones: CargaDireccionService, private cargaRecursosComunitarios: CargaRecursoComunitarioService,
               private cargaTipoRecurso: CargaTipoRecursoComunitarioService, private router: Router,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private cargaClasificacion: CargarClasificacionRecursosService) {
   }
 
 
@@ -61,6 +70,14 @@ export class ModificarRecursoComunitarioComponent implements OnInit {
       },
       error => {}
     );
+    
+    this.cargaClasificacion.getClasificacionRecursoComunitario(this.id).subscribe(
+      clasificacion =>{
+        this.clasificacion = clasificacion;
+      },error => {
+        console.log(error)
+      }
+    )
 
     /* Creamos los valores del formulario
      * Con la palabra reservada Validators creamos la validación de los valores

@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Alarma } from "../../../clases/alarma";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import {OrdenacionTablasService} from "../../../servicios/ordenacion-tablas.service";
 import {AuthService} from "../../../servicios/auth.service";
 import {CargaAlarmaService} from "../../../servicios/alarmas/carga-alarma.service";
 import {IAlarma} from "../../../interfaces/i-alarma";
-import {Spinner} from "../../../clases/spinner";
+import { OrdenacionTablasV2Service } from 'src/app/servicios/ordenacion-tablas.v2.service';
+import { IPaciente } from 'src/app/interfaces/i-paciente';
 
 
 @Component({
@@ -18,21 +18,34 @@ export class ListaAlarmasComponent implements OnInit {
   numPaginacion: number = 1;
   inputBusqueda: any = '';
   isAdmin: boolean;
-  public fecha: string;
+  public tituloAlarma: string;
   public fechaToday = new Date();
   public alarmasDelDia: IAlarma[] = [];
+  public usuariosServicio: IPaciente[] = [];
   public inputFechaBusqueda: any = '';
+  public busquedaUsuarioServicioId: number = null
 
-  constructor(private route: ActivatedRoute,private auth:AuthService, private titleService: Title, private ordTabla: OrdenacionTablasService,private cargarAlarmas:CargaAlarmaService) { }
+  constructor(private route: ActivatedRoute,private auth:AuthService, private titleService: Title,private cargarAlarmas:CargaAlarmaService,
+    private cdr: ChangeDetectorRef,
+    private ordTabla: OrdenacionTablasV2Service,
+    private router: Router) { }
 
 
   ngOnInit(): void {
     this.isAdmin = this.auth.isAdmin();
     this.alarmasDelDia = this.route.snapshot.data['alarmas'].sort(this.ordenarAlarmas);
+    this.usuariosServicio = this.route.snapshot.data['usuariosServicio'];
+    var  busquedaUsuarioServicio = this.route.snapshot.data['busquedaUsuarioServicio'];
+    if (busquedaUsuarioServicio){
+      this.busquedaUsuarioServicioId = busquedaUsuarioServicio.id;
+      this.tituloAlarma = "Alarmas de "+busquedaUsuarioServicio.id_persona.nombre + " "+ busquedaUsuarioServicio.id_persona.apellidos 
+    }
+    else{
+      this.tituloAlarma = + this.fechaToday.getDate() + ' de ' + this.getNombreMes(this.fechaToday.getMonth()) + ' de '
+        + this.fechaToday.getFullYear();
+    }
 
     this.titleService.setTitle('Alarmas');
-    this.fecha = + this.fechaToday.getDate() + ' de ' + this.getNombreMes(this.fechaToday.getMonth()) + ' de '
-      + this.fechaToday.getFullYear();
 
   }
   ordenarAlarmas(a: IAlarma, b:IAlarma):number{
@@ -50,9 +63,18 @@ export class ListaAlarmasComponent implements OnInit {
     }
   }
 
-  ordenacionTabla(indice: number, tipo: string){
-    this.ordTabla.ordenacionService(indice, tipo);
+  
+  // Método que ordena la tabla si hacemos click en las flechas de los th de la tabla
+  
+  ordenacionTabla(indice: number,campo1:string = "", campo2:string = "" , tipo: string ="string"){
+    var alarmasDelDia2 = this.ordTabla.ordenacionTabla(this.alarmasDelDia,indice,campo1,campo2, tipo);
+    this.alarmasDelDia = [];
+    this.cdr.detectChanges();
+    this.alarmasDelDia = alarmasDelDia2;
+    this.cdr.detectChanges();
+
   }
+
   seleccionarFondo(alarma: Alarma): string {
     if (alarma.estado_alarma == "Cerrada") {
       return "cerrada"
@@ -64,14 +86,13 @@ export class ListaAlarmasComponent implements OnInit {
     let fechaSeparada = event.split('-');
 
     if (event != undefined && event != ""){
-      Spinner.mostrarSpiner();
       this.cargarAlarmas.getAlarmasPorFecha(event).subscribe(
         e => {
           const datos: any = e;
           this.inputFechaBusqueda = event;
           if (e) {
             this.alarmasDelDia = datos.sort(this.ordenarAlarmas);
-            this.fecha = + fechaSeparada[2] + ' de '
+            this.tituloAlarma = + fechaSeparada[2] + ' de '
               + this.getNombreMesActualizarFecha(fechaSeparada[1]) + ' de '
               + fechaSeparada[0];
             if(datos && datos.length > 0) {
@@ -81,16 +102,28 @@ export class ListaAlarmasComponent implements OnInit {
             }
           }
           document.getElementById("campoBusqueda").focus();
-          Spinner.ocultarSpinner();
-        },
-        ()=>{
-          Spinner.ocultarSpinner();
-        },
-        () => {
-          Spinner.ocultarSpinner();
         }
         );
     }
+  }
+
+  
+
+  // Permite filtrar el contenido por usuario del servicio
+  buscarPorUsuarioServicio(){
+    //this.busquedaUsuarioServicio = event.value;
+    if ( this.busquedaUsuarioServicioId){
+      console.log(this.busquedaUsuarioServicioId);
+      this.router.navigateByUrl('/alarmas/usuarios/actualizar/'+this.busquedaUsuarioServicioId, { skipLocationChange: true }).then(() => {
+        this.router.navigate(['/alarmas/usuarios/'+this.busquedaUsuarioServicioId],{ replaceUrl: true });
+      });
+    }
+    else {
+      this.router.navigateByUrl('/alarmas/actualizar', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['/alarmas']);
+      });
+    }
+
   }
   // Método para conseguir el nombre del mes usando el número que nos devuelve la función getMonth()
   getNombreMes (numMes: number) {

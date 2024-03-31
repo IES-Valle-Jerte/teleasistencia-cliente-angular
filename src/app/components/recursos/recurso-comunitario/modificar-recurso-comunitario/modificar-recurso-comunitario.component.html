@@ -3,11 +3,11 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
-      <li class="breadcrumb-item"><a [routerLink]="['/recursos_comunitarios/listar/',id]">Recursos comunitarios</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Modificar recurso comunitario</li>
+      <li class="breadcrumb-item"><a [routerLink]="['/recursos_comunitarios/listar/',id]">Recursos {{clasificacion?.nombre}} </a></li>
+      <li class="breadcrumb-item active" aria-current="page">Modificar recurso {{clasificacion?.nombre}} </li>
     </ol>
   </nav>
-  <h1 class="component-title">Modificar datos recurso comunitario {{idRecursoComunitario}}</h1>
+  <h1 class="component-title">Modificar recurso {{clasificacion?.nombre}} {{idRecursoComunitario}}</h1>
   <form [formGroup]="editarRecurso">
     <div class="form-group mb-3">
       <label for="nombre" class="form-label">Nombre</label>
@@ -39,7 +39,7 @@
     </div>
 
     <div class="form-group mb-3">
-      <label for="tipo_recurso_comunitario" class="form-label">Tipo de recurso comunitario</label>
+      <label for="tipo_recurso_comunitario" class="form-label">Tipo de recurso {{clasificacion?.nombre}}</label>
       <div class="col-12 p-0 pb-1 pb-lg-0">
         <ng-select id="tipo_recurso_comunitario" name="tipo_recurso_comunitario" formControlName="clasificacion_recursos_comunitario">
           <ng-option *ngFor="let tipo_recurso_comunitario of tipos_recursos_comunitarios"
@@ -47,7 +47,7 @@
         </ng-select>
         <div *ngIf="valorForm.clasificacion_recursos_comunitario.invalid && (valorForm.clasificacion_recursos_comunitario.dirty || valorForm.clasificacion_recursos_comunitario.touched)" class="alert alert-secondary" role="alert">
           <div *ngIf="valorForm.clasificacion_recursos_comunitario.errors?.required">
-            El tipo de recurso comunitario es obligatorio
+            El tipo de recurso {{clasificacion?.nombre}} es obligatorio
           </div>
         </div>
       </div>
@@ -68,14 +68,15 @@
     </div>
 
     <div class="form-group mb-3">
-      <label for="provincia" class="form-label">Provincia</label>
-      <input type="text" name="provincia" id="provincia" class="form-control" value="{{direccion.provincia}}" formControlName="provincia">
+      
+      <label for="provincia" class="form-label text-start">Provincia <span class="obligatorios">*</span></label>
+      <ng-select id="tipoTeleasistencia" formControlName="provincia" id="provincia" title="{{editarRecurso.value.provincia}}">
+        <ng-option *ngFor="let provincia of listaProvincias; let i = index"
+                   [value]="provincia" [title]="provincia">{{provincia}}</ng-option>
+      </ng-select>
       <div *ngIf="valorForm.provincia.invalid && (valorForm.provincia.dirty || valorForm.provincia.touched)" class="alert alert-secondary" role="alert">
         <div *ngIf="valorForm.provincia.errors?.required">
           La provincia es obligatoria
-        </div>
-        <div *ngIf="valorForm.provincia.errors?.maxLength">
-          La provincia es muy larga
         </div>
       </div>
     </div>
@@ -100,10 +101,10 @@
         <div *ngIf="valorForm.cd.errors?.required">
           El código postal es obligatorio
         </div>
-        <div *ngIf="valorForm.cd.errors?.maxLength">
+        <div *ngIf="valorForm.cd.errors?.maxlength">
           El código postal es muy largo
         </div>
-        <div *ngIf="valorForm.cd.errors?.minLength">
+        <div *ngIf="valorForm.cd.errors?.minlength">
           El código postal es muy corto
         </div>
         <div *ngIf="valorForm.cd.errors?.pattern">

@@ -2,77 +2,81 @@
   <div class="col-12 col-xl-6">
     <form [formGroup]="formularioVivienda" (submit)="nuevaVivienda()"
           [ngClass]="this.mostrar || this.mostrarModificar ? 'inactiveForm':''">
-      <div class="row mb-3 form-group">
-        <label for="nombre" class="form-label text-start">Tipo de Vivienda <span
-          class="obligatorios">*</span></label>
-        <div class="col-12 col-lg pb-1 pb-lg-0">
-          <ng-select  id="nombre" formControlName="nombre" [readonly]="blockEditar" (change)="cambiarId()">
-            <ng-option *ngFor="let tipoVivienda of listaViviendas; let i = index"
-                       [value]="tipoVivienda.id">{{tipoVivienda.nombre}}</ng-option>
-          </ng-select>
-          <input type="hidden"  formControlName="id_tipo">
+      <div class="row mb-3">
+            <label for="nombre" class="form-label text-start">Tipo de Vivienda <span
+              class="obligatorios">*</span></label>
+            <div class="col-12 col-lg pb-1 pb-lg-0">
+              <div class="form-group w-100">
+                <ng-select  id="nombre" formControlName="nombre" [readonly]="blockEditar" (change)="cambiarId()">
+                  <ng-option *ngFor="let tipoVivienda of listaViviendas; let i = index"
+                            [value]="tipoVivienda.id">{{tipoVivienda.nombre}}</ng-option>
+                </ng-select>
+              </div>
+              <input type="hidden"  formControlName="id_tipo">
+            </div>
+            <ng-container *ngIf="!blockEditar">
+              <ng-container *ngIf="this.isAdmin">
+                <div class="col-4 col-lg-1  p-0">
+                  <button class="btn btn-success botonOperacion" type="button"
+                          data-bs-toggle="collapse" data-bs-target="#vivienda" aria-expanded="false"
+                          aria-controls="vivienda" (click)="mostratCrearTipo()">
+                    <i class="fa-solid fa-circle-plus"></i>
+                  </button>
+                </div>
+                <div class="col-4 col-lg-1  p-0">
+                  <button class="btn btn-warning botonOperacion" id="des1" type="button"
+                          data-bs-toggle="collapse" data-bs-target="#vivienda2" aria-expanded="false"
+                          aria-controls="vivienda2" (click)="mostrarEditarTipo()" [disabled]="desactivado()">
+                    <i class="fa fa-sharp fa-solid fa-pen fa-sm"></i>
+                  </button>
+                </div>
+                <div class="col-4 col-lg-1  p-0">
+                  <button class="btn btn-danger botonOperacion" id="des2" type="button" [disabled]="desactivado()"
+                          (click)="modalConfirmacion()">
+                    <i class="fa fa-solid fa-trash"></i>
+                  </button>
+                </div>
+              </ng-container>
+            </ng-container>
 
-        </div>
-        <ng-container *ngIf="!blockEditar">
-          <ng-container *ngIf="this.isAdmin">
-            <div class="col-4 col-lg-1  p-0">
-              <button class="btn btn-success botonOperacion" type="button"
-                      data-bs-toggle="collapse" data-bs-target="#vivienda" aria-expanded="false"
-                      aria-controls="vivienda" (click)="mostratCrearTipo()">
-                <i class="fa-solid fa-circle-plus"></i>
-              </button>
+          </div>
+          <div class="row ">
+            <div class="mb-3 col-12">
+              <div class="form-group w-100">
+                <label for="text_area" class="form-label text-start">Acceso a la vivienda</label>
+                <textarea formControlName="text_area" name="text_area" id="text_area" class="form-control"
+                          [readonly]="blockEditar"></textarea>
+                </div>
             </div>
-            <div class="col-4 col-lg-1  p-0">
-              <button class="btn btn-warning botonOperacion" id="des1" type="button"
-                      data-bs-toggle="collapse" data-bs-target="#vivienda2" aria-expanded="false"
-                      aria-controls="vivienda2" (click)="mostrarEditarTipo()" [disabled]="desactivado()">
-                <i class="fa fa-sharp fa-solid fa-pen fa-sm"></i>
-              </button>
+          </div>
+          <div class="row mb-3">
+            <div class="col-12 ">
+              <div class="form-group w-100">
+                <label for="text_area" class="form-label text-start">Otros datos de la vivienda</label>
+                <textarea formControlName="text_area2" name="text_area" id="text_area2" class="form-control"
+                          [readonly]="blockEditar"></textarea>
+              </div>
             </div>
-            <div class="col-4 col-lg-1  p-0">
-              <button class="btn btn-danger botonOperacion" id="des2" type="button" [disabled]="desactivado()"
-                      (click)="modalConfirmacion()">
-                <i class="fa fa-solid fa-trash"></i>
+          </div>
+          <input type="hidden" formControlName="id_tipo">
+
+          <ng-container>
+            <div class="text-center" *ngIf="!blockEditar">
+              <button type="submit" class="btn btn-outline-success m-1"
+                      [disabled]="formularioVivienda.invalid" data-bs-toggle="collapse"
+                      data-bs-target="#viviendaForm,#personaContacto" aria-expanded="false"
+                      aria-controls="datosPersonales" (click)="contraer()">
+                Guardar
+              </button>
+              <button type="button" class="btn btn-outline-secondary m-1"
+                      (click)="volver()"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#viviendaForm ,#datosSanitarios" aria-expanded="false"
+                      aria-controls="datosPersonales">
+                Volver
               </button>
             </div>
           </ng-container>
-        </ng-container>
-
-      </div>
-      <div class="row mb-3">
-        <div class="form-group col-12">
-          <label for="text_area" class="form-label text-start">Acceso a la vivienda</label>
-          <textarea formControlName="text_area" name="text_area" id="text_area" class="form-control"
-                    [readonly]="blockEditar"></textarea>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="form-group col-12">
-          <label for="text_area" class="form-label text-start">Otros datos de la vivienda</label>
-          <textarea formControlName="text_area2" name="text_area" id="text_area2" class="form-control"
-                    [readonly]="blockEditar"></textarea>
-        </div>
-      </div>
-      <input type="hidden" formControlName="id_tipo">
-
-      <ng-container>
-        <div class="text-center" *ngIf="!blockEditar">
-          <button type="submit" class="btn btn-outline-success m-1"
-                  [disabled]="formularioVivienda.invalid" data-bs-toggle="collapse"
-                  data-bs-target="#viviendaForm,#personaContacto" aria-expanded="false"
-                  aria-controls="datosPersonales" (click)="contraer()">
-            Guardar
-          </button>
-          <button type="button" class="btn btn-outline-secondary m-1"
-                  (click)="volver()"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#viviendaForm ,#datosSanitarios" aria-expanded="false"
-                  aria-controls="datosPersonales">
-            Volver
-          </button>
-        </div>
-      </ng-container>
-
 
     </form>
   </div>

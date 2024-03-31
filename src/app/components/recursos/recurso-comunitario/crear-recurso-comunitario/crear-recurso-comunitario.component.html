@@ -3,13 +3,13 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
-        <li class="breadcrumb-item"><a [routerLink]="['/recursos_comunitarios/listar/',id]">Recursos comunitarios</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Crear recurso comunitario</li>
+        <li class="breadcrumb-item"><a [routerLink]="['/recursos_comunitarios/listar/',id]">Recursos {{clasificacion?.nombre}}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Crear nuevo recurso {{clasificacion?.nombre}}</li>
       </ol>
     </nav>
     <div class="row d-flex justify-content-center">
     <div class="col-12 col-xl-6">
-    <h1 class="component-title">Crear nuevo recurso comunitario</h1>
+    <h1 class="component-title">Crear nuevo recurso {{clasificacion?.nombre}}</h1>
     <form [formGroup]="nuevoRecurso" (ngSubmit)="nuevoRecursoComunitario()" [ngClass]="this.mostrar || this.mostrarModificar ? 'inactiveForm':''">
       <div class="form-group mb-3">
         <label for="nombre" class="form-label">Nombre</label>
@@ -40,8 +40,8 @@
         </div>
       </div>
       <div class="form-group mb-3 row">
-        <label for="tipo_recursos_comunitario" class="form-label text-start p-0">Tipo de recurso comunitario</label>
-        <div class="col-12 col-lg-9  p-0 pb-1 pb-lg-0">
+        <label for="tipo_recursos_comunitario" class="form-label text-start p-0">Tipo de recurso {{clasificacion?.nombre}}</label>
+        <div class="col-12 col-lg  p-0 pb-1 pb-lg-0">
           <ng-select id="tipo_recursos_comunitario" name="tipo_recurso_comunitario" formControlName="tipo_recursos_comunitario">
             <!-- La variable tipo_recurso_comunitario será iterada y se mostrarán todos los tipos de recursos comunitarios -->
             <ng-option *ngFor="let tipo_recurso_comunitario of tipos_recursos_comunitarios"
@@ -51,30 +51,31 @@
           </ng-select>
           <div *ngIf="valorForm.tipo_recursos_comunitario.invalid && (valorForm.tipo_recursos_comunitario.dirty || valorForm.tipo_recursos_comunitario.touched)" class="alert alert-secondary" role="alert">
             <div *ngIf="valorForm.tipo_recursos_comunitario.errors?.required">
-              El tipo de recurso comunitario es obligatorio
+              El tipo de recurso {{clasificacion?.nombre}} es obligatorio
             </div>
           </div>
         </div>
+        <ng-container *ngIf="this.isAdmin">
+          <div class="col-4 col-lg-1 p-0">
+            <button class="btn btn-success botonOperacion" type="button" (click)="mostratCrearTipo()"
+                    data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+              <i class="fa fa-solid fa-plus"></i>
+            </button>
+          </div>
 
-        <div class="col-4 col-lg-1 p-0">
-          <button class="btn btn-success botonOperacion" type="button" (click)="mostratCrearTipo()"
-                  data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-            <i class="fa fa-solid fa-plus"></i>
-          </button>
-        </div>
+          <div class="col-4 col-lg-1  p-0">
+            <button [disabled]="botonDes()" class="btn btn-warning botonOperacion" id="des1" type="button" (click)="mostrarEditarTipo()"
+                    data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false" aria-controls="collapseWidthExample2">
+              <i class="fa fa-sharp fa-solid fa-pen fa-sm"></i>
+            </button>
+          </div>
 
-        <div class="col-4 col-lg-1  p-0">
-          <button [disabled]="botonDes()" class="btn btn-warning botonOperacion" id="des1" type="button" (click)="mostrarEditarTipo()"
-                  data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false" aria-controls="collapseWidthExample2">
-            <i class="fa fa-sharp fa-solid fa-pen fa-sm"></i>
-          </button>
-        </div>
-
-        <div class="col-4 col-lg-1  p-0">
-          <button [disabled]="botonDes()" class="btn btn-danger botonOperacion" id="des2" type="button" (click)="modalConfirmacion()">
-            <i class="fa fa-solid fa-trash"></i>
-          </button>
-        </div>
+          <div class="col-4 col-lg-1  p-0">
+            <button [disabled]="botonDes()" class="btn btn-danger botonOperacion" id="des2" type="button" (click)="modalConfirmacion()">
+              <i class="fa fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </ng-container>
       </div>
       <div class="form-group mb-3">
         <label for="localidad" class="form-label">Localidad</label>
@@ -89,15 +90,15 @@
         </div>
       </div>
 
-      <div class="form-group mb-3">
-        <label for="provincia" class="form-label">Provincia</label>
-        <input type="text" name="provincia" id="provincia" class="form-control" formControlName="provincia">
+      <div class="form-group mb-3">        
+        <label for="provincia" class="form-label text-start">Provincia <span class="obligatorios">*</span></label>
+        <ng-select id="tipoTeleasistencia" formControlName="provincia" id="provincia" title="{{nuevoRecurso.value.provincia}}">
+          <ng-option *ngFor="let provincia of listaProvincias; let i = index"
+                     [value]="provincia" [title]="provincia">{{provincia}}</ng-option>
+        </ng-select>
         <div *ngIf="valorForm.provincia.invalid && (valorForm.provincia.dirty || valorForm.provincia.touched)" class="alert alert-secondary" role="alert">
           <div *ngIf="valorForm.provincia.errors?.required">
             La provincia es obligatoria
-          </div>
-          <div *ngIf="valorForm.provincia.errors?.maxLength">
-            La provincia es muy larga
           </div>
         </div>
       </div>
@@ -134,7 +135,7 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-outline-success m-1">
+      <button type="submit" class="btn btn-outline-success m-1" [disabled]="nuevoRecurso.invalid">
         Guardar
       </button>
       <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/recursos_comunitarios/listar/',id]">

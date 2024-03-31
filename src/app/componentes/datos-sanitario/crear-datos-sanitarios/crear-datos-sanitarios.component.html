@@ -6,7 +6,7 @@
           <div class="col-12">
 
             <div class="form-group">
-              <label for="nuss" class="form-label">NUSS <span class="obligatorios">*</span></label>
+              <label for="nuss" class="form-label">NUSS (Número de usuario de la seguridad social)<span class="obligatorios">*</span></label>
               <input type="text" name="nuss" id="nuss" class="form-control" formControlName="nuss">
               <div *ngIf="nuss.invalid && (nuss.dirty || nuss.touched)"
                    class="alert alert-secondary text-center" role="alert">
@@ -20,15 +20,18 @@
             </div>
           </div>
         </div>
+      </form>
+      <form [formGroup]="formularioRecurso">
         <div class="row mb-3">
           <div class="col-sm-8 col-md-8 col-lg-7 col-xl-7">
             <div class="form-group">
               <label for="recurso" class="form-label">Recurso <span class="obligatorios">*</span></label>
               <ng-select id="recurso" name="recurso"
-                         formControlName="recurso" (change)="seleccionarId($event)">
+                         formControlName="recurso" (change)="seleccionarId($event)" title="{{this?.recursoMostrar?.nombre}} - {{this?.recursoMostrar?.id_tipos_recurso_comunitario?.nombre}} - {{this?.recursoMostrar?.id_direccion?.localidad}}">
+
                 <ng-option class="form-select" *ngFor="let recurso of recursosMostrados,let i = index"
-                           [value]="recurso.id">{{ recurso.nombre}} - {{recurso.id_tipos_recurso_comunitario.nombre}}
-                  - {{recurso.id_direccion.localidad}}</ng-option>
+                           [value]="recurso.id">{{ recurso?.nombre}} - {{recurso?.id_tipos_recurso_comunitario?.nombre}}
+                  - {{recurso?.id_direccion?.localidad}}</ng-option>
               </ng-select>
             </div>
           </div>
@@ -53,7 +56,7 @@
           <div class="col-md-12 col-lg-1 col-lg-3 col-sm-12 col-xl-3 d-flex align-items-start  ">
 
             <div class="col-6">
-              <button type="button" (click)="crearRelacion()" class="btn btn-info mt-4 botonOperacion p-0">
+              <button type="button" (click)="crearRelacion()" class="btn btn-info mt-4 botonOperacion p-0" [disabled]=!formularioRecurso.valid>
                 <i class="fa-solid fa-arrow-down"></i>
               </button>
             </div>
@@ -90,8 +93,8 @@
 
           </div>
         </div>
-
       </form>
+
       <div class="row mt-4" *ngIf="mostrarTabla">
         <table class="table text-center">
           <tr>
@@ -102,9 +105,9 @@
 
           </tr>
           <tr *ngFor="let relacion of arrayRelaciones, let i = index">
-            <td>{{relacion?.id_recurso_comunitario.nombre}}</td>
-            <td>{{relacion?.id_recurso_comunitario.id_tipos_recurso_comunitario.nombre}}</td>
-            <td>{{relacion?.id_recurso_comunitario.id_direccion.localidad}}</td>
+            <td>{{relacion?.id_recurso_comunitario?.nombre}}</td>
+            <td>{{relacion?.id_recurso_comunitario?.id_tipos_recurso_comunitario?.nombre}}</td>
+            <td>{{relacion?.id_recurso_comunitario?.id_direccion?.localidad}}</td>
             <td>{{relacion?.tiempo_estimado}}</td>
 
             <td>

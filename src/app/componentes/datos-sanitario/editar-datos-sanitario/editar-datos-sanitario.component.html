@@ -6,7 +6,7 @@
           <div class="col-12">
 
             <div class="form-group">
-              <label for="nuss" class="form-label">NUSS <span class="obligatorios">*</span></label>
+              <label for="nuss" class="form-label">NUSS (Número de usuario de la seguridad social)<span class="obligatorios">*</span></label>
               <input type="text" name="nuss" id="nuss" class="form-control" formControlName="nuss"
                      [readonly]="blockEditar">
               <div *ngIf="nuss.invalid && (nuss.dirty || nuss.touched)"
@@ -21,15 +21,18 @@
             </div>
           </div>
         </div>
+        </form>
+        
+      <form [formGroup]="formularioRecurso">
         <div class="row mb-3">
           <div class="col-sm-8 col-md-8 col-lg-7 col-xl-7">
             <div class="form-group">
               <label for="recurso" class="form-label">Recurso <span class="obligatorios">*</span></label>
               <ng-select id="recurso" name="recurso"
-                         formControlName="recurso" (change)="seleccionarId($event)" [readonly]="blockEditar">
+                         formControlName="recurso" (change)="seleccionarId($event)" [readonly]="blockEditar" title="{{this?.recursoMostrar?.nombre}} - {{this?.recursoMostrar?.id_tipos_recurso_comunitario?.nombre}} - {{this?.recursoMostrar?.id_direccion?.localidad}}">
                 <ng-option class="form-select" *ngFor="let recurso of recursosMostrados,let i = index"
-                           [value]="recurso.id">{{ recurso.nombre}} - {{recurso.id_tipos_recurso_comunitario.nombre}}
-                  - {{recurso.id_direccion.localidad}}</ng-option>
+                           [value]="recurso.id">{{ recurso?.nombre}} - {{recurso?.id_tipos_recurso_comunitario?.nombre}}
+                  - {{recurso?.id_direccion?.localidad}}</ng-option>
               </ng-select>
             </div>
           </div>
@@ -37,7 +40,7 @@
           <div class="col-sm-4 col-md-4 col-lg-2 col-xl-2">
             <div class="form-group">
               <label for="tiempo" class="form-label">Tiempo(min)<span class="obligatorios">*</span></label>
-              <input type="number" name="tiempo" id="tiempo" class="form-control" formControlName="tiempo"
+              <input type="number" name="tiempo" id="tiempo" class="form-control" formControlName="tiempo" 
                      [readonly]="blockEditar">
               <div *ngIf="tiempo.invalid && (tiempo.dirty || tiempo.touched)"
                    class="alert alert-secondary text-center" role="alert">
@@ -53,7 +56,7 @@
           <div class="col-md-12 col-lg-1 col-lg-3 col-sm-12 col-xl-3 d-flex align-items-start  ">
             <ng-container>
               <div class="col-6">
-                <button type="button" (click)="crearRelacion()" class="btn btn-info mt-4 botonOperacion p-0" [disabled]="blockEditar">
+                <button type="button" (click)="crearRelacion()" class="btn btn-info mt-4 botonOperacion p-0" [disabled]="!formularioRecurso.valid">
                   <i class="fa-solid fa-arrow-down"></i>
                 </button>
               </div>
@@ -108,9 +111,9 @@
             <td>{{relacion?.id_recurso_comunitario.id_direccion.localidad}}</td>
             <td>{{relacion?.tiempo_estimado}}</td>
 
-            <td>
+            <td  *ngIf="!blockEditar">
               <button class="btn btn-outline-danger" (click)="borrarRecurso(relacion?.id, i)">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" 
                      viewBox="0 0 16 16">
                   <path
                     d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>

@@ -71,7 +71,6 @@ import { CrearRelacionTerminalRecursosComunitariosComponent } from './componente
 import { ModificarRelacionTerminalRecursosComunitariosComponent } from './componentes/relacion-terminal-recursos-comunitarios/modificar-relacion-terminal-recursos-comunitarios/modificar-relacion-terminal-recursos-comunitarios.component';
 import {CargaRelacionTerminalRecursosComunitariosService} from "./servicios/relacion-terminal-recurso-comunitario/carga-relacion-terminal-recursos-comunitarios.service";
 import {NgxPaginationModule} from 'ngx-pagination';
-import {OrdenacionTablasService} from "./servicios/ordenacion-tablas.service";
 import { FiltroBusquedaPipe } from './pipes/filtro-busqueda.pipe';
 import { ListaTiposViviendaComponent } from './componentes/tipo-vivienda/lista-tipos-vivienda/lista-tipos-vivienda.component';
 import { ListaTiposSituacionComponent } from './componentes/tipo-situacion/lista-tipos-situacion/lista-tipos-situacion.component';
@@ -174,13 +173,9 @@ import { TiposRecursosComunitariosComponent } from './componentes/alarma/tipos-r
 import { UserAgendasAlarmasResueltasComponent } from './componentes/seguimiento_teleoperador/lista-seguimiento-teleoperador/user-agendas-alarmas-resueltas.component';
 import { ItemTeleoperadorComponent } from './componentes/seguimiento_teleoperador/item-teleoperador/item-teleoperador.component';
 import { ListaAlarmasResueltasComponent } from './componentes/seguimiento_teleoperador/lista-alarmas-resueltas/lista-alarmas-resueltas.component';
-import { ItemAgendasResueltasComponent } from './componentes/seguimiento_teleoperador/item-agendas-resueltas/item-agendas-resueltas.component';
-
-
 
 import { EditMostrarClasificacionAlarmaComponent } from './componentes/edit-mostrar-clasificacion-alarma/edit-mostrar-clasificacion-alarma.component';
 import {NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
-import { ItemAlarmasResueltasComponent } from './componentes/seguimiento_teleoperador/item-alarmas-resueltas/item-alarmas-resueltas.component';
 
 @NgModule({
   declarations: [
@@ -332,9 +327,7 @@ import { ItemAlarmasResueltasComponent } from './componentes/seguimiento_teleope
     UserAgendasAlarmasResueltasComponent,
     ItemTeleoperadorComponent,
     ListaAlarmasResueltasComponent,
-    ItemAgendasResueltasComponent,
-    EditMostrarClasificacionAlarmaComponent,
-    ItemAlarmasResueltasComponent,
+    EditMostrarClasificacionAlarmaComponent
   ],
     imports: [
         BrowserModule,

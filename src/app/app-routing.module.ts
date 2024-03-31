@@ -356,6 +356,9 @@ import {
   ListaAlarmasResueltasComponent
 } from "./componentes/seguimiento_teleoperador/lista-alarmas-resueltas/lista-alarmas-resueltas.component";
 import {ListaAgendasyAlarmasResueltasResolveService} from "./servicios/lista-agendas-resueltas-resolve.service";
+import { ListaTiposRecursosComunitariosResolvePorCategoriaService } from './servicios/lista-tipos-recursos-comunitarios-por-categoria-resolve.service';
+import { ListaAgendaUsuarioServicioResolveService } from './servicios/lista-agenda-usuario-servicio-resolve.service';
+import { ListaAlarmasUsuarioServicioResolveService } from './servicios/alarmas/lista-alarmas-usuario-servicio-resolve.service copy';
 
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
@@ -407,6 +410,7 @@ const routes: Routes = [
       grupos: ListaGruposService
     },
   },
+  // Permite actualizar la lista de forma dinámica
   {
     path: 'usuarios/borrado/:id',
     component: ListaUsersComponent,
@@ -543,6 +547,7 @@ const routes: Routes = [
       tipos_alarmas: ListaTiposAlarmasResolveService
     }
   },
+  // Permite actualizar la lista de forma dinámica
   {
     path: 'direcciones/borrado/:id',
     component: ListaDireccionesComponent,
@@ -653,7 +658,7 @@ const routes: Routes = [
       role: null
     },
     resolve: {
-      tipos_recursos_comunitarios: ListaTiposRecursosComunitariosResolveService
+      tipos_recursos_comunitarios: ListaTiposRecursosComunitariosResolvePorCategoriaService
     }
   },
   {
@@ -664,6 +669,7 @@ const routes: Routes = [
       role: null
     }
   },
+  // Permite actualizar la lista de forma dinámica
   {
     path: 'recursos_comunitarios/borrado/:id',
     component: ItemRecursoComunitarioComponent,
@@ -716,6 +722,49 @@ const routes: Routes = [
     resolve: {
       agendasDelDia: ListaAgendaResolveService,
       tipos_agenda: ListaTiposAgendaResolveService,
+      usuariosServicio: ListaPacientesResolveService,
+    }
+  },
+  // Permite actualizar la lista de forma dinámica
+  {
+    path: 'agenda/actualizar',
+    component: AgendaComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: null
+    },
+    resolve: {
+      agendasDelDia: ListaAgendaResolveService,
+      tipos_agenda: ListaTiposAgendaResolveService,
+      usuariosServicio: ListaPacientesResolveService,
+    }
+  },
+  {
+    path: 'agenda/usuarios/:id',
+    component: AgendaComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: null
+    },
+    resolve: {
+      agendasDelDia: ListaAgendaUsuarioServicioResolveService,
+      tipos_agenda: ListaTiposAgendaResolveService,
+      usuariosServicio: ListaPacientesResolveService,
+      busquedaUsuarioServicio: ModificarPacienteResolveService
+    }
+  },
+  {
+    path: 'agenda/usuarios/actualizar/:id',
+    component: AgendaComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: null
+    },
+    resolve: {
+      agendasDelDia: ListaAgendaUsuarioServicioResolveService,
+      tipos_agenda: ListaTiposAgendaResolveService,
+      usuariosServicio: ListaPacientesResolveService,
+      busquedaUsuarioServicio: ModificarPacienteResolveService
     }
   },
   {
@@ -757,6 +806,7 @@ const routes: Routes = [
       personas_contacto: ListaPersonasResolveService,
     }
   },
+  // Permite actualizar la lista de forma dinámica
   {
     path: 'agenda/borrado/:id',
     component: ItemAgendaComponent,
@@ -804,6 +854,7 @@ const routes: Routes = [
       agendas: ListaTodasAgendasResolveService,
     }
   },
+  // Permite actualizar la lista de forma dinámica
   {
     path: 'historico_agenda/borrado/:id',
     component: ListaHistoricoAgendaComponent,
@@ -844,6 +895,7 @@ const routes: Routes = [
       tipos_agenda: ListaTiposAgendaResolveService
     }
   },
+  // Permite actualizar la lista de forma dinámica
   {
     path: 'tipo_agenda/borrado/:id',
     component: ItemTipoAgendaComponent,
@@ -890,6 +942,7 @@ const routes: Routes = [
       clasificaciones_viviendas: ListaViviendasResolveService
     }
   },
+  // Permite actualizar la lista de forma dinámica
   {
     path: 'viviendas/borrado/:id',
     component: BorrarTipoViviendaComponent,
@@ -971,6 +1024,7 @@ const routes: Routes = [
       clasificaciones_situaciones: ListaSituacionesService
     }
   },
+  // Permite actualizar la lista de forma dinámica
   {
     path: 'situaciones/borrado/:id',
     component: BorrarTipoSituacionComponent,
@@ -1020,6 +1074,7 @@ const routes: Routes = [
       terminales: ListaTerminalResolveService
     }
   },
+  // Permite actualizar la lista de forma dinámica
   {
     path: 'historico_situaciones/borrado/:id',
     component: ItemHistoricoTipoSituacionComponent,
@@ -1080,6 +1135,7 @@ const routes: Routes = [
       relaciones_terminales: ListaTerminalesResolveService,
     }
   },
+  // Permite actualizar la lista de forma dinámica
   {
     path: 'relacion_terminal_recurso_comunitario/borrado/:id',
     component: ListaRelacionTerminalRecursosComunitariosComponent,
@@ -1099,7 +1155,48 @@ const routes: Routes = [
       role: null
     },
     resolve: {
-      alarmas: ListaAlarmasResolveService
+      alarmas: ListaAlarmasResolveService,
+      usuariosServicio: ListaPacientesResolveService,
+    }
+  },
+  // Permite actualizar la lista de forma dinámica
+  {
+    path: 'alarmas/actualizar',
+    component: ListaAlarmasComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: null
+    },
+    resolve: {
+      alarmas: ListaAlarmasResolveService,
+      usuariosServicio: ListaPacientesResolveService,
+    }
+  },
+  {
+    path: 'alarmas/usuarios/:id',
+    component: ListaAlarmasComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: null
+    },
+    resolve: {
+      alarmas: ListaAlarmasUsuarioServicioResolveService,
+      usuariosServicio: ListaPacientesResolveService,
+      busquedaUsuarioServicio: ModificarPacienteResolveService
+    }
+  },
+  // Permite actualizar la lista de forma dinámica
+  {
+    path: 'alarmas/usuarios/actualizar/:id',
+    component: ListaAlarmasComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: null
+    },
+    resolve: {
+      alarmas: ListaAlarmasUsuarioServicioResolveService,
+      usuariosServicio: ListaPacientesResolveService,
+      busquedaUsuarioServicio: ModificarPacienteResolveService
     }
   },
   {
@@ -1155,6 +1252,7 @@ const routes: Routes = [
       clasificaciones_alarmas: ListaClasificacionesAlarmasResolveService
     }
   },
+  // Permite actualizar la lista de forma dinámica
   {
     path: 'alarmas/borrado/:id',
     component: ListaAlarmasComponent,
@@ -1203,6 +1301,7 @@ const routes: Routes = [
       tipos_vivienda: ListaViviendasResolveService
     }
   },
+  // Permite actualizar la lista de forma dinámica
   {
     path: 'terminales/borrado/:id',
     component: ListaTerminalComponent,
@@ -1253,6 +1352,7 @@ const routes: Routes = [
       tipo_modalidades_pacientes: ListaTiposModalidadesPacientesResolveService
     }
   },
+  // Permite actualizar la lista de forma dinámica
   {
     path: 'pacientes/borrado/:id',
     component: ListaPacienteComponent,
@@ -1301,6 +1401,7 @@ const routes: Routes = [
       centros_sanitarios: ListaCentrosSanitariosResolveService
     }
   },
+  // Permite actualizar la lista de forma dinámica
   {
     path: 'centro_sanitario_alarma/borrado/:id',
     component: ListaCentroSanitarioAlarmaComponent,
@@ -1350,6 +1451,7 @@ const routes: Routes = [
 
     }
   },
+  // Permite actualizar la lista de forma dinámica
   {
     path: 'recursos_comunitarios_alarma/borrado/:id',
     component: ListaRecursoComunitarioAlarmaComponent,
@@ -1398,6 +1500,7 @@ const routes: Routes = [
       personas_contactos: ListaPersonasResolveService,
     }
   },
+  // Permite actualizar la lista de forma dinámica
   {
     path: 'personas_contacto_alarma/borrado/:id',
     component: ListaPersonaContactoAlarmaComponent,
@@ -1446,6 +1549,7 @@ const routes: Routes = [
       tipo_alarmas: ListaTiposAlarmasResolveService
     }
   },
+  // Permite actualizar la lista de forma dinámica
   {
     path: 'dispositivos_auxiliares_terminal/borrado/:id',
     component: ListaDispositivosAuxiliaresTerminalComponent,
@@ -1495,6 +1599,7 @@ const routes: Routes = [
       centros_sanitarios: ListaCentrosSanitariosResolveService
     }
   },
+  // Permite actualizar la lista de forma dinámica
   {
     path: 'relaciones_usuario_centro/borrado/:id',
     component: ListaRelacionUsuarioCentroComponent,
