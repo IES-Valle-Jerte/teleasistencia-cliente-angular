@@ -34,4 +34,9 @@ export class UserAgendasAlarmasResueltasComponent implements OnInit {
     this.cdr.detectChanges();
 
   }
+  // Esta función se ejecuta cada vez que cambia el valor del input de búsqueda
+  onBusquedaChange() {
+    // Cuando cambia el filtro, volvemos a la página 1
+    this.numPaginacion = 1;
+  }
 }

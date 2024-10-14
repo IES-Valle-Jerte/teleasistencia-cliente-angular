@@ -16,7 +16,7 @@
     <div style="display: none" id="actualizarPagina"></div>
 
     <div class="form-group mb-3">
-      <input id="campoBusqueda" type="text" class="form-control" placeholder="Busqueda..." [(ngModel)]="inputBusqueda">
+      <input id="campoBusqueda" type="text" class="form-control" placeholder="Busqueda..."  (ngModelChange)="onBusquedaChange()"  [(ngModel)]="inputBusqueda">
     </div>
     <button type="button" class="btn btn-success me-5 mt-4 float-end" [routerLink]="['/agenda/nueva']">
       Nueva Agenda

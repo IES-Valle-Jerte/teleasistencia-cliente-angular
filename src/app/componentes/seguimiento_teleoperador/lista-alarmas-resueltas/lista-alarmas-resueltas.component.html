@@ -17,7 +17,7 @@
     <div style="display: none" id="actualizarPagina"></div>
 
     <div class="form-group mb-3">
-      <input id="campoBusqueda" type="text" class="form-control" placeholder="Busqueda..." [(ngModel)]="inputBusqueda">
+      <input id="campoBusqueda" type="text" class="form-control" placeholder="Busqueda..."  (ngModelChange)="onBusquedaChange()"  [(ngModel)]="inputBusqueda">
 
     </div>
     <h5 class="m-3">Agendas: {{peticion.agendas_total}}</h5>

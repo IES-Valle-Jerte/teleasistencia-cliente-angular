@@ -41,4 +41,10 @@ export class ListaUsersComponent implements OnInit {
     this.cdr.detectChanges();
 
   }
+
+  // Detecta cuando cambia el valor del input de búsqueda
+  onBusquedaChange() {
+    // Reinicia la paginación cuando se aplica un nuevo filtro
+    this.numPaginacion = 1;
+  }
 }

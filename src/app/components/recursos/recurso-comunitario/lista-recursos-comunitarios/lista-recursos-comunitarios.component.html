@@ -11,7 +11,7 @@
 
       <div class="col-8 d-flex justify-content-end">
         <div class="col-6">
-          <input id="campoBusqueda" type="text" class="form-control" placeholder="Busqueda..." [(ngModel)]="inputBusqueda">
+          <input id="campoBusqueda" type="text" class="form-control" placeholder="Busqueda..."  (ngModelChange)="onBusquedaChange()"  [(ngModel)]="inputBusqueda">
         </div>
       </div>
       <!-- Con la id cojo la clasificación de recurso comunitario -->

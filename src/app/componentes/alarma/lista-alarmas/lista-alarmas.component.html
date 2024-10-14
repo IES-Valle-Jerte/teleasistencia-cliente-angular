@@ -18,7 +18,7 @@
 
       <div style="display: none" id="actualizarPagina"></div>
       <div class="form-group mb-3">
-        <input id="campoBusqueda" type="text" class="form-control" placeholder="Busqueda..." [(ngModel)]="inputBusqueda">
+        <input id="campoBusqueda" type="text" class="form-control" placeholder="Busqueda..."  (ngModelChange)="onBusquedaChange()"  [(ngModel)]="inputBusqueda">
       </div>
       <button class="btn btn-success float-end mar mb-3 mt-4" [routerLink]="['/alarmas/nueva']" *ngIf="isAdmin">
         Crear Alarma

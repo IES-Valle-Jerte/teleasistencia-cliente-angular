@@ -229,4 +229,10 @@ export class AgendaComponent implements OnInit {
     }
     return mes;
   }
+
+  // Esta función se ejecuta cada vez que cambia el valor del input de búsqueda
+  onBusquedaChange() {
+    // Cuando cambia el filtro, volvemos a la página 1
+    this.numPaginacion = 1;
+  }
 }

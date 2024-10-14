@@ -9,7 +9,7 @@
     <h1 class="component-title">Centros sanitarios</h1>
 
     <div class="form-group mb-3">
-      <input id="campoBusqueda" type="text" class="form-control" placeholder="Busqueda..." [(ngModel)]="inputBusqueda">
+      <input id="campoBusqueda" type="text" class="form-control" placeholder="Busqueda..."  (ngModelChange)="onBusquedaChange()"  [(ngModel)]="inputBusqueda">
     </div>
     <div class="table-responsive m-2">
       <table id="tableList" class="table table-hover text-center">
