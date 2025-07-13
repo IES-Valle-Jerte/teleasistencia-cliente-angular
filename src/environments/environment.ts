@@ -50,7 +50,7 @@ export const environment = {
   admins: ['supervisor', 'administrador', 'profesor'],
 
 //Expresiones regulares para validaciones:
-  regex_name: /^[A-Za-z][a-zA-ZÀ-ÿ- ]+$/, //nombres y apellidos
+  regex_name: /^[À-ÿA-Za-z][a-zA-ZÀ-ÿ- ]+$/, //nombres y apellidos
   regex_dni:/^([0-9]{8})([A-Z])$/,
   regex_movil:/^[6|7]{1}[ ]*([0-9][ ]*){8}$/, //teléfonos moviles
   regex_fijo:/^[9]{1}[ ]*([0-9][ ]*){8}$/, // teléfonos fijos
