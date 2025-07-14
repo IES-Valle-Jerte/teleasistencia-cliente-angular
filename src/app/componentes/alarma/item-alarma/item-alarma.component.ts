@@ -38,7 +38,10 @@ export class ItemAlarmaComponent implements OnInit {
 
   obtenerTerminal(): string {
     if (this.alarma.id_terminal != null)
-      return this.alarma.id_terminal.numero_terminal
+      if (this.alarma.id_terminal.id_titular != null && this.alarma.id_terminal.id_titular.id_persona != null)
+        return this.alarma.id_terminal.id_titular.id_persona.nombre + ' ' + this.alarma.id_terminal.id_titular.id_persona.apellidos +" (" + this.alarma.id_terminal.numero_terminal+ ")"
+      else  
+        return this.alarma.id_terminal.numero_terminal
     else
       return ""
   }
