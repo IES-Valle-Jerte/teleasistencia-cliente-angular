@@ -171,6 +171,19 @@ export class NuevoAgendaComponent implements OnInit {
     })
   }
 
+  modalConfirmacion(): void {
+    Swal.fire({
+      title: '¿Está seguro que desea eliminar este tipo de agenda?',
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.eliminarTipo()
+      }
+    })
+  }
+
   //Método mediante el cual se mostrará u ocultará el card de nuevo-tipo-agenda
   mostrarCrear() {
     this.mostrarNuevoTipo = !this.mostrarNuevoTipo;
