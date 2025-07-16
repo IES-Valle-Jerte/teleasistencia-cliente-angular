@@ -111,7 +111,7 @@ export class NuevoAgendaComponent implements OnInit {
     this.agenda = {
       'id_paciente': this.pacientes.find(paciente => paciente.id_persona.id == this.nuevaAgenda.get('paciente').value).id,
       'id_tipo_agenda': this.nuevaAgenda.get('tipo_agenda').value,
-      'fecha_registro': new Date().toISOString().slice(0, 16),
+      'fecha_registro': new Date((new Date()).getTime() - (new Date()).getTimezoneOffset() * 60000).toISOString().slice(0, 16),
       'fecha_prevista': this.nuevaAgenda.get('fecha_prevista').value,
       'fecha_resolucion': null,
       'observaciones': this.nuevaAgenda.get('observaciones').value

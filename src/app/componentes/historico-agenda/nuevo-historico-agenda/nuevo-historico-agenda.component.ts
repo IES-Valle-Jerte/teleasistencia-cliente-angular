@@ -9,7 +9,6 @@ import {IAgenda} from "../../../interfaces/i-agenda";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {IProfileUser} from "../../../interfaces/i-profile-user";
 import {ProfileService} from "../../../servicios/profile.service";
 
 @Component({
@@ -23,7 +22,6 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
   public agendas: IAgenda[];
   public agenda: IAgenda;
   public nuevoHistorico: FormGroup;
-  public fecha_actual: Date | any;
   public teleoperador: any;
   submitted = false;
 
@@ -43,7 +41,7 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
     this.historico_agenda = new HistoricoAgenda();
     this.agendas = this.route.snapshot.data['agendas'];
     this.agenda = this.route.snapshot.data['agenda'];
-    this.fecha_actual = new Date().toISOString().slice(0, 16);
+    this.agenda.fecha_resolucion = new Date();
     this.crearForm();
   }
 
@@ -70,11 +68,11 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
     this.historico_agenda = {
       'id_agenda': this.agenda.id,
       'id_teleoperador': this.teleoperador.id,
-      'fecha_llamada': new Date().toISOString().slice(0, 16),
       'observaciones': this.nuevoHistorico.get('observaciones_historico').value
     }
     this.nuevoHistoricoAgenda();
   }
+
 
   //Petición al servidor para la creación de un nuevo histórico de agenda.
   // A la vez, se llamará a modificarFechaResoluciónAgenda().
@@ -95,13 +93,7 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
   // Esté método se llama de forma automática al crear un histórico de agenda, esto es para actualizar su fecha de resolución
   // de null a la del día actual.
   modificarFechaResolucionAgenda() {
-    let fecha_resolucion = new Date();
-
     // @ts-ignore
-    this.agenda.fecha_resolucion = fecha_resolucion.getFullYear()
-      + '-' + (fecha_resolucion.getMonth() + 1)
-      + '-' + fecha_resolucion.getDate();
-
     this.agenda.id_tipo_agenda = this.agenda.id_tipo_agenda.id;
     this.agenda.id_paciente = this.agenda.id_paciente.id;
 
@@ -192,9 +184,6 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
           Validators.required
         ]],
         teleoperador: [ '',[
-          Validators.required
-        ]],
-        fecha_llamada: [ this.fecha_actual, [
           Validators.required
         ]],
         observaciones_historico: [ '', [

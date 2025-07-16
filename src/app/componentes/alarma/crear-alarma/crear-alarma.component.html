@@ -46,7 +46,7 @@
           </div>
           <div>
             <input type="radio" class="btn-check" name="options" id="rpaciente" autocomplete="off" (click)="elegirAlarma(false)">
-            <label class="btn btn-success" [ngClass]="terminal? 'opacity-50':''" for="rpaciente">Paciente</label>
+            <label class="btn btn-success" [ngClass]="terminal? 'opacity-50':''" for="rpaciente">Usuario del servicio</label>
           </div>
         </div>
       </div>
@@ -60,7 +60,7 @@
             </ng-select>
         </ng-container>
         <ng-template #selectPaciente>
-          <label for="paciente" class="form-label">Paciente</label>
+          <label for="paciente" class="form-label">Usuario del servicio</label>
           <ng-select id="paciente" name="paciente" formControlName="id_paciente_ucr">
             <ng-option *ngFor="let paciente of pacientes_ucr; let i = index"
                     [value]="paciente?.id">{{paciente.numero_expediente}} -- {{paciente?.id_persona?.nombre}} {{paciente?.id_persona?.apellidos}}</ng-option>
