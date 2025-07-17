@@ -140,7 +140,7 @@ export class ModificarPersonaComponent implements OnInit {
         Validators.pattern(environment.regex_exp)]],
       dni: ['', [Validators.required,
         Validators.maxLength(9),
-        Validators.pattern(environment.regex_dni)],
+        Validators.pattern(environment.regex_dni_nif)],
       ],
       fecha_nacimiento: ['', [
         Validators.required,

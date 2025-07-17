@@ -46,7 +46,7 @@ export const environment = {
 
 //Expresiones regulares para validaciones:
   regex_name: /^[À-ÿA-Za-z][a-zA-ZÀ-ÿ- ]+$/, //nombres y apellidos
-  regex_dni:/^([0-9]{8})([A-Z])$/,
+  regex_dni_nif:/^([XYZKLM]?\d{7,8})([A-Z])$/, //DNI o NIF
   regex_movil:/^[6|7]{1}[ ]*([0-9][ ]*){8}$/, //teléfonos moviles
   regex_fijo:/^[9]{1}[ ]*([0-9][ ]*){8}$/, // teléfonos fijos
   regex_telefono:/^[6|7|9]{1}[ ]*([0-9][ ]*){8}$/, //fijos + movil

@@ -54,13 +54,13 @@
 
           <div class="col-12 col-lg-4 col-lg-4">
             <div class="form-group">
-              <label for="dni" class="form-label text-start">DNI <span class="obligatorios">*</span></label>
-              <input type="text" name="dni" id="dni" class="form-control " placeholder="DNI" formControlName="dni">
+              <label for="dni" class="form-label text-start">NIF o NIE <span class="obligatorios">*</span></label>
+              <input type="text" name="dni" id="dni" class="form-control " placeholder="NIF o NIE" formControlName="dni">
             </div>
             <div *ngIf="controles.dni.invalid && (controles.dni.dirty || controles.dni.touched)"
                  class="alert alert-secondary" role="alert">
-              <span *ngIf="controles.dni.errors.required">El DNI es obligatorio.</span>
-              <span *ngIf="controles.dni.errors.pattern">El DNI no es válido.</span>
+              <span *ngIf="controles.dni.errors.required">El DNI o  es obligatorio.</span>
+              <span *ngIf="controles.dni.errors.pattern">El NIF o NIE no es válido.</span>
             </div>
           </div>
 
