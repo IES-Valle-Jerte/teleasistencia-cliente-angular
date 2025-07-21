@@ -1,0 +1,8 @@
+<h2>Videollamada</h2>
+
+<div style="display: flex; gap: 1rem;">
+  <video #localVideo autoplay muted playsinline width="300"></video>
+  <video #remoteVideo autoplay playsinline width="300"></video>
+</div>
+
+<button (click)="iniciarLlamada()">Iniciar llamada</button>

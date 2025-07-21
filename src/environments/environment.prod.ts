@@ -37,7 +37,7 @@ export const environment = {
   //Frase de Confirmación para Eliminar
   fraseEliminarModal: '¿Desea Eliminar este Elemento?',
   // Ruta que utilizaremos comun para todas las peticiones de api-rest
-  urlWebsocket: 'wss://api-rest-teleasistencia.iesvjp.es/ws/socket-server/',
+  urlWebsocket: 'wss://api-rest-teleasistencia.iesvjp.es/ws/webRTC/sala123/',
   urlBase: 'https://api-rest-teleasistencia.iesvjp.es/api-rest/',
   urlToken: 'https://api-rest-teleasistencia.iesvjp.es/api/token/',
 

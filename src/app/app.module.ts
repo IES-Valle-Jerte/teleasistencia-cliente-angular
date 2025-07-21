@@ -176,6 +176,7 @@ import { ListaAlarmasResueltasComponent } from './componentes/seguimiento_teleop
 
 import { EditMostrarClasificacionAlarmaComponent } from './componentes/edit-mostrar-clasificacion-alarma/edit-mostrar-clasificacion-alarma.component';
 import {NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
+import { VideollamadaComponent } from './videollamada/videollamada.component';
 
 @NgModule({
   declarations: [
@@ -327,7 +328,8 @@ import {NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
     UserAgendasAlarmasResueltasComponent,
     ItemTeleoperadorComponent,
     ListaAlarmasResueltasComponent,
-    EditMostrarClasificacionAlarmaComponent
+    EditMostrarClasificacionAlarmaComponent,
+    VideollamadaComponent
   ],
     imports: [
         BrowserModule,
