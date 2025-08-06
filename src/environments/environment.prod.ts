@@ -1,3 +1,5 @@
+const apiRest = 'api-rest-andalucia.tla-teleasistencia.es';
+
 export const environment = {
   production: true,
 
@@ -37,9 +39,14 @@ export const environment = {
   //Frase de Confirmación para Eliminar
   fraseEliminarModal: '¿Desea Eliminar este Elemento?',
   // Ruta que utilizaremos comun para todas las peticiones de api-rest
-  urlWebsocket: 'wss://api-rest-teleasistencia.iesvjp.es/ws/webRTC/sala123/',
+  /*urlWebsocket: 'wss://api-rest-teleasistencia.iesvjp.es/ws/socket-server/',
+  urlWebsocketVideoLlamada: 'wss://api-rest-teleasistencia.iesvjp.es/ws/webRTC/',
   urlBase: 'https://api-rest-teleasistencia.iesvjp.es/api-rest/',
-  urlToken: 'https://api-rest-teleasistencia.iesvjp.es/api/token/',
+  urlToken: 'https://api-rest-teleasistencia.iesvjp.es/api/token/',*/
+  urlWebsocket: 'wss://'+apiRest+'/ws/socket-server/',
+  urlWebsocketVideoLlamada: 'wss://'+apiRest+'/ws/webRTC/',
+  urlBase: 'https://'+apiRest+'/api-rest/',
+  urlToken: 'https://'+apiRest+'/api/token/',
 
   //Control de roles
   admins:['supervisor','administrador','profesor'],

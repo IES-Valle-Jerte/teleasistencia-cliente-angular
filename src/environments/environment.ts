@@ -42,7 +42,8 @@ export const environment = {
   //Frase de Confirmación para Eliminar
   fraseEliminarModal: '¿Estás seguro que deseas eliminarlo?',
   // Ruta que utilizaremos comun para todas las peticiones de api-rest
-  urlWebsocket: 'ws://localhost:8000/ws/webRTC/sala123/',
+  urlWebsocket: 'ws://localhost:8000/ws/socket-server/',
+  urlWebsocketVideoLlamada: 'ws://localhost:8000/ws/webRTC/',
   urlBase: 'http://localhost:8000/api-rest/',
   urlToken: 'http://localhost:8000/api/token/',
 

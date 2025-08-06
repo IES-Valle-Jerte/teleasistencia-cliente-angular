@@ -176,7 +176,7 @@ import { ListaAlarmasResueltasComponent } from './componentes/seguimiento_teleop
 
 import { EditMostrarClasificacionAlarmaComponent } from './componentes/edit-mostrar-clasificacion-alarma/edit-mostrar-clasificacion-alarma.component';
 import {NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
-import { VideollamadaComponent } from './videollamada/videollamada.component';
+import { VideollamadaComponent } from './componentes/videollamada/videollamada.component';
 
 @NgModule({
   declarations: [
@@ -305,11 +305,7 @@ import { VideollamadaComponent } from './videollamada/videollamada.component';
     CrearPersonaContactoComponent,
     CrearDatosSanitariosComponent,
     MostrarCrearComponent,
-
-
     BotonInfoAyudasComponent,
-
-
     NuevoTipoViviendaComponent,
     DispositivosComponent,
     MostrarClasificacionAlarmaComponent,

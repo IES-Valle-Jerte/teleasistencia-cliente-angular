@@ -1,0 +1,38 @@
+<div class="container py-4">
+  <div class="row mb-4">
+    <div class="col-12 col-md-6 mb-3 mb-md-0">
+      <div class="border rounded shadow-sm p-2 bg-light">
+        <h5 class="text-center">Tu cámara</h5>
+        <video #localVideo autoplay muted playsinline class="w-100 rounded"></video>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="border rounded shadow-sm p-2 bg-light">
+        <h5 class="text-center">Remoto</h5>
+        <video #remoteVideo autoplay playsinline class="w-100 rounded"></video>
+      </div>
+    </div>
+  </div>  
+
+  <div class="text-center">
+    <div *ngIf="estadoLlamada === 'inactivo'">
+      <button class="btn btn-primary me-2" (click)="iniciarLlamada()">Llamar</button>
+    </div>
+
+    <div *ngIf="estadoLlamada === 'llamando'" class="alert alert-info">
+      Llamando a la otra persona...
+      <br />
+      <button class="btn btn-warning mt-2" (click)="cancelarLlamada()">Cancelar llamada</button>
+    </div>
+
+    <div *ngIf="estadoLlamada === 'entrante'" class="alert alert-warning">
+      <p>Te están llamando...</p>
+      <button class="btn btn-success me-2" (click)="aceptarLlamada()">Aceptar</button>
+      <button class="btn btn-secondary" (click)="rechazarLlamada()">Rechazar</button>
+    </div>
+
+    <div *ngIf="estadoLlamada === 'en-llamada'">
+      <button class="btn btn-danger" (click)="finalizarLlamada()">Finalizar llamada</button>
+    </div>
+  </div>
+</div>
