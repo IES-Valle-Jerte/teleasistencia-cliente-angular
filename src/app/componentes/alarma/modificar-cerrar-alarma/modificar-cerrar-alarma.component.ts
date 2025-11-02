@@ -71,7 +71,7 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
       this.idTerminalPersona = this.alarma.id_paciente_ucr.id;
     }
     //PETICION GET PACIENTES DE CONTACTO
-    this.cargarPersona.getRelacionPacientePersonaTerminal(this.idTerminalPersona).subscribe(
+    this.cargarPersona.getRelacionPacientePersonaTerminal(this.idTerminal).subscribe(
       lista =>{
         this.listaPersonas = lista;
         this.filtrarPersonasRelacionPaciente()
