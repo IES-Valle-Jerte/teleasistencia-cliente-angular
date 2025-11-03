@@ -33,15 +33,15 @@ export class HeaderComponent implements OnInit, DoCheck {
     //comprobamos si hay usuario logeado
     if (this.auth.isLoggedIn()) {
       this.conexionWS.conectar();
-      this.cargar_clasificacion();
+      //this.cargar_clasificacion();
 
       // Utilizamos un GET para cargar la clasificacion de los recursos
-      this.cargarClasificacion.getClasificacionRecursosComunitarios().subscribe(
+      /*this.cargarClasificacion.getClasificacionRecursosComunitarios().subscribe(
         listaClasificacion => {
           this.clasificacionRecursos = listaClasificacion;
         },
         error => console.log(error),
-      )
+      )*/
     }
     this.cookiesAceptadas=localStorage.getItem('cookies');
     //localStorage.removeItem('cookies'); esto resetearia las cookies

@@ -5,15 +5,10 @@ import {ITerminal} from "../../../interfaces/i-terminal";
 import {IRelacionTerminalRecursoComunitarios} from "../../../interfaces/i-relacion-terminal-recurso-comunitarios";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {IPaciente} from "../../../interfaces/i-paciente";
-import {CargaPersonaService} from "../../../servicios/carga-persona.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Title} from "@angular/platform-browser";
 import {
   CargaRelacionTerminalRecursosComunitariosService
 } from "../../../servicios/relacion-terminal-recurso-comunitario/carga-relacion-terminal-recursos-comunitarios.service";
 import {CargaTerminalesService} from "../../../servicios/terminal/carga-terminales.service";
-import {CargaTipoRecursoComunitarioService} from "../../../services/recursos/carga-tipo-recurso-comunitario.service";
-import {CargaDireccionService} from "../../../servicios/carga-direccion.service";
 import {CargaRecursoComunitarioService} from "../../../services/recursos/carga-recurso-comunitario.service";
 import {CargaPacienteService} from "../../../servicios/carga-paciente.service";
 import {RelacionTerminalRecursoComunitarios} from "../../../clases/relacion-terminal-recurso-comunitarios";
@@ -53,17 +48,10 @@ export class EditarDatosSanitarioComponent implements OnInit {
   public pacienteEditar: IPaciente|any;
 
 
-  constructor( private crearPaciente: CargaPacienteService
-               ,private cargaPersonas: CargaPersonaService,
-               private componentFactoryResolver: ComponentFactoryResolver,
-               private route: ActivatedRoute,
-               private titleService: Title,
-               private router: Router,
+  constructor( private crearPaciente: CargaPacienteService,
                private cargaRelacionTerminalRecursosComunitarios: CargaRelacionTerminalRecursosComunitariosService,
                private cargaRelacionTerminal: CargaTerminalesService,
-               private cargaTiposRecursos: CargaTipoRecursoComunitarioService,
                private formBuilder: FormBuilder,
-               private cargaDireccion: CargaDireccionService,
                private cargaRecurso: CargaRecursoComunitarioService,
                private paciente: CargaPacienteService) { }
 
@@ -84,11 +72,11 @@ export class EditarDatosSanitarioComponent implements OnInit {
       },
       error => console.log(error),
     )
-    this.paciente.getPacientes().subscribe(
+    /*this.paciente.getPacientes().subscribe(
       pacientes => {
         this.pacientes = pacientes;
       }
-    )
+    )*/
 
     this.crearPaciente.getPaciente(this.crearPaciente.idPacienteEditar).subscribe(
       paciente =>{
@@ -99,7 +87,7 @@ export class EditarDatosSanitarioComponent implements OnInit {
 
       }, error => console.log(error),
       () => {
-        this.cargaRelacionTerminalRecursosComunitarios.getRelacionesTerminalesRecursosComunitarios().subscribe(
+        this.cargaRelacionTerminalRecursosComunitarios.getRecursosComunitarioClasificacion(this.pacienteEditar.id_terminal.id, 1).subscribe(
           relacion =>{
             if (relacion != null){
               for (const relac of relacion) {

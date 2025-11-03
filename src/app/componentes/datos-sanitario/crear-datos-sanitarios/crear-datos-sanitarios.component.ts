@@ -47,7 +47,7 @@ export class CrearDatosSanitariosComponent implements OnInit {
   public plegado: boolean = false;
 
 
-  constructor(private cargaPersonas: CargaPersonaService, private componentFactoryResolver: ComponentFactoryResolver, private route: ActivatedRoute, private titleService: Title, private router: Router, private cargaRelacionTerminalRecursosComunitarios: CargaRelacionTerminalRecursosComunitariosService, private cargaRelacionTerminal: CargaTerminalesService, private cargaTiposRecursos: CargaTipoRecursoComunitarioService, private formBuilder: FormBuilder, private cargaDireccion: CargaDireccionService, private cargaRecurso: CargaRecursoComunitarioService, private paciente: CargaPacienteService) {
+  constructor(private cargaRelacionTerminalRecursosComunitarios: CargaRelacionTerminalRecursosComunitariosService, private cargaRelacionTerminal: CargaTerminalesService, private formBuilder: FormBuilder, private cargaRecurso: CargaRecursoComunitarioService, private paciente: CargaPacienteService) {
   }
 
   //Carga todas las peticiones GET para así mostrarlas en la página. Junto con la creación de una nueva terminal.
@@ -60,11 +60,11 @@ export class CrearDatosSanitariosComponent implements OnInit {
       },
       error => console.log(error),
     )
-    this.paciente.getPacientes().subscribe(
+    /*this.paciente.getPacientes().subscribe(
       pacientes => {
         this.pacientes = pacientes;
       }
-    )
+    )*/
 
     this.crearFormulario();
   }
