@@ -10,4 +10,5 @@ export const environment = {
     nombre: 'CPR',
     color:'blueviolet'
   },
+  googleAnalyticsKey: 'G-LE4RMWXKB8'
 };

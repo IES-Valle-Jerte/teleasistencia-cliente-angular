@@ -10,4 +10,5 @@ export const environment = {
     nombre: '',
     color:'blueviolet'
   },
+  googleAnalyticsKey: 'G-TTW3X2KV6Y'
 };

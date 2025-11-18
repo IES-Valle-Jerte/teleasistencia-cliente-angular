@@ -65,7 +65,8 @@ export const baseEnvironment = {
     nombre: 'DEV',
     color: 'darkgreen'
   },
-  version: '1.1.1',
+  version: '1.1.2',
+  googleAnalyticsKey: 'G-XXXXXXX'
 };
 
 

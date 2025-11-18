@@ -7,8 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:cpr": "ng build --configuration prod-cpr ",
-    "build:p1": "ng build --configuration prod-p1 "
+    "build:cpr": "ng build --configuration prod-cpr --output-path dist/proyecto-teleasistencia-cpr",
+    "build:p1": "ng build --configuration prod-p1 --output-path dist/proyecto-teleasistencia-p1"
 
   },
   "private": true,
